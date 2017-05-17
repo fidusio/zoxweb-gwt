@@ -1,0 +1,73 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+	xmlns:g="urn:import:com.google.gwt.user.client.ui" xmlns:p1="urn:import:org.zoxweb.client.widget">
+	<ui:style type="org.zoxweb.client.widget.DynamicEnumMapEditorWidget.Style">
+		.flexTable_OddRow {
+		  	background-color: #FFFFFF;
+		  	height: 3EM;
+		}
+		.flexTable_EvenRow {
+		  	background-color: #E6E6E6;
+		  	height: 3EM;
+		}
+		.flexTable_SelectedRow {
+			background-color: #045FB4;
+			height: 3EM;
+		}
+		.important {
+			font-weight: bold;
+			color: #2E2E2E;
+		}
+		.tableHeader {
+			border-bottom: 1px solid #2E2E2E;
+		}
+		.main {
+			background-color: #FAFAFA;
+			border: 1px solid #2E2E2E;
+		}
+		.hpAdd {
+			background-color: #FFFFFF;
+			border: 1px solid #2E2E2E;
+		}
+		.label-Message {
+		  	color: red;
+		  	font-size: 1em;
+		}
+		.header {
+			font-size: 1em;
+			font-weight: bold;
+			color: #2E2E2E;
+		}
+	</ui:style>
+	<g:HTMLPanel>
+		<g:VerticalPanel width="30EM" height="15EM" styleName="{style.main}" spacing="3">
+			<g:VerticalPanel width="100%" height="1.5EM" ui:field="vpHeader">
+				<g:Label text="" ui:field="labelEnumName" height="1.5EM" width="100%" styleName="{style.header}" horizontalAlignment="ALIGN_LEFT"/>
+			</g:VerticalPanel>
+			<g:HorizontalPanel width="100%" height="2EM" verticalAlignment="ALIGN_BOTTOM" spacing="3" styleName="{style.tableHeader}">
+				<g:CheckBox width="2EM" styleName="{style.important}" height="1.5EM" ui:field="cbSelectAll"/>
+				<g:Label text="Name" width="5EM" height="1.5EM" styleName="{style.important}" ui:field="labelName" horizontalAlignment="ALIGN_LEFT"/>
+				<g:Label text="Value" styleName="{style.important}" height="1.5EM" width="5EM" ui:field="labelValue"/>
+			</g:HorizontalPanel>
+			<g:ScrollPanel width="29EM" height="15EM" ui:field="scrollPanel">
+				<g:FlexTable width="100%" height="100%" ui:field="flexTable"/>
+			</g:ScrollPanel>
+			<g:VerticalPanel ui:field="vpFooter" width="100%" height="1.5EM">
+				<g:Label ui:field="labelItemCount" horizontalAlignment="ALIGN_LEFT" text="Total:" styleName="{style.important}"/>
+			</g:VerticalPanel>
+			<g:HorizontalPanel ui:field="hpAdd" width="100%" height="2EM" verticalAlignment="ALIGN_MIDDLE" styleName="{style.hpAdd}" spacing="5" horizontalAlignment="ALIGN_RIGHT">
+				<g:TextBox width="7.5EM" height="1.5EM" ui:field="tbAddName"/>
+				<g:TextBox width="12EM" height="1.5EM" ui:field="tbAddValue"/>
+				<g:Button text="Add" width="3EM" ui:field="bAdd" height="2.5EM" styleName="gwt-Button"/>
+			</g:HorizontalPanel>
+			<g:HorizontalPanel width="12EM" height="2.5EM" ui:field="hpButtons" verticalAlignment="ALIGN_TOP" spacing="5">
+				<p1:PositionControlWidget ui:field="pcMoveRow" height="2.5EM" width="3EM"/>
+				<g:Button text="Remove" ui:field="bDelete" styleName="gwt-Button" height="2.5EM" width="5EM"/>
+				<g:Button text="Update" ui:field="bUpdate" styleName="gwt-Button" width="5EM" height="2.5EM"/>
+				<g:Button styleName="gwt-Button" ui:field="bClose" width="5EM" height="2.5EM" text="Close"></g:Button>
+			</g:HorizontalPanel>
+			<g:Label text="Name already exists." styleName="{style.label-Message}" height="1.5EM" width="100%" ui:field="labelMessage"/>
+		</g:VerticalPanel>
+
+	</g:HTMLPanel>
+</ui:UiBinder> 

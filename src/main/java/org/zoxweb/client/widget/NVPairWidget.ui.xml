@@ -1,0 +1,14 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+	xmlns:g="urn:import:com.google.gwt.user.client.ui">
+	<ui:style>
+	
+	</ui:style>
+	<g:HTMLPanel>
+		<g:HorizontalPanel width="30EM" height="2EM" verticalAlignment="ALIGN_MIDDLE" spacing="3">
+			<g:TextBox height="1.5EM" width="7EM" ui:field="tbName"/>
+			<g:HorizontalPanel height="1.5EM" width="9EM" ui:field="hpCurrentValueWidget"/>
+			<g:HorizontalPanel height="1.5EM" width="8EM" ui:field="hpFilterWidget" horizontalAlignment="ALIGN_CENTER"/>
+		</g:HorizontalPanel>
+	</g:HTMLPanel>
+</ui:UiBinder> 

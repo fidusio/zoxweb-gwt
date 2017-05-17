@@ -1,0 +1,29 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+	xmlns:g="urn:import:com.google.gwt.user.client.ui">
+	<ui:style>
+	.label {
+		font-style: italic;
+	}
+	</ui:style>
+	<g:HTMLPanel width="100%" height="100%">
+		<g:HorizontalPanel width="40EM" height="16.5EM" horizontalAlignment="ALIGN_CENTER" ui:field="hpMain" spacing="3" verticalAlignment="ALIGN_BOTTOM">
+			<g:VerticalPanel height="100%" width="15EM" ui:field="vpOptions">
+				<g:Label styleName="{style.label}" width="7EM" height="1.5EM" ui:field="labelOptions"/>
+				<g:ListBox visibleItemCount="5" width="15EM" height="15EM" ui:field="lbFullList"/>
+			</g:VerticalPanel>
+			<g:VerticalPanel spacing="5" horizontalAlignment="ALIGN_CENTER" width="5EM" height="12EM" ui:field="vpButtons">
+				<g:PushButton text="Add &gt;" width="6.5EM" height="1.5EM" ui:field="pbAdd"/>
+				<g:PushButton text="Update" width="6.5EM" height="1.5EM" ui:field="pbUpdate"/>
+				<g:PushButton text="Remove" height="1.5EM" width="6.5EM" ui:field="pbRemove"/>
+				<g:PushButton text="Remove All" width="6.5EM" height="1.5EM" ui:field="pbRemoveAll"/>
+				<g:PushButton text="Move Up" width="6.5EM" height="1.5EM" ui:field="pbMoveUp"/>
+				<g:PushButton text="Move Down" width="6.5EM" height="1.5EM" ui:field="pbMoveDown"/>
+			</g:VerticalPanel>
+			<g:VerticalPanel ui:field="vpSelections" width="15EM" height="100%">
+				<g:Label text="Selected:" styleName="{style.label}" width="7EM" height="1.5EM" ui:field="labelSelectedItems"/>
+				<g:ListBox visibleItemCount="5" width="15EM" height="15EM" ui:field="lbSelectedList"/>
+			</g:VerticalPanel>
+		</g:HorizontalPanel>
+	</g:HTMLPanel>
+</ui:UiBinder> 

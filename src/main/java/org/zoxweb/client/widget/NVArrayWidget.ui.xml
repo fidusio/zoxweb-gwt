@@ -1,0 +1,39 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+	xmlns:g="urn:import:com.google.gwt.user.client.ui">
+	<ui:style type="org.zoxweb.client.widget.NVArrayWidget.Style">
+		.flexTableRowDivider {
+			border-bottom: 1px solid #BDBDBD;
+		}
+		.scrollPanel {
+			overflow-x: hidden !important;
+			overflow-y: auto;
+		}
+		.htmlHeader {
+			font-weight: bold;
+			font-size: 1.1EM;
+			color: #2E2E2E;
+			word-wrap: break-word;
+			display: block;
+		}
+		.counter {
+			font-style: italic;
+		}
+		.background {
+			background: #FFFFFF;
+		}
+	</ui:style>
+	<g:HTMLPanel width="100%" height="100%">
+		<g:VerticalPanel width="100%" height="6EM" ui:field="vpContent" horizontalAlignment="ALIGN_LEFT" styleName="{style.background}">
+			<g:HorizontalPanel width="20EM" height="4EM">
+				<g:VerticalPanel width="14EM" height="3EM">
+					<g:HTML wordWrap="true" width="14EM" height="2EM" styleName="{style.htmlHeader}" ui:field="htmlHeader">Header</g:HTML>
+					<g:Hyperlink text="Show (0)" targetHistoryToken="newHistoryToken" ui:field="hLinkShowHide" width="5EM" height="1.5EM"/>
+				</g:VerticalPanel>
+				<g:HorizontalPanel width="6EM" height="2EM" ui:field="hpButtons" spacing="5">
+			</g:HorizontalPanel>
+			</g:HorizontalPanel>
+			<g:VerticalPanel height="2EM" width="100%" ui:field="vpTable"/>
+		</g:VerticalPanel>
+	</g:HTMLPanel>
+</ui:UiBinder>

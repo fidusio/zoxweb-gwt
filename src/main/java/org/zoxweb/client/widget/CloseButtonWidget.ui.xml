@@ -1,0 +1,21 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+	xmlns:g="urn:import:com.google.gwt.user.client.ui">
+	<ui:style type="org.zoxweb.client.widget.CloseButtonWidget.Style">
+		.closeButton_MouseOut {
+			color: #848484;
+			font-weight: bold;
+			font-size: 1.2EM;
+			cursor: pointer;
+		}
+		.closeButton_MouseOver {
+			color: #585858;
+			font-weight: bold;
+			font-size: 1.2EM;
+			cursor: pointer;
+		}
+	</ui:style>
+	<g:HTMLPanel>
+		<g:Label text="X" horizontalAlignment="ALIGN_RIGHT" ui:field="labelClose" styleName="{style.closeButton_MouseOut}"/>
+	</g:HTMLPanel>
+</ui:UiBinder> 
