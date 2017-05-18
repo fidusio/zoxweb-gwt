@@ -169,7 +169,7 @@
             <groupId>org.zoxweb</groupId>
             <artifactId>zoxweb-core</artifactId>
             <version>${zoxweb-core.version}</version>
-            <scope>provided</scope>
+            <scope>required</scope>
         </dependency>
       
 
