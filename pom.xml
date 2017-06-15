@@ -33,7 +33,7 @@
         <persistence.version>1.0</persistence.version>
         <hibernate.version>5.2.9.Final</hibernate.version>
         <apache.derby.version>10.13.1.1</apache.derby.version>
-        <zoxweb-core.version>2.0.6</zoxweb-core.version>
+        <zoxweb-core.version>LATEST</zoxweb-core.version>
     </properties>
 
     <!-- default
