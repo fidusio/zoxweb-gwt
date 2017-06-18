@@ -20,7 +20,8 @@ import java.math.RoundingMode;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
+//import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -877,7 +878,7 @@ public class JSONClientUtil
 	 */
 	public static Map<String, ?> fromJSONMap(String json, NVEntityFactory nveFactory)
 	{
-		Map<String, Object> ret = new HashMap<String, Object>();
+		Map<String, Object> ret = new LinkedHashMap<String, Object>();
 		
 		JSONObject jsonObject = (JSONObject) JSONParser.parseLenient(json);
 		
