@@ -103,7 +103,7 @@ public class HTTPWebRequest {
 		{
 			switch(hcc.getHTTPParameterFormatter())
 			{
-			case URI_REST_ENCODDED:
+			case URI_REST_ENCODED:
 				fullURL = SharedStringUtil.concat(fullURL, parameters, "/");
 				break;
 			case URL_ENCODED:
