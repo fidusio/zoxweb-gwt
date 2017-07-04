@@ -17,6 +17,7 @@ package org.zoxweb.client.rpc;
 
 import org.zoxweb.shared.http.HTTPAuthorizationType;
 import org.zoxweb.shared.http.HTTPMessageConfigInterface;
+
 import org.zoxweb.shared.util.GetNameValue;
 import org.zoxweb.shared.util.SharedStringUtil;
 import org.zoxweb.shared.util.SharedUtil;
@@ -95,11 +96,21 @@ public class HTTPWebRequest {
 		
 		String fullURL = SharedStringUtil.concat(hcc.getURL(), hcc.getURI(), "/");
 		
-		String parameters = SharedStringUtil.format(hcc.getParameters(), "=", false, "&");
+		String parameters =  hcc.getHTTPParameterFormatter().format(null, hcc.getParameters().values());
+				//SharedStringUtil.format(hcc.getParameters(), "=", false, "&");
 
 		if (!SharedStringUtil.isEmpty(parameters))
 		{
-			fullURL += "?" + parameters;
+			switch(hcc.getHTTPParameterFormatter())
+			{
+			case URI_REST_ENCODDED:
+				fullURL = SharedStringUtil.concat(fullURL, parameters, "/");
+				break;
+			case URL_ENCODED:
+				fullURL += "?" + parameters;
+				break;
+			
+			}
 		}
 		
 		return fullURL;
