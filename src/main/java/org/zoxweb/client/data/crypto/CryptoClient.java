@@ -107,5 +107,31 @@ public class CryptoClient
      	return $wnd.hex_md5(ptext);
      }-*/;
 	
+	
+	
+	public static native String hmacSHA256Native(String key, String data)
+    /*-{
+     
+     	var bitArrayKey = $wnd.sjcl.codec.hex.toBits(key);
+     	var bitArrayData = $wnd.sjcl.codec.hex.toBits(data);
+     	var hash = $wnd.sjcl.hash.sha256;
+     	var mac = (new $wnd.sjcl.misc.hmac(bitArrayKey, hash)).mac(bitArrayData);
+     	
+     	
+     	return $wnd.sjcl.codec.hex.fromBits(mac);  
+     }-*/;
+
+	@Override
+	public byte[] hmacSHA256(byte[] key, byte[] data) throws AccessSecurityException 
+	{
+		
+		String keyBytes = SharedStringUtil.bytesToHex(key);
+		String dataBytes = SharedStringUtil.bytesToHex(data);
+		String result = hmacSHA256Native(keyBytes, dataBytes);
+		
+		// TODO Auto-generated method stub
+		return SharedStringUtil.hexToBytes(result);
+	}
+	
 
 }
