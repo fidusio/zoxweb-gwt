@@ -58,6 +58,7 @@ import org.zoxweb.shared.util.SharedBase64;
 import org.zoxweb.shared.util.SharedStringUtil;
 import org.zoxweb.shared.util.SharedUtil;
 
+import com.google.gwt.core.client.JsonUtils;
 import com.google.gwt.json.client.JSONArray;
 import com.google.gwt.json.client.JSONBoolean;
 import com.google.gwt.json.client.JSONNull;
@@ -1103,6 +1104,25 @@ public class JSONClientUtil
 		}
 		
 		return ret;
+	}
+	
+	public static String toString (JSONObject jobj)
+	{
+		 StringBuilder sb = new StringBuilder("{");
+		    boolean first = true;
+		    String[] keys = jobj.keySet().toArray(new String[0]);
+		    for (String key : keys) {
+		      if (first) {
+		        first = false;
+		      } else {
+		        sb.append(", ");
+		      }
+		      sb.append(JsonUtils.escapeValue(key));
+		      sb.append(": ");
+		      sb.append(jobj.get(key));
+		    }
+		    sb.append("}");
+		    return sb.toString();
 	}
 	
 }
