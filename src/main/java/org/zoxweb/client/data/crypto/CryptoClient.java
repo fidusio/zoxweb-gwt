@@ -15,12 +15,17 @@
  */
 package org.zoxweb.client.data.crypto;
 
+
+
+import org.zoxweb.client.data.JSONClientUtil;
 import org.zoxweb.shared.crypto.CryptoConst;
 import org.zoxweb.shared.crypto.CryptoInterface;
 import org.zoxweb.shared.security.AccessSecurityException;
 import org.zoxweb.shared.security.JWT;
+import org.zoxweb.shared.util.SharedBase64;
 import org.zoxweb.shared.util.SharedStringUtil;
 import org.zoxweb.shared.util.SharedUtil;
+import org.zoxweb.shared.util.SharedBase64.Base64Type;
 
 /**
  *
@@ -135,13 +140,24 @@ public class CryptoClient
 	}
 
 	@Override
-	public byte[] toJWTToken(byte[] key, JWT jwt) throws AccessSecurityException {
-		// TODO Auto-generated method stub
-		return null;
+	public String encodeJWT(byte[] key, JWT jwt) throws AccessSecurityException {
+		SharedUtil.checkIfNulls("Null Parameters", key, jwt);
+		
+		StringBuilder sb = new StringBuilder();
+		byte[] b64Header = SharedBase64.encode(Base64Type.URL, JSONClientUtil.toJSON(jwt.getHeader(), false).toString());
+		byte[] b64Payload = SharedBase64.encode(Base64Type.URL, JSONClientUtil.toJSON(jwt.getPayload(), false).toString());
+		sb.append(SharedStringUtil.toString(b64Header));
+		sb.append(".");
+		sb.append(SharedStringUtil.toString(b64Payload));
+		byte[] b64Hash = SharedBase64.encode(Base64Type.URL, hmacSHA256(key, SharedStringUtil.getBytes(sb.toString())));
+		sb.append(".");
+		sb.append(SharedStringUtil.toString(b64Hash));
+
+		return sb.toString();
 	}
 
 	@Override
-	public JWT toJWT(byte[] key, String b64urlToken) throws AccessSecurityException {
+	public JWT decodeJWT(byte[] key, String b64urlToken) throws AccessSecurityException {
 		// TODO Auto-generated method stub
 		return null;
 	}
