@@ -1125,4 +1125,12 @@ public class JSONClientUtil
 		    return sb.toString();
 	}
 	
+	
+	public static String toString (NVEntity nve)
+	{
+		return toString(toJSON(nve));
+	}
+	
+	
+	
 }
