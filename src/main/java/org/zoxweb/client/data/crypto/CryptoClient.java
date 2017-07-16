@@ -18,6 +18,7 @@ package org.zoxweb.client.data.crypto;
 import org.zoxweb.shared.crypto.CryptoConst;
 import org.zoxweb.shared.crypto.CryptoInterface;
 import org.zoxweb.shared.security.AccessSecurityException;
+import org.zoxweb.shared.security.JWT;
 import org.zoxweb.shared.util.SharedStringUtil;
 import org.zoxweb.shared.util.SharedUtil;
 
@@ -131,6 +132,18 @@ public class CryptoClient
 		
 		// TODO Auto-generated method stub
 		return SharedStringUtil.hexToBytes(result);
+	}
+
+	@Override
+	public byte[] toJWTToken(byte[] key, JWT jwt) throws AccessSecurityException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public JWT toJWT(byte[] key, String b64urlToken) throws AccessSecurityException {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 

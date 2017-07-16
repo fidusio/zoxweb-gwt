@@ -443,6 +443,13 @@ public class JSONClientUtil
 		
 		return nvp;
 	}
+	
+	
+	
+	public static JSONObject toJSON(NVEntity nve)
+	{
+		return toJSON(nve, true);
+	}
 
 	/**
 	 * Converts NVEntity to JSONObject.
@@ -450,14 +457,14 @@ public class JSONClientUtil
 	 * @return
 	 */
 	@SuppressWarnings("unchecked")
-	public static JSONObject toJSON(NVEntity nve)
+	public static JSONObject toJSON(NVEntity nve, boolean printClass)
 	{
 		SharedUtil.checkIfNulls("Null NVEntity", nve);
 		JSONObject jsonObject = new JSONObject();
 		
 		NVConfigEntity nvce = (NVConfigEntity) nve.getNVConfig();
-		
-		jsonObject.put(MetaToken.CLASS_TYPE.getName(), new JSONString(nve.getClass().getName()));
+		if(printClass)
+			jsonObject.put(MetaToken.CLASS_TYPE.getName(), new JSONString(nve.getClass().getName()));
 		
 		for (NVConfig nvc : nvce.getAttributes())
 		{
@@ -479,7 +486,7 @@ public class JSONClientUtil
 					{
 						if (value instanceof NVEntity)
 						{
-							jsonObject.put(nvc.getName(), toJSON((NVEntity) value));
+							jsonObject.put(nvc.getName(), toJSON((NVEntity) value, printClass));
 						}
 						else if (nvc.getMetaTypeBase().equals(String.class))
 						{
@@ -545,7 +552,7 @@ public class JSONClientUtil
 						{
 							if (nveTemp != null)
 							{
-								jsonArray.set(counter++, toJSON(nveTemp));
+								jsonArray.set(counter++, toJSON(nveTemp, printClass));
 							}
 						}
 					}
@@ -805,7 +812,7 @@ public class JSONClientUtil
 	 */
 	public static JSONObject toJSONWrapper(NVEntity nve)
 	{
-		JSONObject value = toJSON(nve);		
+		JSONObject value = toJSON(nve, true);		
 		JSONObject ret = new JSONObject();
 		
 		ret.put(MetaToken.JSON_CONTENT.getName(), new JSONString("" + value));
@@ -813,12 +820,18 @@ public class JSONClientUtil
 		return ret;		
 	}
 
+	
+	public static JSONObject toJSONMap(Map<String, ?> map)
+	{
+		return toJSONMap(map, true);
+	}
+	
 	/**
 	 *
 	 * @param map
 	 * @return
 	 */
-	public static JSONObject toJSONMap(Map<String, ?> map)
+	public static JSONObject toJSONMap(Map<String, ?> map, boolean printClass)
 	{
 		JSONObject ret = new JSONObject();
 		
@@ -839,7 +852,7 @@ public class JSONClientUtil
 						}
 						else if (list.get(i) instanceof NVEntity)
 						{
-							jsonArray.set(i, toJSON((NVEntity) list.get(i)));
+							jsonArray.set(i, toJSON((NVEntity) list.get(i), printClass));
 						}
 						else if (list.get(i) instanceof Boolean)
 						{
