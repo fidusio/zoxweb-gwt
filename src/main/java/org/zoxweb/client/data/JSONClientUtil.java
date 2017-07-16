@@ -1130,6 +1130,10 @@ public class JSONClientUtil
 	{
 		return toString(toJSON(nve));
 	}
+
+	public static String toString(Map<String, ?> map) {
+	    return toString(toJSONMap(map));
+    }
 	
 	
 	
