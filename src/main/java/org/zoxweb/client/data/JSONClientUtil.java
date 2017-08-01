@@ -501,6 +501,9 @@ public class JSONClientUtil
 								 nvc.getMetaTypeBase().equals(BigDecimal.class)
 								)
 						{
+							Number num = (Number)value;
+							if (num.doubleValue() != 0 || num.longValue() != 0 || 
+								num.intValue() != 0 || num.floatValue() != 0)
 							jsonValue = new JSONNumber(((Number) value).doubleValue());
 						}
 						else if (nvc.getMetaTypeBase().equals(Date.class))
@@ -1115,10 +1118,10 @@ public class JSONClientUtil
 		      if (first) {
 		        first = false;
 		      } else {
-		        sb.append(", ");
+		        sb.append(",");
 		      }
 		      sb.append(JsonUtils.escapeValue(key));
-		      sb.append(": ");
+		      sb.append(":");
 		      sb.append(jobj.get(key));
 		    }
 		    sb.append("}");

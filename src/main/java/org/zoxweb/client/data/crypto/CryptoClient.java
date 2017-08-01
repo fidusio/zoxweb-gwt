@@ -141,7 +141,7 @@ public class CryptoClient
 
 	@Override
 	public String encodeJWT(byte[] key, JWT jwt) throws AccessSecurityException {
-		SharedUtil.checkIfNulls("Null Parameters", key, jwt);
+		SharedUtil.checkIfNulls("Null jwt", jwt, jwt.getHeader(), jwt.getHeader().getJWTAlgorithm());
 		
 		StringBuilder sb = new StringBuilder();
 		byte[] b64Header = SharedBase64.encode(Base64Type.URL, JSONClientUtil.toString(JSONClientUtil.toJSON(jwt.getHeader(), false)));
@@ -149,9 +149,20 @@ public class CryptoClient
 		sb.append(SharedStringUtil.toString(b64Header));
 		sb.append(".");
 		sb.append(SharedStringUtil.toString(b64Payload));
-		byte[] b64Hash = SharedBase64.encode(Base64Type.URL, hmacSHA256(key, SharedStringUtil.getBytes(sb.toString())));
+		
+		byte[] b64Hash = null;
+		switch(jwt.getHeader().getJWTAlgorithm())
+		{
+		case HS256:
+			SharedUtil.checkIfNulls("Null key", key);
+			b64Hash = SharedBase64.encode(Base64Type.URL, hmacSHA256(key, SharedStringUtil.getBytes(sb.toString())));
+			break;
+		case none:
+			break;
+		}
 		sb.append(".");
-		sb.append(SharedStringUtil.toString(b64Hash));
+		if(b64Hash != null)
+			sb.append(SharedStringUtil.toString(b64Hash));
 
 		return sb.toString();
 	}
