@@ -155,14 +155,14 @@ public class CryptoClient
 		{
 		case HS256:
 			SharedUtil.checkIfNulls("Null key", key);
-			b64Hash = SharedBase64.encode(Base64Type.URL, hmacSHA256(key, SharedStringUtil.getBytes(sb.toString())));
+			//b64Hash = SharedBase64.encode(Base64Type.URL, hmacSHA256(key, SharedStringUtil.getBytes(sb.toString())));
 			break;
 		case none:
 			break;
 		}
 		sb.append(".");
-		if(b64Hash != null)
-			sb.append(SharedStringUtil.toString(b64Hash));
+//		if(b64Hash != null)
+//			sb.append(SharedStringUtil.toString(b64Hash));
 
 		return sb.toString();
 	}
