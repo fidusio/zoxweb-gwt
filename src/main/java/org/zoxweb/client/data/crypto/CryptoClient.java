@@ -17,6 +17,8 @@ package org.zoxweb.client.data.crypto;
 
 
 
+import org.apache.commons.codec.digest.DigestUtils;
+import org.apache.commons.codec.digest.HmacUtils;
 import org.zoxweb.client.data.JSONClientUtil;
 import org.zoxweb.shared.crypto.CryptoConst;
 import org.zoxweb.shared.crypto.CryptoInterface;
@@ -26,6 +28,7 @@ import org.zoxweb.shared.util.SharedBase64;
 import org.zoxweb.shared.util.SharedStringUtil;
 import org.zoxweb.shared.util.SharedUtil;
 import org.zoxweb.shared.util.SharedBase64.Base64Type;
+
 
 /**
  *
@@ -56,13 +59,14 @@ public class CryptoClient
 			{
 				sb.append(SharedStringUtil.toString(array));
 			}
-			return SharedStringUtil.hexToBytes(hashMD5(sb.toString()));
+			
+			return DigestUtils.getMd5Digest().digest(SharedStringUtil.getBytes(sb.toString()));
 		case SHA_256:
 			for (byte[] array : tokens)
 			{
 				sb.append(SharedStringUtil.toString(array));
 			}
-			return SharedStringUtil.hexToBytes(hashSHA256(sb.toString()));
+			return DigestUtils.getSha256Digest().digest(SharedStringUtil.getBytes(sb.toString()));//SharedStringUtil.hexToBytes(hashSHA256(sb.toString()));
 			
 			default:
 				throw new AccessSecurityException("Digest not supported " + mdType);
@@ -87,13 +91,13 @@ public class CryptoClient
 			{
 				sb.append(str);
 			}
-			return SharedStringUtil.hexToBytes(hashMD5(sb.toString()));
+			return DigestUtils.getMd5Digest().digest(SharedStringUtil.getBytes(sb.toString()));//SharedStringUtil.hexToBytes(hashMD5(sb.toString()));
 		case SHA_256:
 			for (String str : tokens)
 			{
 				sb.append(str);
 			}
-			return SharedStringUtil.hexToBytes(hashSHA256(sb.toString()));
+			return DigestUtils.getSha256Digest().digest(SharedStringUtil.getBytes(sb.toString()));//SharedStringUtil.hexToBytes(hashSHA256(sb.toString()));
 			
 			default:
 				throw new AccessSecurityException("Digest not supported " + mdType);
@@ -101,43 +105,43 @@ public class CryptoClient
 	}
 	
 	
-	public static native String hashSHA256(String ptext)
-    /*-{
-     	var bitArray = $wnd.sjcl.hash.sha256.hash(ptext);
-     	return $wnd.sjcl.codec.hex.fromBits(bitArray);  
-     }-*/;
+//	public static native String hashSHA256(String ptext)
+//    /*-{
+//     	var bitArray = $wnd.sjcl.hash.sha256.hash(ptext);
+//     	return $wnd.sjcl.codec.hex.fromBits(bitArray);  
+//     }-*/;
+//	
+//	
+//	public static native String hashMD5(String ptext)
+//    /*-{
+//     	return $wnd.hex_md5(ptext);
+//     }-*/;
+//	
 	
 	
-	public static native String hashMD5(String ptext)
-    /*-{
-     	return $wnd.hex_md5(ptext);
-     }-*/;
-	
-	
-	
-	public static native String hmacSHA256Native(String key, String data)
-    /*-{
-     
-     	var bitArrayKey = $wnd.sjcl.codec.hex.toBits(key);
-     	var bitArrayData = $wnd.sjcl.codec.hex.toBits(data);
-     	var hash = $wnd.sjcl.hash.sha256;
-     	var mac = (new $wnd.sjcl.misc.hmac(bitArrayKey, hash)).mac(bitArrayData);
-     	
-     	
-     	return $wnd.sjcl.codec.hex.fromBits(mac);  
-     }-*/;
-
-	@Override
-	public byte[] hmacSHA256(byte[] key, byte[] data) throws AccessSecurityException 
-	{
-		
-		String keyBytes = SharedStringUtil.bytesToHex(key);
-		String dataBytes = SharedStringUtil.bytesToHex(data);
-		String result = hmacSHA256Native(keyBytes, dataBytes);
-		
-		// TODO Auto-generated method stub
-		return SharedStringUtil.hexToBytes(result);
-	}
+//	public static native String hmacSHA256Native(String key, String data)
+//    /*-{
+//     
+//     	var bitArrayKey = $wnd.sjcl.codec.hex.toBits(key);
+//     	var bitArrayData = $wnd.sjcl.codec.hex.toBits(data);
+//     	var hash = $wnd.sjcl.hash.sha256;
+//     	var mac = (new $wnd.sjcl.misc.hmac(bitArrayKey, hash)).mac(bitArrayData);
+//     	
+//     	
+//     	return $wnd.sjcl.codec.hex.fromBits(mac);  
+//     }-*/;
+//
+//	@Override
+//	public byte[] hmacSHA256(byte[] key, byte[] data) throws AccessSecurityException 
+//	{
+//		
+//		String keyBytes = SharedStringUtil.bytesToHex(key);
+//		String dataBytes = SharedStringUtil.bytesToHex(data);
+//		String result = hmacSHA256Native(keyBytes, dataBytes);
+//		
+//		// TODO Auto-generated method stub
+//		return SharedStringUtil.hexToBytes(result);
+//	}
 
 	@Override
 	public String encodeJWT(byte[] key, JWT jwt) throws AccessSecurityException {
@@ -155,14 +159,14 @@ public class CryptoClient
 		{
 		case HS256:
 			SharedUtil.checkIfNulls("Null key", key);
-			//b64Hash = SharedBase64.encode(Base64Type.URL, hmacSHA256(key, SharedStringUtil.getBytes(sb.toString())));
+			b64Hash = SharedBase64.encode(Base64Type.URL, HmacUtils.hmacSha256(key, SharedStringUtil.getBytes(sb.toString())));
 			break;
 		case none:
 			break;
 		}
 		sb.append(".");
-//		if(b64Hash != null)
-//			sb.append(SharedStringUtil.toString(b64Hash));
+		if(b64Hash != null)
+			sb.append(SharedStringUtil.toString(b64Hash));
 
 		return sb.toString();
 	}
@@ -171,6 +175,12 @@ public class CryptoClient
 	public JWT decodeJWT(byte[] key, String b64urlToken) throws AccessSecurityException {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public byte[] hmacSHA256(byte[] key, byte[] data) throws AccessSecurityException {
+		// TODO Auto-generated method stub
+		return  HmacUtils.hmacSha256(key, data);
 	}
 	
 
