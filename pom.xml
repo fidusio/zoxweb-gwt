@@ -135,12 +135,14 @@
             <artifactId>zoxweb-core</artifactId>
         </dependency>
         
-        
-    <dependency>
-	    <groupId>de.knightsoft-net</groupId>
-	    <artifactId>gwt-commons-codec</artifactId>
-	    <version>1.10-1</version>
-	</dependency>
+	        
+	    <dependency>
+		    <groupId>de.knightsoft-net</groupId>
+		    <artifactId>gwt-commons-codec</artifactId>
+		    <version>1.10-4</version>
+		</dependency>
+
+	
 
       
 
