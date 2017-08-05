@@ -634,14 +634,10 @@ public class JSONClientUtil
 					}
 					else if (nvc.getMetaType() == byte[].class)
 					{
-						if (nvb.getValue() == null)
+						if (nvb.getValue() != null)
 						{
-							jsonObject.put(nvc.getName(), new JSONString(null));
-						}
-						else
-						{
-							byte[] base64 = SharedBase64.encode( ((NVBlob)nvb).getValue());
-							jsonObject.put(nvc.getName(), new JSONString(new String(base64)));
+							byte[] base64 = SharedBase64.encode(((NVBlob)nvb).getValue());
+							jsonObject.put(nvc.getName(), new JSONString(SharedStringUtil.toString(base64)));
 							
 						}
 						// so we don't add the array
