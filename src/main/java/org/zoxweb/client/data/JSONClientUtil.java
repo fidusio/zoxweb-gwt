@@ -40,21 +40,30 @@ import org.zoxweb.shared.util.DynamicEnumMapManager;
 import org.zoxweb.shared.util.GetNameValue;
 import org.zoxweb.shared.util.MetaToken;
 import org.zoxweb.shared.util.NVBase;
+import org.zoxweb.shared.util.NVBigDecimal;
 import org.zoxweb.shared.util.NVBigDecimalList;
 import org.zoxweb.shared.util.NVConfig;
 import org.zoxweb.shared.util.NVConfigEntity;
+import org.zoxweb.shared.util.NVDouble;
 import org.zoxweb.shared.util.NVDoubleList;
 import org.zoxweb.shared.util.NVEntity;
 import org.zoxweb.shared.util.NVEntityGetNameMap;
 import org.zoxweb.shared.util.NVEntityReferenceIDMap;
 import org.zoxweb.shared.util.NVEntityReferenceList;
+import org.zoxweb.shared.util.NVEnum;
 import org.zoxweb.shared.util.NVEnumList;
+import org.zoxweb.shared.util.NVFloat;
 import org.zoxweb.shared.util.NVFloatList;
+import org.zoxweb.shared.util.NVGenericMap;
+import org.zoxweb.shared.util.NVInt;
 import org.zoxweb.shared.util.NVIntList;
+import org.zoxweb.shared.util.NVLong;
 import org.zoxweb.shared.util.NVLongList;
 import org.zoxweb.shared.util.NVPair;
 import org.zoxweb.shared.util.NVBlob;
+import org.zoxweb.shared.util.NVBoolean;
 import org.zoxweb.shared.util.SharedBase64;
+import org.zoxweb.shared.util.SharedBase64.Base64Type;
 import org.zoxweb.shared.util.SharedStringUtil;
 import org.zoxweb.shared.util.SharedUtil;
 
@@ -518,6 +527,10 @@ public class JSONClientUtil
 						{
 							jsonValue = new JSONString(((Enum<?>)value).name());
 						}
+						else if (nvc.getMetaTypeBase().equals(NVGenericMap.class))
+						{
+							jsonValue = genericMapToJSON((NVGenericMap)nve.lookup(nvc), printClass, Base64Type.URL);
+						}
 						
 						if (jsonValue != null)
 						{
@@ -690,6 +703,57 @@ public class JSONClientUtil
 			else
 			{
 				// name == null
+			}
+		}
+		
+		return ret;
+	}
+	
+	public static JSONObject genericMapToJSON(NVGenericMap nvgm, boolean printName, Base64Type b64Type)
+	{
+		JSONObject ret = null;
+		if (nvgm != null)
+		{
+			ret = new JSONObject();
+			for (GetNameValue<?> gnv : nvgm.values())
+			{
+				JSONValue jsonValue = null;
+				if (gnv.getValue() != null)
+				{
+					if (gnv instanceof NVBoolean)
+					{
+						if (((NVBoolean)gnv).getValue())
+						{
+							jsonValue = JSONBoolean.getInstance((boolean) gnv.getValue());
+						}
+					}
+					else if (gnv instanceof NVLong || gnv instanceof NVInt || gnv instanceof NVFloat || gnv instanceof NVDouble || gnv instanceof NVBigDecimal)
+					{
+						Number num = (Number)gnv.getValue();
+						if (num.doubleValue() != 0 || num.longValue() != 0 || 
+							num.intValue() != 0 || num.floatValue() != 0)
+						{
+							jsonValue = new JSONNumber(((Number) num).doubleValue());
+						}
+					}
+					else if (gnv.getValue() instanceof String)
+					{
+						jsonValue = new JSONString((String) gnv.getValue());
+					}
+					else if (gnv instanceof NVEnum)
+					{
+						jsonValue = new JSONString(((Enum<?>)gnv.getValue()).name());
+					}
+					else if (gnv instanceof NVBlob)
+					{
+						jsonValue = new JSONString(SharedBase64.encodeAsString(b64Type, (byte[]) gnv.getValue()));
+					}
+						
+					if (jsonValue != null)
+					{
+						ret.put(gnv.getName(), jsonValue);
+					}
+				}	
 			}
 		}
 		
@@ -879,6 +943,17 @@ public class JSONClientUtil
 				}
 			}
 		}
+		
+		return ret;
+	}
+	
+	
+	
+	
+	public static NVGenericMap genericMapFromJSON(String json, NVEntityFactory nvef)
+	{
+		NVGenericMap ret = null;
+		
 		
 		return ret;
 	}
