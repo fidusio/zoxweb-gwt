@@ -521,7 +521,10 @@ public class JSONClientUtil
 						}
 						else if (nvc.getMetaTypeBase().equals(Boolean.class))
 						{
-							jsonValue = JSONBoolean.getInstance((Boolean) value);
+							if ((Boolean)value)
+							{
+								jsonValue = JSONBoolean.getInstance((Boolean) value);
+							}
 						}
 						else if (value instanceof Enum)
 						{
