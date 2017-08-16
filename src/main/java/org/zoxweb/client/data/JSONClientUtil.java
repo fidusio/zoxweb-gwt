@@ -712,7 +712,7 @@ public class JSONClientUtil
 		return ret;
 	}
 	
-	public static JSONObject genericMapToJSON(NVGenericMap nvgm, boolean printName, Base64Type b64Type)
+	public static JSONObject genericMapToJSON(NVGenericMap nvgm, boolean printClass, Base64Type b64Type)
 	{
 		JSONObject ret = null;
 		if (nvgm != null)
