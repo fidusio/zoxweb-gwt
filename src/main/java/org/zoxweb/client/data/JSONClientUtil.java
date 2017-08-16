@@ -724,7 +724,7 @@ public class JSONClientUtil
 					{
 						if (((NVBoolean)gnv).getValue())
 						{
-							jsonValue = JSONBoolean.getInstance((boolean) gnv.getValue());
+							jsonValue = JSONBoolean.getInstance((Boolean) gnv.getValue());
 						}
 					}
 					else if (gnv instanceof NVLong || gnv instanceof NVInt || gnv instanceof NVFloat || gnv instanceof NVDouble || gnv instanceof NVBigDecimal)
