@@ -148,7 +148,7 @@ public class CryptoClient
 		
 		StringBuilder sb = new StringBuilder();
 		byte[] b64Header = SharedBase64.encode(Base64Type.URL, JSONClientUtil.toString(JSONClientUtil.toJSON(jwt.getHeader(), false)));
-		byte[] b64Payload = SharedBase64.encode(Base64Type.URL, JSONClientUtil.toString(JSONClientUtil.toJSON(jwt.getPayload(), false)));
+		byte[] b64Payload = SharedBase64.encode(Base64Type.URL, JSONClientUtil.toString(JSONClientUtil.genericMapToJSON(jwt.getPayload().getNVGenericMap(), false, Base64Type.URL)));
 		sb.append(SharedStringUtil.toString(b64Header));
 		sb.append(".");
 		sb.append(SharedStringUtil.toString(b64Payload));
