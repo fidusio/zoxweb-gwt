@@ -206,10 +206,23 @@ public class JSONClientUtil
 							String val = ((JSONString) value.get(nvc.getName())).stringValue();
 							nve.setValue(nvc.getName(), val);
 						}
-						else if (nvc.getMetaTypeBase().equals(Long.class) || nvc.getMetaType().equals(Date.class))
+						else if (nvc.getMetaTypeBase().equals(Long.class))
 						{
 							long val = (long) ((JSONNumber) value.get(nvc.getName())).doubleValue();
 							nve.setValue(nvc.getName(), val);
+						}
+						else if (nvc.getMetaType().equals(Date.class))
+						{
+							JSONValue jValue = value.get(nvc.getName());
+							if (jValue.isString() != null)
+							{
+								dklsfdsfdskgklsakgksa
+							}
+							else
+							{
+								long val = (long) ((JSONNumber) value.get(nvc.getName())).doubleValue();
+								nve.setValue(nvc.getName(), val);
+							}
 						}
 						else if (nvc.getMetaTypeBase().equals(Integer.class))
 						{

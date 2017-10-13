@@ -15,6 +15,7 @@
  */
 package org.zoxweb.client.data;
 
+import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.i18n.client.TimeZone;
 
 /**
@@ -32,5 +33,6 @@ public final class DateTimeUtil
 	}
 	
 	public static final  TimeZone GMT_TZ= TimeZone.createTimeZone(0);
+	public static final  DateTimeFormat DEFAULT_GMT = DateTimeFormat.getFormat("yyyy-MM-dd HH:mm:ss:SSS'Z'");
 
 }
