@@ -15,15 +15,20 @@
  */
 package org.zoxweb.client.data;
 
+import org.zoxweb.shared.filters.ValueFilter;
+
 import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.i18n.client.TimeZone;
 
 /**
  * Date and time utilities.
  */
+@SuppressWarnings("serial")
 public final class DateTimeUtil
+implements ValueFilter<String, Long>
 {
 
+	public static final DateTimeUtil SINGLETON = new DateTimeUtil();
 	/**
 	 * The constructor is declared final to prevent instantiation.
 	 */
@@ -34,5 +39,22 @@ public final class DateTimeUtil
 	
 	public static final  TimeZone GMT_TZ= TimeZone.createTimeZone(0);
 	public static final  DateTimeFormat DEFAULT_GMT = DateTimeFormat.getFormat("yyyy-MM-dd HH:mm:ss:SSS'Z'");
+	@Override
+	public String toCanonicalID() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	@Override
+	public Long validate(String in) throws NullPointerException, IllegalArgumentException 
+	{
+		// TODO Auto-generated method stub
+		return null;
+	}
+	@Override
+	public boolean isValid(String in)
+	{
+		// TODO Auto-generated method stub
+		return false;
+	}
 
 }
