@@ -15,6 +15,7 @@
  */
 package org.zoxweb.client.data;
 
+
 import org.zoxweb.shared.filters.ValueFilter;
 
 import com.google.gwt.i18n.client.DateTimeFormat;
@@ -38,7 +39,13 @@ implements ValueFilter<String, Long>
 	}
 	
 	public static final  TimeZone GMT_TZ= TimeZone.createTimeZone(0);
-	public static final  DateTimeFormat DEFAULT_GMT = DateTimeFormat.getFormat("yyyy-MM-dd HH:mm:ss:SSS'Z'");
+	public static final  DateTimeFormat DEFAULT_GMT_MILLIS = DateTimeFormat.getFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ");
+	public static final  DateTimeFormat DEFAULT_GMT = DateTimeFormat.getFormat("yyyy-MM-dd'T'HH:mm:ss.Z");
+	
+	private static DateTimeFormat dtfs[] = {
+			DEFAULT_GMT_MILLIS,
+			DEFAULT_GMT
+	};
 	@Override
 	public String toCanonicalID() {
 		// TODO Auto-generated method stub
@@ -47,13 +54,46 @@ implements ValueFilter<String, Long>
 	@Override
 	public Long validate(String in) throws NullPointerException, IllegalArgumentException 
 	{
-		// TODO Auto-generated method stub
-		return null;
+		
+		for (DateTimeFormat format : dtfs)
+		{
+			try 
+			{
+				return format.parse(in).getTime();
+			}
+			catch (IllegalArgumentException e) 
+			{
+				
+			}
+		}
+	
+		try
+		{
+			return Long.parseLong(in);
+		}
+		catch (NumberFormatException e)
+		{
+			
+		}
+		
+		throw new IllegalArgumentException("Invalid format: " + in);
+		
+	
 	}
 	@Override
 	public boolean isValid(String in)
 	{
-		// TODO Auto-generated method stub
+		try
+		{
+			validate(in);
+			
+			return true;
+		}
+		catch (Exception e)
+		{
+			
+		}
+		
 		return false;
 	}
 

@@ -216,7 +216,7 @@ public class JSONClientUtil
 							JSONValue jValue = value.get(nvc.getName());
 							if (jValue.isString() != null)
 							{
-								dklsfdsfdskgklsakgksa
+								nve.setValue(nvc.getName(), DateTimeUtil.SINGLETON.validate(((JSONString)jValue).stringValue()));
 							}
 							else
 							{
@@ -530,7 +530,9 @@ public class JSONClientUtil
 						}
 						else if (nvc.getMetaTypeBase().equals(Date.class))
 						{
-							jsonValue = new JSONNumber(((Number) value).doubleValue());
+							//jsonValue = new JSONNumber(((Number) value).doubleValue());
+							if ((Long)value != 0)
+								jsonValue = new JSONString(DateTimeUtil.DEFAULT_GMT_MILLIS.format(new Date((Long) value)));
 						}
 						else if (nvc.getMetaTypeBase().equals(Boolean.class))
 						{
