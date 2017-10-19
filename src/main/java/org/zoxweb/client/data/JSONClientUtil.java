@@ -547,7 +547,7 @@ public class JSONClientUtil
 						}
 						else if (nvc.getMetaTypeBase().equals(NVGenericMap.class))
 						{
-							jsonValue = genericMapToJSON((NVGenericMap)nve.lookup(nvc), printClass, Base64Type.URL);
+							jsonValue = toJSONGenericMap((NVGenericMap)nve.lookup(nvc), printClass, Base64Type.URL);
 						}
 						
 						if (jsonValue != null)
@@ -727,7 +727,7 @@ public class JSONClientUtil
 		return ret;
 	}
 	
-	public static JSONObject genericMapToJSON(NVGenericMap nvgm, boolean printClass, Base64Type b64Type)
+	public static JSONObject toJSONGenericMap(NVGenericMap nvgm, boolean printClass, Base64Type b64Type)
 	{
 		JSONObject ret = null;
 		if (nvgm != null)
@@ -753,6 +753,10 @@ public class JSONClientUtil
 						{
 							jsonValue = new JSONNumber(((Number) num).doubleValue());
 						}
+					}
+					else if (gnv.getValue() instanceof NVEntity)
+					{
+						jsonValue = toJSON((NVEntity)gnv.getValue());
 					}
 					else if (gnv.getValue() instanceof String)
 					{
@@ -968,7 +972,7 @@ public class JSONClientUtil
 	
 	
 	
-	public static NVGenericMap genericMapFromJSON(String json, NVEntityFactory nvef)
+	public static NVGenericMap fromJSONGenericMap(String json, NVEntityFactory nvef)
 	{
 		NVGenericMap ret = null;
 		
