@@ -153,19 +153,19 @@ public class CryptoClient
 		sb.append(".");
 		sb.append(SharedStringUtil.toString(b64Payload));
 		
-		byte[] b64Hash = null;
+		String b64Hash = null;
 		switch(jwt.getHeader().getJWTAlgorithm())
 		{
 		case HS256:
 			SharedUtil.checkIfNulls("Null key", key);
-			b64Hash = SharedBase64.encode(Base64Type.URL, hmacSHA256(key, SharedStringUtil.getBytes(sb.toString())));
+			b64Hash = SharedBase64.encodeAsString(Base64Type.URL, hmacSHA256(key, SharedStringUtil.getBytes(sb.toString())));
 			break;
 		case none:
 			break;
 		}
 		sb.append(".");
 		if(b64Hash != null)
-			sb.append(SharedStringUtil.toString(b64Hash));
+			sb.append(b64Hash);
 
 		return sb.toString();
 	}
