@@ -13,7 +13,7 @@
 	  <version>2.0.8</version>
   	  <packaging>jar</packaging>
 	  <name>zoxweb-gwt</name>
-	  <url>http://fidus.io</url>
+	  <url>http://xlogistx.io</url>
   
     <build>
     	    <directory>target</directory>
