@@ -78,7 +78,8 @@ public class GenericRequestHandler<T>
 	
 	public void sendRequest(HTTPMessageConfigInterface hci)
 	{
-		if (hci == null) {
+		if (hci == null)
+		{
 			hci = httpCallConfig;
 		}
 
@@ -95,7 +96,7 @@ public class GenericRequestHandler<T>
 				asyncCallBack.onFailure(e);
 			}
 			else
-				{
+			{
 				e.printStackTrace();
 			}
 		}
@@ -136,6 +137,9 @@ public class GenericRequestHandler<T>
 						break;
 					case NVENTITY_LIST:
 						value = JSONClientUtil.fromJSONValues(getResponseContent(response), getNVEFactory());
+						break;
+					case NVENTITY_ARRAY:
+						value = JSONClientUtil.fromJSONArray(getResponseContent(response), getNVEFactory());
 						break;
 					case STRING:
 						value = getResponseContent(response);

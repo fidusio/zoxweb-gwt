@@ -105,6 +105,7 @@ public class JSONClientUtil
 	 */
 	public static <V extends NVEntity> V fromJSON(V nve, String json, NVEntityFactory nveFactory)
 	{
+		@SuppressWarnings("deprecation")
 		JSONObject value = (JSONObject) JSONParser.parseLenient(json);
 		
 		return fromJSON(nve, value, nveFactory);
@@ -137,8 +138,25 @@ public class JSONClientUtil
 	 */
 	public static List<NVEntity> fromJSONValues(String json, NVEntityFactory nveFactory)
 	{
+		@SuppressWarnings("deprecation")
 		JSONObject jsonObject = (JSONObject) JSONParser.parseLenient(json);
 		JSONArray values = (JSONArray) jsonObject.get(MetaToken.VALUES.getName());
+		List<NVEntity> ret = new ArrayList<NVEntity>();
+		
+		for (int i = 0; i < values.size(); i++)
+		{
+			ret.add(fromJSON(null, (JSONObject) values.get(i), nveFactory));
+		}
+		
+		return ret;
+	}
+	
+	
+	public static List<NVEntity> fromJSONArray(String json, NVEntityFactory nveFactory)
+	{
+		@SuppressWarnings("deprecation")
+		JSONArray values = (JSONArray) JSONParser.parseLenient(json);
+//		JSONArray values = (JSONArray) jsonObject.get(MetaToken.VALUES.getName());
 		List<NVEntity> ret = new ArrayList<NVEntity>();
 		
 		for (int i = 0; i < values.size(); i++)
@@ -810,6 +828,33 @@ public class JSONClientUtil
 		
 		return toJSONQuery(qr);
 	}
+	
+	
+	public static JSONArray toJSONArray(List<NVEntity> list)
+	{
+		JSONArray ret = new JSONArray();
+		
+		int index = 0;
+		for (NVEntity nve: list)
+		{
+			if (nve != null)
+				ret.set(index++, toJSON(nve, true));
+		}	
+		return ret;
+	}
+	
+	public static JSONArray toJSONArray(NVEntity nves[])
+	{
+		JSONArray ret = new JSONArray();
+		
+		int index = 0;
+		for (NVEntity nve: nves)
+		{
+			if (nve != null)
+				ret.set(index++, toJSON(nve, true));
+		}	
+		return ret;
+	}
 
 	/**
 	 *
@@ -989,7 +1034,7 @@ public class JSONClientUtil
 	public static Map<String, ?> fromJSONMap(String json, NVEntityFactory nveFactory)
 	{
 		Map<String, Object> ret = new LinkedHashMap<String, Object>();
-		
+		@SuppressWarnings("deprecation")
 		JSONObject jsonObject = (JSONObject) JSONParser.parseLenient(json);
 		
 		if (jsonObject != null)
@@ -1085,7 +1130,7 @@ public class JSONClientUtil
 	public static DynamicEnumMap fromJSONDynamicEnumMap(String json)
 	{
 		DynamicEnumMap dem = new DynamicEnumMap();
-		
+		@SuppressWarnings("deprecation")
 		JSONObject jsonObject = (JSONObject) JSONParser.parseLenient(json);
 		
 		if (jsonObject != null)
@@ -1189,6 +1234,7 @@ public class JSONClientUtil
 	 */
 	public static List<DynamicEnumMap> fromJSONDynamicEnumMapList(String json)
 	{
+		@SuppressWarnings("deprecation")
 		JSONObject jsonObject = (JSONObject) JSONParser.parseLenient(json);
 		JSONArray values = (JSONArray) jsonObject.get(MetaToken.VALUES.getName());
 
