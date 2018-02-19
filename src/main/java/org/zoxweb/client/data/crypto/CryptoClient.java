@@ -130,6 +130,19 @@ public class CryptoClient
      	return $wnd.sjcl.codec.hex.fromBits(mac);  
      }-*/;
 
+	public static native String hmacSHA512Native(String key, String data)
+    /*-{
+     
+     	var bitArrayKey = $wnd.sjcl.codec.hex.toBits(key);
+     	var bitArrayData = $wnd.sjcl.codec.hex.toBits(data);
+     	var hash = $wnd.sjcl.hash.sha512;
+     	var mac = (new $wnd.sjcl.misc.hmac(bitArrayKey, hash)).mac(bitArrayData);
+     	
+     	
+     	return $wnd.sjcl.codec.hex.fromBits(mac);  
+     }-*/;
+
+	
 	@Override
 	public byte[] hmacSHA256(byte[] key, byte[] data) throws AccessSecurityException 
 	{
@@ -160,6 +173,10 @@ public class CryptoClient
 			SharedUtil.checkIfNulls("Null key", key);
 			b64Hash = SharedBase64.encodeAsString(Base64Type.URL, hmacSHA256(key, SharedStringUtil.getBytes(sb.toString())));
 			break;
+		case HS512:
+			SharedUtil.checkIfNulls("Null key", key);
+			b64Hash = SharedBase64.encodeAsString(Base64Type.URL, hmacSHA512(key, SharedStringUtil.getBytes(sb.toString())));
+			break;	
 		case none:
 			break;
 		}
@@ -174,6 +191,17 @@ public class CryptoClient
 	public JWT decodeJWT(byte[] key, String b64urlToken) throws AccessSecurityException {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public byte[] hmacSHA512(byte[] key, byte[] data) throws AccessSecurityException {
+		// TODO Auto-generated method stub
+		String keyBytes = SharedStringUtil.bytesToHex(key);
+		String dataBytes = SharedStringUtil.bytesToHex(data);
+		String result = hmacSHA512Native(keyBytes, dataBytes);
+		
+		// TODO Auto-generated method stub
+		return SharedStringUtil.hexToBytes(result);
 	}
 
 //	@Override
