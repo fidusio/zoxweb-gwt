@@ -23,6 +23,7 @@ import org.zoxweb.shared.crypto.CryptoConst;
 import org.zoxweb.shared.crypto.CryptoInterface;
 import org.zoxweb.shared.security.AccessSecurityException;
 import org.zoxweb.shared.security.JWT;
+import org.zoxweb.shared.security.SecurityConsts.JWTAlgorithm;
 import org.zoxweb.shared.util.SharedBase64;
 import org.zoxweb.shared.util.SharedStringUtil;
 import org.zoxweb.shared.util.SharedUtil;
@@ -165,6 +166,12 @@ public class CryptoClient
 		sb.append(SharedStringUtil.toString(b64Header));
 		sb.append(".");
 		sb.append(SharedStringUtil.toString(b64Payload));
+		
+		// due to lib limitation only HS256 is supported
+		if (jwt.getHeader().getJWTAlgorithm() == JWTAlgorithm.HS512)
+		{
+			jwt.getHeader().setJWTAlgorithm(JWTAlgorithm.HS256);
+		}
 		
 		String b64Hash = null;
 		switch(jwt.getHeader().getJWTAlgorithm())
