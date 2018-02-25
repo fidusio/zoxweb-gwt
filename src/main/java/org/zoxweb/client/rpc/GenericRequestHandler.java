@@ -189,10 +189,17 @@ public class GenericRequestHandler<T>
 				
 				if (!SharedStringUtil.isEmpty(getResponseContent(response)))
 				{
-					APIError apiError = JSONClientUtil.fromJSON(null, getResponseContent(response), getNVEFactory());
-					throwable = apiError.toException();	
+					try
+					{
+						APIError apiError = JSONClientUtil.fromJSON(null, getResponseContent(response), getNVEFactory());
+						throwable = apiError.toException();
+					}
+					catch(Exception e)
+					{
+						
+					}
 				}
-				else
+				if (throwable == null)
 				{
 					//	This could indicate no content.
 					throwable = new APIException("No content");
