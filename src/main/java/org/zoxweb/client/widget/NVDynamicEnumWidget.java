@@ -11,7 +11,7 @@ import org.zoxweb.shared.util.NVBase;
 import org.zoxweb.shared.util.NVConfig;
 import org.zoxweb.shared.util.NVPair;
 import org.zoxweb.shared.util.SharedStringUtil;
-import org.zoxweb.shared.util.ValueGetterComparator.StringValueGetterComparator;
+import org.zoxweb.shared.util.ValueDecoderComparator.StringValueGetterComparator;
 import org.zoxweb.shared.widget.WidgetConst;
 
 import com.google.gwt.event.dom.client.ClickEvent;
