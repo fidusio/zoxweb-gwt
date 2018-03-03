@@ -11,7 +11,7 @@ import org.zoxweb.shared.util.NVBase;
 import org.zoxweb.shared.util.NVConfig;
 import org.zoxweb.shared.util.NVPair;
 import org.zoxweb.shared.util.SharedStringUtil;
-import org.zoxweb.shared.util.ValueDecoderComparator.StringValueDecoderComparator;
+import org.zoxweb.shared.util.DataDecoderComparator.StringDataDecoderComparator;
 import org.zoxweb.shared.widget.WidgetConst;
 
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -47,7 +47,7 @@ public class NVDynamicEnumWidget
 	private String listTitle = "Select:";
 	private boolean isTitleAvailable = true;
 	private HandlerRegistration handlerRegistration;
-	private StringValueDecoderComparator<NVPair> comparator;
+	private StringDataDecoderComparator<NVPair> comparator;
 	
 	public NVDynamicEnumWidget(NVConfig nvConfig, Const.NVDisplayProp displayProp)
 	{
@@ -84,7 +84,7 @@ public class NVDynamicEnumWidget
 		this(name, dem, displayProp, isTitleAvailable, null);
 	}
 	
-	public NVDynamicEnumWidget(String name, DynamicEnumMap dem, Const.NVDisplayProp displayProp, boolean isTitleAvailable, StringValueDecoderComparator<NVPair> comparator)
+	public NVDynamicEnumWidget(String name, DynamicEnumMap dem, Const.NVDisplayProp displayProp, boolean isTitleAvailable, StringDataDecoderComparator<NVPair> comparator)
 	{
 		super(null, null, true);
 		
