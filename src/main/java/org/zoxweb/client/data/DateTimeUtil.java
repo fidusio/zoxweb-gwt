@@ -39,10 +39,13 @@ implements ValueFilter<String, Long>
 	}
 	
 	public static final  TimeZone GMT_TZ= TimeZone.createTimeZone(0);
+	public static final  DateTimeFormat DEFAULT_JAVA = DateTimeFormat.getFormat("EEE MMM dd HH:mm:ss ZZZZ yyyy");
 	public static final  DateTimeFormat DEFAULT_GMT_MILLIS = DateTimeFormat.getFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ");
 	public static final  DateTimeFormat DEFAULT_GMT = DateTimeFormat.getFormat("yyyy-MM-dd'T'HH:mm:ss.Z");
 	
+	
 	private static DateTimeFormat dtfs[] = {
+			DEFAULT_JAVA,
 			DEFAULT_GMT_MILLIS,
 			DEFAULT_GMT
 	};
