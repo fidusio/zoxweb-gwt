@@ -23,6 +23,8 @@ import org.zoxweb.shared.crypto.CryptoConst;
 import org.zoxweb.shared.crypto.CryptoInterface;
 import org.zoxweb.shared.security.AccessSecurityException;
 import org.zoxweb.shared.security.JWT;
+import org.zoxweb.shared.security.JWTDecoderData;
+import org.zoxweb.shared.security.JWTEncoderData;
 import org.zoxweb.shared.security.SecurityConsts.JWTAlgorithm;
 import org.zoxweb.shared.util.SharedBase64;
 import org.zoxweb.shared.util.SharedStringUtil;
@@ -157,7 +159,7 @@ public class CryptoClient
 	}
 
 	@Override
-	public String encodeJWT(byte[] key, JWT jwt) throws AccessSecurityException {
+	public String encode(byte[] key, JWT jwt) throws AccessSecurityException {
 		SharedUtil.checkIfNulls("Null jwt", jwt, jwt.getHeader(), jwt.getHeader().getJWTAlgorithm());
 		
 		StringBuilder sb = new StringBuilder();
@@ -195,7 +197,7 @@ public class CryptoClient
 	}
 
 	@Override
-	public JWT decodeJWT(byte[] key, String b64urlToken) throws AccessSecurityException {
+	public JWT decode(byte[] key, String b64urlToken) throws AccessSecurityException {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -209,6 +211,18 @@ public class CryptoClient
 		
 		// TODO Auto-generated method stub
 		return SharedStringUtil.hexToBytes(result);
+	}
+
+	@Override
+	public String encode(JWTEncoderData jed) {
+		// TODO Auto-generated method stub
+		return encode(jed.getKey(), jed.getJWT());
+	}
+
+	@Override
+	public JWT decode(JWTDecoderData jdd) {
+		// TODO Auto-generated method stub
+		return decode(jdd.getKey(), jdd.getToken());
 	}
 
 //	@Override
