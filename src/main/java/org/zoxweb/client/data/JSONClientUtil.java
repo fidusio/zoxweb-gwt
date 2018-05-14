@@ -1113,19 +1113,19 @@ public class JSONClientUtil
 							}
 							else if (nvb instanceof NVIntList)
 							{
-								((NVIntList)nvb).getValue().add(SharedUtil.parsePrimitiveValue(GNVType.NVINT, ja.get(i).isNumber().doubleValue()));
+								((NVIntList)nvb).getValue().add((Integer)SharedUtil.parsePrimitiveValue(GNVType.NVINT, ja.get(i).isNumber().doubleValue()));
 							}
 							else if (nvb instanceof NVLongList)
 							{
-								((NVLongList)nvb).getValue().add(SharedUtil.parsePrimitiveValue(GNVType.NVLONG, ja.get(i).isNumber().doubleValue()));
+								((NVLongList)nvb).getValue().add((Long)SharedUtil.parsePrimitiveValue(GNVType.NVLONG, ja.get(i).isNumber().doubleValue()));
 							}
 							else if (nvb instanceof NVFloatList)
 							{
-								((NVFloatList)nvb).getValue().add(SharedUtil.parsePrimitiveValue(GNVType.NVFLOAT, ja.get(i).isNumber().doubleValue()));
+								((NVFloatList)nvb).getValue().add((Float)SharedUtil.parsePrimitiveValue(GNVType.NVFLOAT, ja.get(i).isNumber().doubleValue()));
 							}
 							else if (nvb instanceof NVDoubleList)
 							{
-								((NVDoubleList)nvb).getValue().add(SharedUtil.parsePrimitiveValue(GNVType.NVDOUBLE, ja.get(i).isNumber().doubleValue()));
+								((NVDoubleList)nvb).getValue().add((Double)SharedUtil.parsePrimitiveValue(GNVType.NVDOUBLE, ja.get(i).isNumber().doubleValue()));
 							}
 							else if (nvb instanceof NVStringList)
 							{

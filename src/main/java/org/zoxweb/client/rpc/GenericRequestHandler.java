@@ -111,50 +111,50 @@ public class GenericRequestHandler<T>
 			try
 			{
 				Object value = null;
-				
-				if (!SharedStringUtil.isEmpty(getResponseContent(response)))
+				String rContent = getResponseContent(response);
+				if (!SharedStringUtil.isEmpty(rContent))
 				{
 					switch(returnType)
 					{
 					case BOOLEAN:
-						value = Boolean.parseBoolean(getResponseContent(response));
+						value = Boolean.parseBoolean(rContent);
 						break;
 					case DOUBLE:
-						value = Double.parseDouble(getResponseContent(response));
+						value = Double.parseDouble(rContent);
 						break;
 					case FLOAT:
-						value = Float.parseFloat(getResponseContent(response));
+						value = Float.parseFloat(rContent);
 						break;
 					case INTEGER:
-						value = Integer.parseInt(getResponseContent(response));
+						value = Integer.parseInt(rContent);
 						break;
 					case LONG:
-						value = Long.parseLong(getResponseContent(response));
+						value = Long.parseLong(rContent);
 						break;
 					case NVENTITY:
-						NVEntity nve = JSONClientUtil.fromJSON(nveInstance != null ? nveInstance.newInstance() : null, getResponseContent(response), getNVEFactory());
+						NVEntity nve = JSONClientUtil.fromJSON(nveInstance != null ? nveInstance.newInstance() : null, rContent, getNVEFactory());
 						value = nve;
 						break;
 					case NVENTITY_LIST:
-						value = JSONClientUtil.fromJSONValues(getResponseContent(response), getNVEFactory());
+						value = JSONClientUtil.fromJSONValues(rContent, getNVEFactory());
 						break;
 					case NVENTITY_ARRAY:
-						value = JSONClientUtil.fromJSONArray(getResponseContent(response), getNVEFactory());
+						value = JSONClientUtil.fromJSONArray(rContent, getNVEFactory());
 						break;
 					case STRING:
-						value = getResponseContent(response);
+						value = rContent;
 						break;
 					case MAP:
-						value = JSONClientUtil.fromJSONMap(getResponseContent(response), getNVEFactory());
+						value = JSONClientUtil.fromJSONMap(rContent, getNVEFactory());
 						break;
 					case DYNAMIC_ENUM_MAP:
-						value = JSONClientUtil.fromJSONDynamicEnumMap(getResponseContent(response));
+						value = JSONClientUtil.fromJSONDynamicEnumMap(rContent);
 						break;
 					case DYNAMIC_ENUM_MAP_LIST:
-						value = JSONClientUtil.fromJSONDynamicEnumMapList(getResponseContent(response));
+						value = JSONClientUtil.fromJSONDynamicEnumMapList(rContent);
 						break;
 					case NVGENERIC_MAP:
-						value = JSONClientUtil.fromJSONGenericMap(getResponseContent(response), getNVEFactory());
+						value = JSONClientUtil.fromJSONGenericMap(rContent, getNVEFactory());
 						break;
 					default:
 						value = null;
