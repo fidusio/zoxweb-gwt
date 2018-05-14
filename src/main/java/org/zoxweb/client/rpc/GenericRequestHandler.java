@@ -153,6 +153,9 @@ public class GenericRequestHandler<T>
 					case DYNAMIC_ENUM_MAP_LIST:
 						value = JSONClientUtil.fromJSONDynamicEnumMapList(getResponseContent(response));
 						break;
+					case NVGENERIC_MAP:
+						value = JSONClientUtil.fromJSONGenericMap(getResponseContent(response), getNVEFactory());
+						break;
 					default:
 						value = null;
 						break;

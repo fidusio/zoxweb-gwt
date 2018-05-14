@@ -20,6 +20,7 @@ import java.math.RoundingMode;
 
 import java.util.ArrayList;
 import java.util.Date;
+
 import java.util.LinkedHashMap;
 
 import java.util.List;
@@ -34,6 +35,7 @@ import org.zoxweb.shared.db.QueryRequest;
 import org.zoxweb.shared.filters.FilterType;
 import org.zoxweb.shared.filters.ValueFilter;
 import org.zoxweb.shared.util.ArrayValues;
+import org.zoxweb.shared.util.Const.GNVType;
 import org.zoxweb.shared.util.Const.LogicalOperator;
 import org.zoxweb.shared.util.DynamicEnumMap;
 import org.zoxweb.shared.util.DynamicEnumMapManager;
@@ -48,6 +50,7 @@ import org.zoxweb.shared.util.NVDouble;
 import org.zoxweb.shared.util.NVDoubleList;
 import org.zoxweb.shared.util.NVEntity;
 import org.zoxweb.shared.util.NVEntityGetNameMap;
+
 import org.zoxweb.shared.util.NVEntityReferenceIDMap;
 import org.zoxweb.shared.util.NVEntityReferenceList;
 import org.zoxweb.shared.util.NVEnum;
@@ -55,11 +58,16 @@ import org.zoxweb.shared.util.NVEnumList;
 import org.zoxweb.shared.util.NVFloat;
 import org.zoxweb.shared.util.NVFloatList;
 import org.zoxweb.shared.util.NVGenericMap;
+import org.zoxweb.shared.util.NVGenericMapList;
+import org.zoxweb.shared.util.NVGetNameValueList;
 import org.zoxweb.shared.util.NVInt;
 import org.zoxweb.shared.util.NVIntList;
 import org.zoxweb.shared.util.NVLong;
 import org.zoxweb.shared.util.NVLongList;
 import org.zoxweb.shared.util.NVPair;
+import org.zoxweb.shared.util.NVPairGetNameMap;
+import org.zoxweb.shared.util.NVPairList;
+import org.zoxweb.shared.util.NVStringList;
 import org.zoxweb.shared.util.NVBlob;
 import org.zoxweb.shared.util.NVBoolean;
 import org.zoxweb.shared.util.SharedBase64;
@@ -280,6 +288,24 @@ public class JSONClientUtil
 					else if (nvc.getMetaType().equals(byte[].class))
 					{
 						nve.setValue(nvc.getName(), SharedBase64.decode(((JSONString) value.get(nvc.getName())).stringValue().getBytes()));
+					}
+					else if (nvc.getMetaType().equals(NVStringList.class))
+					{
+						JSONArray jsonArray = (JSONArray) value.get(nvc.getName());
+						NVStringList nvb = (NVStringList)nve.lookup(nvc);
+						fromJSON(jsonArray, nvb);
+					}
+					else if (nvc.getMetaType().equals(NVGenericMapList.class))
+					{
+						JSONArray jsonArray = (JSONArray) value.get(nvc.getName());
+						NVGenericMapList nvb = (NVGenericMapList)nve.lookup(nvc);
+						fromJSON(jsonArray, nvb, nveFactory);
+					}
+					else if (nvc.getMetaType().equals(NVGenericMap.class))
+					{
+						JSONObject jsonObject = (JSONObject) value.get(nvc.getName());
+						NVGenericMap nvb = (NVGenericMap)nve.lookup(nvc);
+						fromJSONGenericMap(jsonObject, nvb, nveFactory);
 					}
 					else
 					{
@@ -565,7 +591,15 @@ public class JSONClientUtil
 						}
 						else if (nvc.getMetaTypeBase().equals(NVGenericMap.class))
 						{
-							jsonValue = toJSONGenericMap((NVGenericMap)nve.lookup(nvc), printClass, Base64Type.URL);
+							jsonValue = toJSONGenericMap((NVGenericMap)nve.lookup(nvc), printClass);
+						}
+						else if (nvc.getMetaTypeBase().equals(NVGenericMapList.class))
+						{
+							jsonValue = toJSONGenericMapList((NVGenericMapList)nve.lookup(nvc), printClass);
+						}
+						else if (value instanceof NVStringList)
+						{
+							jsonValue = toJSONStringList((NVStringList)nve.lookup(nvc));
 						}
 						
 						if (jsonValue != null)
@@ -685,9 +719,7 @@ public class JSONClientUtil
 					{
 						if (nvb.getValue() != null)
 						{
-							byte[] base64 = SharedBase64.encode(((NVBlob)nvb).getValue());
-							jsonObject.put(nvc.getName(), new JSONString(SharedStringUtil.toString(base64)));
-							
+							jsonObject.put(nvc.getName(), new JSONString(SharedBase64.encodeAsString(Base64Type.URL,((NVBlob)nvb).getValue())));	
 						}
 						// so we don't add the array
 						continue;
@@ -745,7 +777,7 @@ public class JSONClientUtil
 		return ret;
 	}
 	
-	public static JSONObject toJSONGenericMap(NVGenericMap nvgm, boolean printClass, Base64Type b64Type)
+	public static JSONObject toJSONGenericMap(NVGenericMap nvgm, boolean printClass)
 	{
 		JSONObject ret = null;
 		if (nvgm != null)
@@ -786,8 +818,29 @@ public class JSONClientUtil
 					}
 					else if (gnv instanceof NVBlob)
 					{
-						jsonValue = new JSONString(SharedBase64.encodeAsString(b64Type, (byte[]) gnv.getValue()));
+						jsonValue = new JSONString(SharedBase64.encodeAsString(Base64Type.URL, (byte[]) gnv.getValue()));
 					}
+					else if (gnv instanceof NVGenericMap)
+					{
+						jsonValue = toJSONGenericMap((NVGenericMap)gnv, printClass);
+					}
+					else if (gnv instanceof NVGenericMapList)
+					{
+						jsonValue = toJSONGenericMapList((NVGenericMapList)gnv, printClass);
+					}
+					else if(gnv instanceof NVStringList)
+					{
+						jsonValue = toJSONStringList((NVStringList) gnv);
+					}
+					else if (gnv instanceof NVBase)
+					{
+						jsonValue = nvbToJSONArray((NVBase<?>) gnv);
+					}
+					
+					//missing cases 
+					//arrays
+					
+					
 						
 					if (jsonValue != null)
 					{
@@ -1019,8 +1072,94 @@ public class JSONClientUtil
 	
 	public static NVGenericMap fromJSONGenericMap(String json, NVEntityFactory nvef)
 	{
-		NVGenericMap ret = null;
+		@SuppressWarnings("deprecation")
+		JSONObject jsonObject = (JSONObject) JSONParser.parseLenient(json);
 		
+		return fromJSONGenericMap(jsonObject, null, nvef);
+	}
+	
+	
+	public static NVGenericMap fromJSONGenericMap(JSONObject json, NVEntityFactory nvef)
+	{
+		return fromJSONGenericMap(json, null, nvef);
+	}
+	
+	public static NVGenericMap fromJSONGenericMap(JSONObject json, NVGenericMap ret, NVEntityFactory nvef)
+	{
+		if (ret == null)
+			ret = new NVGenericMap();
+		
+		for (String key: json.keySet())
+		{
+			if (key.equals(MetaToken.CLASS_TYPE.getName()))
+				continue;
+			
+			JSONValue  jne = json.get(key);
+			if (jne.isArray() != null)
+			{
+				JSONArray ja = jne.isArray();
+				NVBase<?> nvb = guessNVBaseArray(ja);
+				if (nvb != null)
+				{
+					nvb.setName(key);
+					ret.add(nvb);
+					for (int i = 0; i < ja.size(); i++)
+					{
+						if (ja.get(i).isNull() != JSONNull.getInstance())
+						{
+							if (nvb instanceof NVPairList)
+							{
+								((NVPairList)nvb).add(toNVPair((JSONObject) ja.get(i)));
+							}
+							else if (nvb instanceof NVIntList)
+							{
+								((NVIntList)nvb).getValue().add(SharedUtil.parsePrimitiveValue(GNVType.NVINT, ja.get(i).isNumber().doubleValue()));
+							}
+							else if (nvb instanceof NVLongList)
+							{
+								((NVLongList)nvb).getValue().add(SharedUtil.parsePrimitiveValue(GNVType.NVLONG, ja.get(i).isNumber().doubleValue()));
+							}
+							else if (nvb instanceof NVFloatList)
+							{
+								((NVFloatList)nvb).getValue().add(SharedUtil.parsePrimitiveValue(GNVType.NVFLOAT, ja.get(i).isNumber().doubleValue()));
+							}
+							else if (nvb instanceof NVDoubleList)
+							{
+								((NVDoubleList)nvb).getValue().add(SharedUtil.parsePrimitiveValue(GNVType.NVDOUBLE, ja.get(i).isNumber().doubleValue()));
+							}
+							else if (nvb instanceof NVStringList)
+							{
+								((NVStringList)nvb).getValue().add(ja.get(i).isString().stringValue());
+							}
+							else if (nvb instanceof NVGenericMapList)
+							{
+								((NVGenericMapList)nvb).add(fromJSONGenericMap((JSONObject)ja.get(i), null, nvef));
+							}
+						}
+					}
+				}
+				
+				
+			}
+			else if (jne.isObject() == null )
+			{
+				NVBase<?> nvb = guessPrimitive(key, jne);
+				if (nvb != null)
+					ret.add(nvb);
+			}
+			else// if (jne.isObject() != null)
+			{
+				NVEntity nve = fromJSON(null, jne.isObject(), nvef);
+				if (nve != null)
+					ret.add(key, nve);
+				else
+				{
+					NVGenericMap toAdd = fromJSONGenericMap(jne.isObject(), null, nvef);
+					toAdd.setName(key);
+					ret.add(toAdd);
+				}
+			}
+		}
 		
 		return ret;
 	}
@@ -1277,6 +1416,343 @@ public class JSONClientUtil
 	    return toString(toJSONMap(map));
     }
 	
+	public static JSONArray toJSONGenericMapList(NVGenericMapList nvgml, boolean printClass)
+	{
+		JSONArray jsonArray = new JSONArray();
+		if (nvgml != null)
+		{
+			int counter = 0;
+			for (NVGenericMap nvp : nvgml.getValue())
+			{
+				if (nvp != null)
+				{
+					jsonArray.set(counter++, toJSONGenericMap(nvp, printClass));
+				}
+			}
+		}
+		
+		return jsonArray;
+	}
+	public static JSONArray toJSONStringList(NVStringList nvsl)
+	{
+		JSONArray jsonArray = new JSONArray();
+		
+		int counter = 0;
+		for (String nvp : nvsl.getValue())
+		{
+			if (nvp != null)
+			{
+				jsonArray.set(counter++, new JSONString(nvp));
+			}
+		}
+		
+		return jsonArray;
+	}
+	
+	@SuppressWarnings("unchecked")
+	private static JSONValue nvbToJSONArray(NVBase<?> nvb)
+	{
+		JSONArray jsonArray = new JSONArray();
+		int counter = 0;
+		//Class<?> metaBase = nvc.getMetaTypeBase();
+		
+		if (nvb instanceof NVPairList || nvb instanceof  NVPairGetNameMap || nvb instanceof NVGetNameValueList)
+		{
+			ArrayValues<NVPair> values = (ArrayValues<NVPair>) nvb;
+
+			for (NVPair nvp : values.values())
+			{
+				JSONObject nvpJSON = toJSON(nvp);
+				
+				if (nvpJSON != null)
+				{
+					jsonArray.set(counter++, nvpJSON);
+				}
+			}
+		}
+		else if (nvb instanceof NVEntityReferenceList
+				|| nvb instanceof NVEntityReferenceIDMap
+				|| nvb instanceof NVEntityGetNameMap)
+		{
+			ArrayValues<NVEntity> values = (ArrayValues<NVEntity>) nvb;
+
+			for (NVEntity nveTemp : values.values())
+			{
+				if (nveTemp != null)
+				{
+					jsonArray.set(counter++, toJSON(nveTemp, true));
+				}
+			}
+		}
+		else if (nvb instanceof NVLongList)
+		{
+			NVLongList values = (NVLongList) nvb;
+
+			for (Long val : values.getValue())
+			{
+				if (val != null)
+				{
+					jsonArray.set(counter++, new JSONNumber((double)val));
+				}
+			}
+		}
+		else if (nvb instanceof NVIntList)
+		{
+			NVIntList values = (NVIntList) nvb;
+
+			for (Integer val : values.getValue())
+			{
+				if (val != null)
+				{
+					jsonArray.set(counter++, new JSONNumber((double)val));
+				}
+			}
+		}
+		else if (nvb instanceof NVFloatList)
+		{
+			NVFloatList values = (NVFloatList) nvb;
+
+			for (Float val : values.getValue())
+			{
+				if (val != null)
+				{
+					jsonArray.set(counter++, new JSONNumber((double)val));
+				}
+			}
+		}
+		else if (nvb instanceof NVDoubleList)
+		{
+			NVDoubleList values = (NVDoubleList) nvb;
+
+			for (Double val : values.getValue())
+			{
+				if (val != null)
+				{
+					jsonArray.set(counter++, new JSONNumber((double)val));
+				}
+			}
+		}
+		else if (nvb instanceof NVBigDecimalList)
+		{
+			NVBigDecimalList values = (NVBigDecimalList) nvb;
+
+			for (BigDecimal val : values.getValue())
+			{
+				if (val != null)
+				{
+					jsonArray.set(counter++, new JSONNumber(val.doubleValue()));
+				}
+			}
+		}
+		else if (nvb instanceof NVEnumList)
+		{
+			NVEnumList values = (NVEnumList) nvb;
+
+			for (Enum<?> e : values.getValue())
+			{
+				if (e != null)
+				{
+					jsonArray.set(counter++, new JSONString(e.name()));
+				}
+			}
+		}
+		else if (nvb.getValue() != null && nvb.getValue() instanceof byte[])
+		{
+			return new JSONString(SharedBase64.encodeAsString(Base64Type.URL,((NVBlob)nvb).getValue()));		
+		}
+		
+		if (jsonArray.size() > 0)
+			return jsonArray;
+		
+		return null;
+		
+	}
 	
 	
+	private static void fromJSON(JSONArray jsonArray, NVStringList nvsl)
+	{
+		if(jsonArray != null)
+		{
+			for (int i = 0; i < jsonArray.size(); i++)
+			{
+				nvsl.getValue().add(((JSONString)jsonArray.get(i)).stringValue());
+			}
+		}
+	}
+	private static void fromJSON(JSONArray jsonArray, NVGenericMapList nvsl, NVEntityFactory nveFactory)
+	{
+		if(jsonArray != null)
+		{
+			for (int i = 0; i < jsonArray.size(); i++)
+			{
+				nvsl.getValue().add(fromJSONGenericMap((JSONObject)jsonArray.get(i), nveFactory));
+			}
+		}
+	}
+	
+	
+	private static NVBase<?> guessNVBaseArray(JSONArray ja)
+	{
+		NVBase<?> ret = null;
+		
+		GNVType guess = null;
+		for (int i=0; i < ja.size(); i++)
+		{	
+			JSONValue je = ja.get(i);
+			
+			if (je.isObject() != null)
+			{
+				// could an NVEntity or NVPairList or NVGnericMap
+				// nvpair
+				JSONObject jo  = je.isObject();
+				if (jo.size() == 1)
+				{
+					
+					if (ret == null)
+					{
+						return  new NVPairList(null, new ArrayList<NVPair>());
+					}
+				}
+				
+				if (jo.size()>1)
+				{
+					return new NVGenericMapList();
+					
+				}
+			}
+			else if (je.isString() != null)
+			{
+				return new NVStringList();
+			}
+			else if (je.isNumber()!=null)
+			{
+				
+				
+				GNVType gnv = GNVType.toGNVType(je.isNumber().doubleValue());
+				if (gnv != null)
+				{
+					if (guess == null)
+					{
+						guess = gnv;
+					}
+					else
+					{
+						switch(gnv)
+						{
+						
+						case NVDOUBLE:
+							if (guess == GNVType.NVINT || guess == GNVType.NVLONG || guess == GNVType.NVFLOAT)
+							{
+								guess = gnv;
+							}
+							break;
+						case NVFLOAT:
+							if (guess == GNVType.NVINT || guess == GNVType.NVLONG)
+							{
+								guess = gnv;
+							}
+							break;
+						case NVINT:
+							break;
+						case NVLONG:
+							if (guess == GNVType.NVINT)
+							{
+								guess = gnv;
+							}
+							break;
+						default:
+							break;
+						
+						}
+					}
+				}
+			}
+		}
+		
+		if (ret == null && guess != null)
+		{
+			switch(guess)
+			{
+			
+			case NVDOUBLE:
+				ret = new NVDoubleList(null, new ArrayList<Double>());
+				break;
+			case NVFLOAT:
+				ret = new NVFloatList(null, new ArrayList<Float>());
+				break;
+			case NVINT:
+				ret = new NVIntList(null, new ArrayList<Integer>());
+				break;
+			case NVLONG:
+				ret = new NVLongList(null, new ArrayList<Long>());
+				break;
+			default:
+				break;
+			
+			}
+		}
+		
+		
+		return ret;
+	}
+	
+	
+	public static NVBase<?> guessPrimitive(String name, JSONValue jp)
+	{
+				
+		if (jp.isBoolean() != null)
+		{
+			return new NVBoolean(name, jp.isBoolean().booleanValue());
+		}
+		else if (jp.isNumber() != null)
+		{
+			String isNumber = ""+jp.isNumber().doubleValue();
+			// if there is no dots it should be a 
+			if (isNumber.indexOf(".") == -1)
+			{
+				try
+				{
+					return new NVLong(name, Long.parseLong(isNumber));
+				}
+				catch(NumberFormatException e)
+				{
+					e.printStackTrace();
+				}
+			}
+			else
+			{
+				try
+				{
+					return new NVDouble(name, jp.isNumber().doubleValue());
+				}
+				catch(NumberFormatException e)
+				{
+					e.printStackTrace();
+				}
+			}
+		}
+		else if (jp.isString() != null)
+		{
+			try
+			{
+				byte value[] = SharedBase64.decode(Base64Type.URL, jp.isString().stringValue());
+				return new NVBlob(name, value);
+			}
+			catch(Exception e)
+			{
+				
+			}
+			
+			String value = jp.isString().stringValue();
+			if (DateTimeUtil.SINGLETON.isValid(value))
+			{
+				return new NVLong(name, DateTimeUtil.SINGLETON.validate(value));
+			}
+			
+			return new NVPair(name, value);
+		}
+		
+		return null;
+		
+	}
 }
