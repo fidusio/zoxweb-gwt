@@ -163,7 +163,7 @@ public class CryptoClient
 		SharedUtil.checkIfNulls("Null jwt", jwt, jwt.getHeader(), jwt.getHeader().getJWTAlgorithm());
 		
 		StringBuilder sb = new StringBuilder();
-		byte[] b64Header = SharedBase64.encode(Base64Type.URL, JSONClientUtil.toString(JSONClientUtil.toJSON(jwt.getHeader(), false)));
+		byte[] b64Header = SharedBase64.encode(Base64Type.URL, JSONClientUtil.toString(JSONClientUtil.toJSONGenericMap(jwt.getHeader().getNVGenericMap(), false)));
 		byte[] b64Payload = SharedBase64.encode(Base64Type.URL, JSONClientUtil.toString(JSONClientUtil.toJSONGenericMap(jwt.getPayload().getNVGenericMap(), false)));
 		sb.append(SharedStringUtil.toString(b64Header));
 		sb.append(".");
