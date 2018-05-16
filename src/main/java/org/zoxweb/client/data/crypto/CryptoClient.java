@@ -15,9 +15,6 @@
  */
 package org.zoxweb.client.data.crypto;
 
-
-
-
 import org.zoxweb.client.data.JSONClientUtil;
 import org.zoxweb.shared.crypto.CryptoConst;
 import org.zoxweb.shared.crypto.CryptoInterface;
@@ -33,6 +30,8 @@ import org.zoxweb.shared.util.SharedBase64.Base64Type;
 
 
 /**
+ * 
+ * @author javaconsigliere
  *
  */
 public class CryptoClient
