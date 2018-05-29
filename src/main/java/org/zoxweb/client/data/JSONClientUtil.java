@@ -818,7 +818,7 @@ public class JSONClientUtil
 					}
 					else if (gnv instanceof NVBlob)
 					{
-						jsonValue = new JSONString(SharedBase64.encodeAsString(Base64Type.URL, (byte[]) gnv.getValue()));
+						jsonValue = new JSONString(SharedBase64.encodeWrappedAsString((byte[]) gnv.getValue()));
 					}
 					else if (gnv instanceof NVGenericMap)
 					{
@@ -1733,9 +1733,12 @@ public class JSONClientUtil
 		}
 		else if (jp.isString() != null)
 		{
+			
+			
+//			Causing conversion errors
 			try
 			{
-				byte value[] = SharedBase64.decode(Base64Type.URL, jp.isString().stringValue());
+				byte value[] = SharedBase64.decodeWrappedAsString(jp.isString().stringValue());
 				return new NVBlob(name, value);
 			}
 			catch(Exception e)
