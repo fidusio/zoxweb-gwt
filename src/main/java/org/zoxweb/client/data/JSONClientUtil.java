@@ -94,6 +94,9 @@ public class JSONClientUtil
 	private static final String FIELD_NAMES = "field_names";
 	private static final String BATCH_SIZE = "batch_size";
 	private static final String QUERY = "query";
+	
+	
+	public static Base64Type DEFAULT_BASE64 = Base64Type.DEFAULT;
 
 	/**
 	 * The constructor is declared private to prevent instantiation.
@@ -287,7 +290,7 @@ public class JSONClientUtil
 					}
 					else if (nvc.getMetaType().equals(byte[].class))
 					{
-						nve.setValue(nvc.getName(), SharedBase64.decode(((JSONString) value.get(nvc.getName())).stringValue().getBytes()));
+						nve.setValue(nvc.getName(), SharedBase64.decode(DEFAULT_BASE64, ((JSONString) value.get(nvc.getName())).stringValue().getBytes()));
 					}
 					else if (nvc.getMetaType().equals(NVStringList.class))
 					{
@@ -719,7 +722,7 @@ public class JSONClientUtil
 					{
 						if (nvb.getValue() != null)
 						{
-							jsonObject.put(nvc.getName(), new JSONString(SharedBase64.encodeAsString(Base64Type.URL,((NVBlob)nvb).getValue())));	
+							jsonObject.put(nvc.getName(), new JSONString(SharedBase64.encodeAsString(DEFAULT_BASE64,((NVBlob)nvb).getValue())));	
 						}
 						// so we don't add the array
 						continue;
