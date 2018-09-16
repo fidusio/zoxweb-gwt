@@ -22,7 +22,11 @@ import org.zoxweb.shared.security.AccessSecurityException;
 import org.zoxweb.shared.security.JWT;
 import org.zoxweb.shared.security.JWTDecoderData;
 import org.zoxweb.shared.security.JWTEncoderData;
+import org.zoxweb.shared.security.JWTHeader;
+import org.zoxweb.shared.security.JWTPayload;
+import org.zoxweb.shared.security.JWT.JWTField;
 import org.zoxweb.shared.security.SecurityConsts.JWTAlgorithm;
+import org.zoxweb.shared.util.NVGenericMap;
 import org.zoxweb.shared.util.SharedBase64;
 import org.zoxweb.shared.util.SharedStringUtil;
 import org.zoxweb.shared.util.SharedUtil;
@@ -204,8 +208,93 @@ public class CryptoClient
 	@Override
 	public JWT decode(byte[] key, String b64urlToken) throws AccessSecurityException {
 		// TODO Auto-generated method stub
-		return null;
+	    String tokens[] = b64urlToken.split("\\.");
+	    if (tokens.length != 3)
+	    {
+	      throw new IllegalArgumentException("token too short");
+	    }
+	    
+	    JWT jwt = parseJWT(b64urlToken);
+	    String hash = null;
+	    switch(jwt.getHeader().getJWTAlgorithm())
+	    {
+        case HS256:
+          hash = SharedBase64.encodeAsString(Base64Type.URL, hmacSHA256(key, SharedStringUtil.getBytes(tokens[0] + "." + tokens[1])));
+          
+          break;
+        case HS512:
+          hash = SharedBase64.encodeAsString(Base64Type.URL, hmacSHA512(key, SharedStringUtil.getBytes(tokens[0] + "." + tokens[1])));
+          
+          break;
+        case none:
+          break;
+	    }
+	    
+	    if(!hash.equals(jwt.getHash()))
+        {
+          throw new AccessSecurityException("Invalid jwt token");
+        }
+	    
+	    
+	  
+	  
+		return jwt;
 	}
+	
+	
+	public static JWT parseJWT(String token) throws NullPointerException, IllegalArgumentException
+    {
+        SharedUtil.checkIfNulls("Null token", token);
+        String tokens[] = token.trim().split("\\.");
+        
+        if(tokens.length < 2 || tokens.length> 3)
+        {
+            throw new IllegalArgumentException("Invalid token JWT token");
+        }
+        
+        NVGenericMap nvgmHeader = JSONClientUtil.fromJSONGenericMap(SharedBase64.decodeAsString(Base64Type.URL,tokens[JWTField.HEADER.ordinal()]), null);//JWTHeader.NVC_JWT_HEADER, Base64Type.URL);//GSONUtil.fromJSON(SharedBase64.decodeAsString(Base64Type.URL,tokens[JWTField.HEADER.ordinal()]), JWTHeader.class);
+        NVGenericMap nvgmPayload = JSONClientUtil.fromJSONGenericMap(SharedBase64.decodeAsString(Base64Type.URL,tokens[JWTField.PAYLOAD.ordinal()]), null);
+        if (nvgmPayload == null)
+            throw new SecurityException("Invalid JWT");
+        JWT ret = new JWT();
+        
+        
+        //jwtPayload = GSONUtil.fromJSON(SharedStringUtil.toString(SharedBase64.decode(Base64Type.URL,tokens[JWTToken.PAYLOAD.ordinal()])), JWTPayload.class);
+        JWTPayload jwtPayload = ret.getPayload();
+        jwtPayload.setNVGenericMap(nvgmPayload);
+        JWTHeader jwtHeader = ret.getHeader();
+        jwtHeader.setNVGenericMap(nvgmHeader);
+        if (jwtHeader == null || jwtPayload == null)
+        {
+            throw new SecurityException("Invalid JWT");
+        }
+        
+        
+        SharedUtil.checkIfNulls("Null jwt header or parameters", jwtHeader, jwtHeader.getJWTAlgorithm());
+//      JWT ret = new JWT();
+        //ret.setHeader(jwtHeader);
+        //ret.setPayload(jwtPayload);
+        switch(jwtHeader.getJWTAlgorithm())
+        {
+        case HS256:
+        case HS512:
+            if (tokens.length !=  JWTField.values().length)
+            {
+                throw new IllegalArgumentException("Invalid token JWT token length expected 3");
+            }
+            ret.setHash(tokens[JWTField.HASH.ordinal()]);
+            break;
+        case none:
+            if (tokens.length !=  JWTField.values().length -1)
+            {
+                throw new IllegalArgumentException("Invalid token JWT token length expected 2");
+            }
+            break;
+        }
+        
+        
+        return ret;
+    }
 
 	@Override
 	public byte[] hmacSHA512(byte[] key, byte[] data) throws AccessSecurityException {
