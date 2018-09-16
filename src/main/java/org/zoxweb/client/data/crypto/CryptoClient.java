@@ -39,10 +39,16 @@ public class CryptoClient
 {
 
 	public static final CryptoInterface SINGLETON = new CryptoClient();
+	private long requestID = 0;
 
 	protected CryptoClient()
 	{
 
+	}
+	
+	private synchronized long nextID()
+	{
+	  return ++requestID;
 	}
 
 	@Override
@@ -214,8 +220,8 @@ public class CryptoClient
 
 	@Override
 	public String encode(JWTEncoderData jed) {
-		// TODO Auto-generated method stub
-		return encode(jed.getKey(), jed.getJWT());
+	 
+	  return encode(jed.getKey(), jed.getJWT());
 	}
 
 	@Override
