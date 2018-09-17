@@ -43,17 +43,17 @@ public class CryptoClient
 {
 
 	public static final CryptoInterface SINGLETON = new CryptoClient();
-	private long requestID = 0;
+	//private long requestID = 0;
 
 	protected CryptoClient()
 	{
 
 	}
 	
-	private synchronized long nextID()
-	{
-	  return ++requestID;
-	}
+//	private synchronized long nextID()
+//	{
+//	  return ++requestID;
+//	}
 
 	@Override
 	public byte[] hash(String mdAlgo, byte[]... tokens)
