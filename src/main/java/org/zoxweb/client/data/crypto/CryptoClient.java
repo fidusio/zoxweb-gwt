@@ -18,6 +18,7 @@ package org.zoxweb.client.data.crypto;
 import org.zoxweb.client.data.JSONClientUtil;
 import org.zoxweb.shared.crypto.CryptoConst;
 import org.zoxweb.shared.crypto.CryptoInterface;
+import org.zoxweb.shared.security.AccessException;
 import org.zoxweb.shared.security.AccessSecurityException;
 import org.zoxweb.shared.security.JWT;
 import org.zoxweb.shared.security.JWTDecoderData;
@@ -242,7 +243,7 @@ public class CryptoClient
 	}
 	
 	
-	public static JWT parseJWT(String token) throws NullPointerException, IllegalArgumentException
+	public static JWT parseJWT(String token) throws NullPointerException, IllegalArgumentException, AccessException
     {
         SharedUtil.checkIfNulls("Null token", token);
         String tokens[] = token.trim().split("\\.");
@@ -255,7 +256,7 @@ public class CryptoClient
         NVGenericMap nvgmHeader = JSONClientUtil.fromJSONGenericMap(SharedBase64.decodeAsString(Base64Type.URL,tokens[JWTField.HEADER.ordinal()]), null);//JWTHeader.NVC_JWT_HEADER, Base64Type.URL);//GSONUtil.fromJSON(SharedBase64.decodeAsString(Base64Type.URL,tokens[JWTField.HEADER.ordinal()]), JWTHeader.class);
         NVGenericMap nvgmPayload = JSONClientUtil.fromJSONGenericMap(SharedBase64.decodeAsString(Base64Type.URL,tokens[JWTField.PAYLOAD.ordinal()]), null);
         if (nvgmPayload == null)
-            throw new SecurityException("Invalid JWT");
+            throw new AccessException("Invalid JWT");
         JWT ret = new JWT();
         
         
@@ -266,7 +267,7 @@ public class CryptoClient
         jwtHeader.setNVGenericMap(nvgmHeader);
         if (jwtHeader == null || jwtPayload == null)
         {
-            throw new SecurityException("Invalid JWT");
+            throw new AccessException("Invalid JWT");
         }
         
         
