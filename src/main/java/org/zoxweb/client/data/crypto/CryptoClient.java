@@ -173,8 +173,8 @@ public class CryptoClient
 		SharedUtil.checkIfNulls("Null jwt", jwt, jwt.getHeader(), jwt.getHeader().getJWTAlgorithm());
 		
 		StringBuilder sb = new StringBuilder();
-		byte[] b64Header = SharedBase64.encode(Base64Type.URL, JSONClientUtil.toString(JSONClientUtil.toJSONGenericMap(jwt.getHeader().getNVGenericMap(), false)));
-		byte[] b64Payload = SharedBase64.encode(Base64Type.URL, JSONClientUtil.toString(JSONClientUtil.toJSONGenericMap(jwt.getPayload().getNVGenericMap(), false)));
+		byte[] b64Header = SharedBase64.encode(Base64Type.URL, JSONClientUtil.toString(JSONClientUtil.toJSONGenericMap(jwt.getHeader().getProperties(), false)));
+		byte[] b64Payload = SharedBase64.encode(Base64Type.URL, JSONClientUtil.toString(JSONClientUtil.toJSONGenericMap(jwt.getPayload().getProperties(), false)));
 		sb.append(SharedStringUtil.toString(b64Header));
 		sb.append(".");
 		sb.append(SharedStringUtil.toString(b64Payload));
@@ -262,9 +262,9 @@ public class CryptoClient
         
         //jwtPayload = GSONUtil.fromJSON(SharedStringUtil.toString(SharedBase64.decode(Base64Type.URL,tokens[JWTToken.PAYLOAD.ordinal()])), JWTPayload.class);
         JWTPayload jwtPayload = ret.getPayload();
-        jwtPayload.setNVGenericMap(nvgmPayload);
+        jwtPayload.setProperties(nvgmPayload);
         JWTHeader jwtHeader = ret.getHeader();
-        jwtHeader.setNVGenericMap(nvgmHeader);
+        jwtHeader.setProperties(nvgmHeader);
         if (jwtHeader == null || jwtPayload == null)
         {
             throw new AccessException("Invalid JWT");
