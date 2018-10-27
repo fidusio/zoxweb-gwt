@@ -271,6 +271,18 @@ public class JSONClientUtil
 						{
 							nve.setValue(nvc.getName(), ((JSONBoolean) value.get(nvc.getName())).booleanValue());
 						}
+						else if (nvc.getMetaType().equals(NVGenericMap.class))
+	                    {
+	                        JSONObject jsonObject = (JSONObject) value.get(nvc.getName());
+	                        NVGenericMap nvb = (NVGenericMap)nve.lookup(nvc);
+	                        fromJSONGenericMap(jsonObject, nvb, nveFactory);
+	                    }
+						else if (nvc.getMetaType().equals(NVGenericMapList.class))
+	                    {
+	                        JSONArray jsonArray = (JSONArray) value.get(nvc.getName());
+	                        NVGenericMapList nvb = (NVGenericMapList)nve.lookup(nvc);
+	                        fromJSON(jsonArray, nvb, nveFactory);
+	                    }
 						else if (nvc.getMetaType().equals(BigDecimal.class))
 						{
 							double val = ((JSONNumber) value.get(nvc.getName())).doubleValue();
@@ -298,18 +310,7 @@ public class JSONClientUtil
 						NVStringList nvb = (NVStringList)nve.lookup(nvc);
 						fromJSON(jsonArray, nvb);
 					}
-					else if (nvc.getMetaType().equals(NVGenericMapList.class))
-					{
-						JSONArray jsonArray = (JSONArray) value.get(nvc.getName());
-						NVGenericMapList nvb = (NVGenericMapList)nve.lookup(nvc);
-						fromJSON(jsonArray, nvb, nveFactory);
-					}
-					else if (nvc.getMetaType().equals(NVGenericMap.class))
-					{
-						JSONObject jsonObject = (JSONObject) value.get(nvc.getName());
-						NVGenericMap nvb = (NVGenericMap)nve.lookup(nvc);
-						fromJSONGenericMap(jsonObject, nvb, nveFactory);
-					}
+					
 					else
 					{
 						Class<?> metaBase = nvc.getMetaTypeBase();
