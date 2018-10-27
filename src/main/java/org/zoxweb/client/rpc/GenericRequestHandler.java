@@ -105,7 +105,7 @@ public class GenericRequestHandler<T>
 	@SuppressWarnings("unchecked")
 	@Override
 	public void onResponseReceived(Request request, Response response)
-	{
+	{ 
 		if (response.getStatusCode() == HTTPStatusCode.OK.CODE)
 		{
 			try
@@ -183,9 +183,7 @@ public class GenericRequestHandler<T>
 			}
 		}
 		else
-		{
-			// we must have an error
-			
+		{   
 			try
 			{
 				Throwable throwable = null;
@@ -205,7 +203,7 @@ public class GenericRequestHandler<T>
 				if (throwable == null)
 				{
 					//	This could indicate no content.
-					throwable = new APIException("No content");
+					throwable = new APIException("No content, HTTP response code:" + response.getStatusCode());
 				}
 
 				if (asyncCallBack != null)
