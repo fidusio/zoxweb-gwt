@@ -33,10 +33,11 @@
 			<g:Cell horizontalAlignment="ALIGN_RIGHT">
 				<g:Button ui:field="bCancel">Cancel</g:Button>
 			</g:Cell>
+			<g:CheckBox text="Activate on save" ui:field="cbActivateSetting" name="Activate Settings" value="true"/>
 		 </g:HorizontalPanel>
 	</g:VerticalPanel>
 	<g:VerticalPanel>
-		<g:HTML wordWrap="true"><b>Current Configuration Info</b></g:HTML>
+		<g:HTML wordWrap="true"><b>Network Info</b></g:HTML>
 		<g:Grid ui:field="gInfo"/>
 	</g:VerticalPanel>
 	</g:HorizontalPanel>
