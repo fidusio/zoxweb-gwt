@@ -117,7 +117,7 @@ public class NIConfigController
                                       HTTPMethod.GET);
       
      
-      
+      controlsEnabled(false);
       new GenericRequestHandler<NIConfigDAO>(hcc, ReturnType.NVENTITY, new AsyncCallback<NIConfigDAO>(){
 
          
@@ -125,6 +125,7 @@ public class NIConfigController
           public void onFailure(Throwable caught) {
               // TODO Auto-generated method stub
               caught.printStackTrace();
+              controlsEnabled(true);
           }
 
           @Override
@@ -133,6 +134,7 @@ public class NIConfigController
               //System.out.println(SharedUtil.toCanonicalID(',', result.getNIName(), result.getInetProtocol(), result.getAddress(), result.getNetmask()));
               
               niWidget.setValue(result);
+              controlsEnabled(true);
               readNIInfo();
           }});
   }
@@ -145,14 +147,16 @@ public class NIConfigController
                                        HTTPMethod.GET);
       
      
-      
+      controlsEnabled(false);
       new GenericRequestHandler<NIConfigDAO>(hcc, ReturnType.NVENTITY, new AsyncCallback<NIConfigDAO>(){
 
           @Override
           public void onFailure(Throwable caught) {
               // TODO Auto-generated method stub
               //caught.printStackTrace();
-              niWidget.setInfo(null);
+              
+        	  niWidget.setInfo(null);
+        	  controlsEnabled(true);
           }
 
           @Override
@@ -160,6 +164,7 @@ public class NIConfigController
               // TODO Auto-generated method stub
               //System.out.println(SharedUtil.toCanonicalID(',', result.getNIName(), result.getInetProtocol(), result.getAddress(), result.getNetmask()));
               
+        	  controlsEnabled(true);
               niWidget.setInfo(result);
           }});
   }
@@ -177,7 +182,7 @@ public class NIConfigController
       
       
       hcc.setContent(json);
-      
+      controlsEnabled(false);
       new GenericRequestHandler<NIConfigDAO>(hcc, ReturnType.NVENTITY, new AsyncCallback<NIConfigDAO>(){
 
          
@@ -186,14 +191,25 @@ public class NIConfigController
           public void onFailure(Throwable caught) {
               // TODO Auto-generated method stub
               caught.printStackTrace();
+              controlsEnabled(true);
           }
 
           @Override
           public void onSuccess(NIConfigDAO result) {
               // TODO Auto-generated method stub
               //System.out.println(SharedUtil.toCanonicalID(',', result.getNIName(), result.getInetProtocol(), result.getAddress(), result.getNetmask()));
+        	  controlsEnabled(true);
               readNIInfo();
           }});
+  }
+  
+  private void controlsEnabled(boolean stat)
+  {
+	  
+	  
+	  niWidget.bSave.setEnabled(stat);
+	  niWidget.bCancel.setEnabled(stat);
+	  
   }
   
 }
