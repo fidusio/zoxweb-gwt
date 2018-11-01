@@ -26,12 +26,12 @@ public class NIConfigController
   public enum Param
     implements GetName
   {
-    URL,
-    NI_READ,
-    NI_INFO,
-    NI_CONFIG,
-    NI_CONFIG_ACTIVATE,
     TAG,
+    URL,
+    NI_CONFIG_ACTIVATE,
+    NI_CONFIG,
+    NI_CONFIG_READ,
+    NI_INFO_READ,
     ;
 
     public String getName()
@@ -57,62 +57,64 @@ public class NIConfigController
           // TODO Auto-generated method stub
           readNIConfigData();
       }
-  });     
+    });     
  
   
-  niWidget.bCancel.addClickHandler(new ClickHandler() {
-      
-      @Override
-      public void onClick(ClickEvent event) {
-          readNIConfigData();
-          
-      }
-  });
+    niWidget.bCancel.addClickHandler(new ClickHandler() {
+        
+        @Override
+        public void onClick(ClickEvent event) {
+            readNIConfigData();
+            
+        }
+    });
   
   
   
-  niWidget.bSave.addClickHandler(new ClickHandler(){
-
-      @Override
-      public void onClick(ClickEvent event) {
-          // TODO Auto-generated method stub
-          try
-          {
-              NIConfigDAO nicd = niWidget.getValue();
-              updateNIConfigData(nicd);
-          }
-          catch(Exception e)
-          {
-              PopupUtil.SINGLETON.showPopup("ConfigError", e.getMessage());
-          }
-          
-      }
-  });
+    niWidget.bSave.addClickHandler(new ClickHandler(){
+  
+        @Override
+        public void onClick(ClickEvent event) {
+            // TODO Auto-generated method stub
+            try
+            {
+                NIConfigDAO nicd = niWidget.getValue();
+                updateNIConfigData(nicd);
+            }
+            catch(Exception e)
+            {
+                PopupUtil.SINGLETON.showPopup("ConfigError", e.getMessage());
+            }
+            
+        }
+    });
   
   
-  niWidget.bCancel.addClickHandler(new ClickHandler(){
-
-      @Override
-      public void onClick(ClickEvent event) {
-          // TODO Auto-generated method stub
-          
-              readNIConfigData();
-          
-          
-      }
-      
-  });
-  }
+    niWidget.bCancel.addClickHandler(new ClickHandler(){
+  
+        @Override
+        public void onClick(ClickEvent event) {
+            // TODO Auto-generated method stub
+            
+                readNIConfigData();
+            
+            
+        }
+        
+    });
+    
+    readNIConfigData();
+   }
   
   
   
   public void readNIConfigData()
   {
-      HTTPMessageConfigInterface hcc = HTTPMessageConfig.createAndInit(
-              commands.getValue(Param.URL),
-              SharedStringUtil.embedText(commands.getValue(Param.NI_INFO), (String)commands.getValue(Param.TAG), niWidget.getNetworkInterfaces().getValue()), 
-              HTTPMethod.GET
-              );
+    
+      String command = commands.getValue(Param.NI_CONFIG_READ);
+      HTTPMessageConfigInterface hcc = HTTPMessageConfig.createAndInit(""+commands.getValue(Param.URL),
+                                      SharedStringUtil.embedText(command, (String)commands.getValue(Param.TAG), niWidget.getNetworkInterfaces().getValue()), 
+                                      HTTPMethod.GET);
       
      
       
@@ -137,11 +139,10 @@ public class NIConfigController
   
   public void readNIInfo()
   {
-      HTTPMessageConfigInterface hcc = HTTPMessageConfig.createAndInit(
-              commands.getValue(Param.URL), 
-              SharedStringUtil.embedText(commands.getValue(Param.NI_CONFIG), (String)commands.getValue(Param.TAG), niWidget.getNetworkInterfaces().getValue()), 
-              HTTPMethod.GET
-              );
+      String command = commands.getValue(Param.NI_INFO_READ);
+      HTTPMessageConfigInterface hcc = HTTPMessageConfig.createAndInit(""+commands.getValue(Param.URL), 
+                                       SharedStringUtil.embedText(command, (String)commands.getValue(Param.TAG), niWidget.getNetworkInterfaces().getValue()), 
+                                       HTTPMethod.GET);
       
      
       
@@ -165,14 +166,10 @@ public class NIConfigController
   
   public  void updateNIConfigData(NIConfigDAO nicd)
   {
-    
-    
-      String uri = niWidget.cbActivateSetting.getValue() ? commands.getValue(Param.NI_CONFIG_ACTIVATE) : commands.getValue(Param.NI_CONFIG);
-      HTTPMessageConfigInterface hcc = HTTPMessageConfig.createAndInit(
-          commands.getValue(Param.URL),
-          uri,
-              HTTPMethod.POST
-              );
+      String command = niWidget.cbActivateSetting.getValue() ? ""+commands.getValue(Param.NI_CONFIG_ACTIVATE) : ""+commands.getValue(Param.NI_CONFIG);
+      HTTPMessageConfigInterface hcc = HTTPMessageConfig.createAndInit(""+commands.getValue(Param.URL),
+                                       command,
+                                       HTTPMethod.POST);
       
       //hcc.setContentType(HTTPMimeType.APPLICATION_JSON);
       
@@ -181,7 +178,7 @@ public class NIConfigController
       
       hcc.setContent(json);
       
-      new GenericRequestHandler<String>(hcc, ReturnType.STRING, new AsyncCallback<String>(){
+      new GenericRequestHandler<NIConfigDAO>(hcc, ReturnType.NVENTITY, new AsyncCallback<NIConfigDAO>(){
 
          
           
@@ -192,10 +189,9 @@ public class NIConfigController
           }
 
           @Override
-          public void onSuccess(String result) {
+          public void onSuccess(NIConfigDAO result) {
               // TODO Auto-generated method stub
               //System.out.println(SharedUtil.toCanonicalID(',', result.getNIName(), result.getInetProtocol(), result.getAddress(), result.getNetmask()));
-              System.out.println(result);
               readNIInfo();
           }});
   }
