@@ -299,18 +299,17 @@ public class JSONClientUtil
 								nve.setValue(nvc.getName(), e);
 							}
 						}
+						else if (nvc.getMetaType().equals(NVStringList.class))
+	                    {
+	                        JSONArray jsonArray = (JSONArray) value.get(nvc.getName());
+	                        NVStringList nvb = (NVStringList)nve.lookup(nvc);
+	                        fromJSON(jsonArray, nvb);
+	                    }
 					}
 					else if (nvc.getMetaType().equals(byte[].class))
 					{
 						nve.setValue(nvc.getName(), SharedBase64.decode(DEFAULT_BASE64, ((JSONString) value.get(nvc.getName())).stringValue().getBytes()));
 					}
-					else if (nvc.getMetaType().equals(NVStringList.class))
-					{
-						JSONArray jsonArray = (JSONArray) value.get(nvc.getName());
-						NVStringList nvb = (NVStringList)nve.lookup(nvc);
-						fromJSON(jsonArray, nvb);
-					}
-					
 					else
 					{
 						Class<?> metaBase = nvc.getMetaTypeBase();
@@ -601,7 +600,7 @@ public class JSONClientUtil
 						{
 							jsonValue = toJSONGenericMapList((NVGenericMapList)nve.lookup(nvc), printClass);
 						}
-						else if (value instanceof NVStringList)
+						else if (nvc.getMetaTypeBase().equals(NVStringList.class))
 						{
 							jsonValue = toJSONStringList((NVStringList)nve.lookup(nvc));
 						}
