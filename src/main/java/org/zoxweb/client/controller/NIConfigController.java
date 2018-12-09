@@ -13,14 +13,18 @@ import org.zoxweb.shared.util.Const.ReturnType;
 import org.zoxweb.shared.util.GetName;
 import org.zoxweb.shared.util.NVGenericMap;
 import org.zoxweb.shared.util.SharedStringUtil;
+import org.zoxweb.shared.util.UpdateOnSelect;
+
 import com.google.gwt.event.dom.client.ChangeEvent;
 import com.google.gwt.event.dom.client.ChangeHandler;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.rpc.AsyncCallback;
+import com.google.gwt.user.client.ui.RadioButton;
 
 public class NIConfigController
 extends ControllerBase<NIWidget>
+implements UpdateOnSelect
 {
   
   
@@ -30,6 +34,8 @@ extends ControllerBase<NIWidget>
     TAG,
     //URL,
     NI_CONFIG_ACTIVATE,
+    NI_CONFIG_DEACTIVATE,
+    NI_CONFIG_SET,
     NI_CONFIG,
     NI_CONFIG_READ,
     NI_INFO_READ,
@@ -41,6 +47,8 @@ extends ControllerBase<NIWidget>
     }
   }
   
+  
+  private RadioButtonController radioButtonController;
   
   public NIConfigController(String url, NIWidget niWidget, NVGenericMap nvgm)
   {
@@ -107,6 +115,8 @@ extends ControllerBase<NIWidget>
 	          
 	      });
 	      
+	      radioButtonController = new RadioButtonController(widget.rbNIActivate, widget.rbNIDeactivate, widget.rbNIConfigOnly);
+	      
 	      readNIConfigData();
   }
   
@@ -170,8 +180,27 @@ extends ControllerBase<NIWidget>
   
   public  void updateNIConfigData(NIConfigDAO nicd)
   {
+	  Param command = null;
+	  // get the radio button value
+	  // convert it to activate deactivate or config
+	  RadioButton rb = radioButtonController.getValue();
+	  if (rb == widget.rbNIActivate)
+	  {
+		  command = Param.NI_CONFIG_ACTIVATE;
+	  }
+	  else if (rb == widget.rbNIDeactivate)
+	  {
+		  command = Param.NI_CONFIG_DEACTIVATE;
+	  }
+	  else if (rb == widget.rbNIConfigOnly)
+	  {
+		  command = Param.NI_CONFIG_SET;
+	  }
+	  
+	  System.out.println("command:" + command);
+	  
       HTTPMessageConfigInterface hcc = HTTPMessageConfig.createAndInit(url,
-    		  						   widget.cbActivateSetting.getValue() ? (String)config.getValue(Param.NI_CONFIG_ACTIVATE) : (String)config.getValue(Param.NI_CONFIG),
+    		  						   (String)config.getValue(command),
                                        HTTPMethod.POST);
       
       //hcc.setContentType(HTTPMimeType.APPLICATION_JSON);
@@ -209,5 +238,13 @@ extends ControllerBase<NIWidget>
 	  widget.bCancel.setEnabled(stat);
 	  
   }
+
+
+	@Override
+	public void updateOnSelect() {
+		// TODO Auto-generated method stub
+		readNIConfigData();
+		
+	}
   
 }

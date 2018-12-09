@@ -18,12 +18,13 @@ import com.google.gwt.user.client.ui.Widget;
 
 
 import com.google.gwt.user.client.ui.ListBox;
+import com.google.gwt.user.client.ui.RadioButton;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.Grid;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.event.dom.client.ChangeEvent;
-import com.google.gwt.user.client.ui.CheckBox;
+
 
 
 
@@ -42,7 +43,10 @@ implements SetValue<NIConfigDAO>
 	public @UiField Button bSave;
 	public @UiField Button bCancel;
 	@UiField Grid gInfo;
-	public @UiField CheckBox cbActivateSetting;
+	//public @UiField CheckBox cbActivateSetting;
+	public @UiField RadioButton rbNIActivate;
+	public @UiField RadioButton rbNIDeactivate;
+	public @UiField RadioButton rbNIConfigOnly;
 	
 	private ListBoxController<String> lbcNI = null;
 	private ListBoxController<InetProto> lbcIntetProto = null;	
@@ -253,5 +257,7 @@ implements SetValue<NIConfigDAO>
 		}
 		
 	}
+
+	
 	
 }

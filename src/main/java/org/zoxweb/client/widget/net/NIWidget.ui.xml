@@ -6,7 +6,7 @@
 		font-weight: bold;
 	}
 	</ui:style>
-	
+
 	<g:VerticalPanel>
 		<g:HTML wordWrap="true"><b>Network Settings</b></g:HTML>
 		<g:Grid ui:field="gData">
@@ -29,13 +29,24 @@
 			
 		</g:Grid>
 		<g:HorizontalPanel>
+			
 			<g:Button ui:field="bSave">Save</g:Button>
 			<g:Cell horizontalAlignment="ALIGN_RIGHT">
 				<g:Button ui:field="bCancel">Cancel</g:Button>
 			</g:Cell>
-			<g:CheckBox text="Activate on save" ui:field="cbActivateSetting" name="Activate Settings" value="true"/>
+			
+			<g:VerticalPanel>
+			<g:RadioButton name="niAction" text="Activate On Save" checked="true" ui:field="rbNIActivate"/>
+			<g:RadioButton name="niAction" text="Deactivate On Save" ui:field="rbNIDeactivate"/>
+			<g:RadioButton name="niAction" text="Config On Save" ui:field="rbNIConfigOnly"/>
+			
+			</g:VerticalPanel>
 		 </g:HorizontalPanel>
-		 <g:HTML wordWrap="true"><b>Network Info</b></g:HTML>
+	
+	<g:VerticalPanel>
+		<g:HTML wordWrap="true"><b>Network Info</b></g:HTML>
 		<g:Grid ui:field="gInfo"/>
 	</g:VerticalPanel>
+	</g:VerticalPanel>
+	
 </ui:UiBinder> 

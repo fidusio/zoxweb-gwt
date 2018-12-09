@@ -1,0 +1,12 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+	xmlns:g="urn:import:com.google.gwt.user.client.ui">
+	<ui:style>
+	
+	</ui:style>
+	<g:VerticalPanel>
+		<g:RadioButton ui:field="rbReboot" name="systemChoice">Reboot</g:RadioButton>
+		<g:RadioButton ui:field="rbShutdown" name="systemChoice">Shutdown</g:RadioButton>
+		<g:Button ui:field="bSend">Submit</g:Button>
+	</g:VerticalPanel>
+</ui:UiBinder> 
