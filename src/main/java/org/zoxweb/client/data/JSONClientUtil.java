@@ -292,7 +292,7 @@ public class JSONClientUtil
 						}
 						else if (nvc.getMetaType().isEnum())
 						{
-							Enum<?> e = SharedUtil.lookupEnum((Enum<?>[]) nvc.getMetaType().getEnumConstants(), ((JSONString)jsonValue).stringValue());
+							Enum<?> e = SharedUtil.lookupEnum(((JSONString)jsonValue).stringValue(), (Enum<?>[]) nvc.getMetaType().getEnumConstants());
 							
 							if (e!= null)
 							{
@@ -394,7 +394,7 @@ public class JSONClientUtil
 							
 							for (int i = 0; i < jsonArray.size(); i++)
 							{
-								Enum<?> e = SharedUtil.lookupEnum((Enum<?>[]) metaBase.getEnumConstants(), ((JSONString) jsonArray.get(i)).stringValue());
+								Enum<?> e = SharedUtil.lookupEnum(((JSONString) jsonArray.get(i)).stringValue(), (Enum<?>[]) metaBase.getEnumConstants());
 								
 								if (e != null)
 								{
@@ -474,7 +474,7 @@ public class JSONClientUtil
 		
 		if (jsonVF != null)
 		{
-			ValueFilter<String, String> vf = (FilterType) SharedUtil.lookupEnum(FilterType.values(), jsonVF.stringValue());
+			ValueFilter<String, String> vf = (FilterType) SharedUtil.lookupEnum(jsonVF.stringValue(), FilterType.values());
 			
 			if (vf == null)
 			{

@@ -196,7 +196,7 @@ public class NVEnumArrayWidget
 		
 		for (int i = 0; i < lbSelectedList.getItemCount(); i++)
 		{
-			Enum<?> value = SharedUtil.lookupEnum((Enum<?>[]) nvConfig.getMetaTypeBase().getEnumConstants(), lbSelectedList.getItemText(i));
+			Enum<?> value = SharedUtil.lookupEnum(lbSelectedList.getItemText(i), (Enum<?>[]) nvConfig.getMetaTypeBase().getEnumConstants());
 		
 			if (value != null)
 			{

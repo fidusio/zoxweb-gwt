@@ -72,7 +72,7 @@ public class FilterTypeWidget
 		
 		if (index < basicFilterCount)
 		{
-			return (ValueFilter<String, String>) SharedUtil.lookupEnum(FilterType.values(), lbFilterType.getItemText(index));
+			return (ValueFilter<String, String>) SharedUtil.lookupEnum(lbFilterType.getItemText(index), FilterType.values());
 		}
 		else
 		{
@@ -88,7 +88,7 @@ public class FilterTypeWidget
 	{
 		for (int i = 0; i < lbFilterType.getItemCount(); i++)
 		{
-			if (vf instanceof FilterType && SharedUtil.lookupEnum(FilterType.values(), lbFilterType.getValue(i)) == vf)
+			if (vf instanceof FilterType && SharedUtil.lookupEnum(lbFilterType.getValue(i), FilterType.values()) == vf)
 			{
 				lbFilterType.setItemSelected(i, true);
 				break;
