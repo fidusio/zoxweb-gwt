@@ -109,7 +109,8 @@ public class HTTPWebRequest {
 			case URL_ENCODED:
 				fullURL += "?" + parameters;
 				break;
-			
+            case HEADER:
+              break;
 			}
 		}
 		
