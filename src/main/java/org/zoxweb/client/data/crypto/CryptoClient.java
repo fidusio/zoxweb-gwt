@@ -198,6 +198,12 @@ public class CryptoClient
 			break;	
 		case none:
 			break;
+        case RS256:
+        
+        case RS512:
+          throw new AccessSecurityException(jwt.getHeader().getJWTAlgorithm() +" is not supported");
+          
+     
 		}
 		sb.append(".");
 		if(b64Hash != null)
@@ -229,6 +235,9 @@ public class CryptoClient
           break;
         case none:
           break;
+        case RS256:
+        case RS512:
+          throw new AccessSecurityException(jwt.getHeader().getJWTAlgorithm()+ " is not supported");
 	    }
 	    
 	    if(!hash.equals(jwt.getHash()))
@@ -279,6 +288,8 @@ public class CryptoClient
         {
         case HS256:
         case HS512:
+        case RS256:
+        case RS512:
             if (tokens.length !=  JWTField.values().length)
             {
                 throw new IllegalArgumentException("Invalid token JWT token length expected 3");
