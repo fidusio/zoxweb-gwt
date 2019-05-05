@@ -199,8 +199,9 @@ public class CryptoClient
 		case none:
 			break;
         case RS256:
-        
         case RS512:
+        case ES256:
+        case ES512:
           throw new AccessSecurityException(jwt.getHeader().getJWTAlgorithm() +" is not supported");
           
      
@@ -237,6 +238,8 @@ public class CryptoClient
           break;
         case RS256:
         case RS512:
+        case ES256:
+        case ES512:
           throw new AccessSecurityException(jwt.getHeader().getJWTAlgorithm()+ " is not supported");
 	    }
 	    
@@ -290,6 +293,8 @@ public class CryptoClient
         case HS512:
         case RS256:
         case RS512:
+        case ES256:
+        case ES512:
             if (tokens.length !=  JWTField.values().length)
             {
                 throw new IllegalArgumentException("Invalid token JWT token length expected 3");
