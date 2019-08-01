@@ -1197,6 +1197,7 @@ public class NVEntityContainerDAOWidget
 			case MOVE:
 				break;
 			case SHARE:
+			case EXEC:
 				break;
 		}
 	}

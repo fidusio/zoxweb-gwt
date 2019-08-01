@@ -578,8 +578,10 @@ public class JSONClientUtil
 						else if (nvc.getMetaTypeBase().equals(Date.class))
 						{
 							//jsonValue = new JSONNumber(((Number) value).doubleValue());
-							if ((Long)value != 0)
-								jsonValue = new JSONString(DateTimeUtil.DEFAULT_GMT_MILLIS.format(new Date((Long) value)));
+						    if (value instanceof Date)
+						      jsonValue = new JSONString(DateTimeUtil.DEFAULT_GMT_MILLIS.format((Date)value));
+						    else if ((Long)value != 0)
+						      jsonValue = new JSONString(DateTimeUtil.DEFAULT_GMT_MILLIS.format(new Date((Long) value)));
 						}
 						else if (nvc.getMetaTypeBase().equals(Boolean.class))
 						{
