@@ -12,6 +12,11 @@
  * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
  * License for the specific language governing permissions and limitations under
  * the License.
+ *
+ *
+ * Modification:
+ * 2020-02-26: removed public modifier from the method declaration @author javaconsigliere
+ * @since 1.0.0
  */
 package org.zoxweb.client.rpc;
 
@@ -21,12 +26,12 @@ public interface CallBackHandlerListener
 	/**
 	 *
 	 */
-	public void callBackInitiated();
+	void callBackInitiated();
 
 	/**
 	 *
 	 */
-	public void callBackEnded();
+	void callBackEnded();
 
 	/**
 	 * This method is called when a exception is returned by the server.
@@ -48,6 +53,6 @@ public interface CallBackHandlerListener
 	 * @param caught the exception that is returned by the server 
 	 * @return true if the error processing to be handled by the caller false to stop error handling propagation
 	 */
-	public boolean callBackEndedWithException(Throwable caught);
+	boolean callBackEndedWithException(Throwable caught);
 	
 }

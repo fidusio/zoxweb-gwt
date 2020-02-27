@@ -83,11 +83,26 @@ public class ZWWebSocket
     private native void _open(ZWWebSocket ws, String s, String url) 
     /*-{
          $wnd[s] = new WebSocket(url);
-		 $wnd[s].onopen = function() { ws.@org.zoxweb.client.websocket.ZWWebSocket::onOpen()(); };
-		 $wnd[s].onclose = function() { ws.@org.zoxweb.client.websocket.ZWWebSocket::onClose()(); };
-		 $wnd[s].onerror = function() { ws.@org.zoxweb.client.websocket.ZWWebSocket::onError()(); };
-		 $wnd[s].onmessage = function(msg) { ws.@org.zoxweb.client.websocket.ZWWebSocket::onMessage(Ljava/lang/String;)(msg.data); }
+		 $wnd[s].onopen = $entry(function() { ws.@org.zoxweb.client.websocket.ZWWebSocket::onOpen()(); });
+		 $wnd[s].onclose =  $entry(function() { ws.@org.zoxweb.client.websocket.ZWWebSocket::onClose()(); });
+		 $wnd[s].onerror =  $entry(function() { ws.@org.zoxweb.client.websocket.ZWWebSocket::onError()(); });
+		 $wnd[s].onmessage =  $entry(function(msg) { ws.@org.zoxweb.client.websocket.ZWWebSocket::onMessage(Ljava/lang/String;)(msg.data); });
 	 }-*/;
+
+
+
+
+//    private native void _open(ZWWebSocket ws, String s, String url)
+//    /*-{
+//         $wnd[s] = new WebSocket(url);
+//		 $wnd[s].onopen = function() { ws.@org.zoxweb.client.websocket.ZWWebSocket::onOpen()(); };
+//		 $wnd[s].onclose = function() { ws.@org.zoxweb.client.websocket.ZWWebSocket::onClose()(); };
+//		 $wnd[s].onerror = function() { ws.@org.zoxweb.client.websocket.ZWWebSocket::onError()(); };
+//		 $wnd[s].onmessage = function(msg) { ws.@org.zoxweb.client.websocket.ZWWebSocket::onMessage(Ljava/lang/String;)(msg.data); }
+//	 }-*/;
+
+
+
 
     private native void _send(String s, String msg)
     /*-{
