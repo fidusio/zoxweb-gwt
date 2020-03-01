@@ -271,6 +271,11 @@ public class JSONClientUtil
 						{
 							nve.setValue(nvc.getName(), ((JSONBoolean) value.get(nvc.getName())).booleanValue());
 						}
+						else if (nvc.getMetaTypeBase().equals(Number.class))
+						{
+							Number val = SharedUtil.parseNumber(((JSONNumber) value.get(nvc.getName())).toString());
+							nve.setValue(nvc.getName(), val);
+						}
 						else if (nvc.getMetaType().equals(NVGenericMap.class))
 	                    {
 	                        JSONObject jsonObject = (JSONObject) value.get(nvc.getName());
@@ -567,7 +572,8 @@ public class JSONClientUtil
 								 nvc.getMetaTypeBase().equals(Integer.class) ||
 								 nvc.getMetaTypeBase().equals(Float.class) ||
 								 nvc.getMetaTypeBase().equals(Double.class) ||
-								 nvc.getMetaTypeBase().equals(BigDecimal.class)
+								 nvc.getMetaTypeBase().equals(BigDecimal.class) ||
+								 nvc.getMetaTypeBase().equals(Number.class)
 								)
 						{
 							Number num = (Number)value;
@@ -1700,7 +1706,8 @@ public class JSONClientUtil
 		
 		return ret;
 	}
-	
+
+
 	
 	public static NVBase<?> guessPrimitive(String name, JSONValue jp)
 	{
