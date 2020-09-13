@@ -123,7 +123,7 @@ implements UpdateOnSelect
   public void readNIConfigData()
   {
       HTTPMessageConfigInterface hcc = HTTPMessageConfig.createAndInit(url,
-                                      SharedStringUtil.embedText((String)config.getValue(Param.NI_CONFIG_READ), (String)config.getValue(Param.TAG), widget.getNetworkInterfaces().getValue()), 
+                                      SharedStringUtil.embedText((String)config.getValue((GetName)Param.NI_CONFIG_READ), (String)config.getValue((GetName)Param.TAG), widget.getNetworkInterfaces().getValue()),
                                       HTTPMethod.GET);
       
      
@@ -152,7 +152,7 @@ implements UpdateOnSelect
   public void readNIInfo()
   {
       HTTPMessageConfigInterface hcc = HTTPMessageConfig.createAndInit(url, 
-                                       SharedStringUtil.embedText((String)config.getValue(Param.NI_INFO_READ), (String)config.getValue(Param.TAG), widget.getNetworkInterfaces().getValue()), 
+                                       SharedStringUtil.embedText((String)config.getValue((GetName)Param.NI_INFO_READ), (String)config.getValue((GetName)Param.TAG), widget.getNetworkInterfaces().getValue()),
                                        HTTPMethod.GET);
       
      
@@ -200,7 +200,7 @@ implements UpdateOnSelect
 	  System.out.println("command:" + command);
 	  
       HTTPMessageConfigInterface hcc = HTTPMessageConfig.createAndInit(url,
-    		  						   (String)config.getValue(command),
+    		  						   (String)config.getValue((GetName)command),
                                        HTTPMethod.POST);
       
       //hcc.setContentType(HTTPMimeType.APPLICATION_JSON);

@@ -61,7 +61,7 @@ extends ControllerBase<SystemWidget>
 	private void command(Param command)
 	{	
 		HTTPMessageConfigInterface hcc = HTTPMessageConfig.createAndInit(url,
-                						 (String)config.getValue(command), 
+                						 (String)config.getValue((GetName)command),
                 						 HTTPMethod.POST);
 
 
