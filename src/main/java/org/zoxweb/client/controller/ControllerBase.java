@@ -8,7 +8,7 @@ import com.google.gwt.user.client.ui.Widget;
 public abstract class ControllerBase<V extends Widget> 
 {
 	protected NVGenericMap config;
-	protected String url;
+	private String url;
 	protected V widget;
 	
 	protected ControllerBase (String url, V widget, NVGenericMap config)
@@ -22,6 +22,16 @@ public abstract class ControllerBase<V extends Widget>
 	
 	
 	abstract protected void setup();
+
+	public void setURL(String url)
+	{
+		this.url = url;
+	}
+
+	public String getURL()
+	{
+		return url;
+	}
 }
 
 
