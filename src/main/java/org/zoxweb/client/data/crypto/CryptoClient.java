@@ -18,19 +18,10 @@ package org.zoxweb.client.data.crypto;
 import org.zoxweb.client.data.JSONClientUtil;
 import org.zoxweb.shared.crypto.CryptoConst;
 import org.zoxweb.shared.crypto.CryptoInterface;
-import org.zoxweb.shared.security.AccessException;
-import org.zoxweb.shared.security.AccessSecurityException;
-import org.zoxweb.shared.security.JWT;
-import org.zoxweb.shared.security.JWTDecoderData;
-import org.zoxweb.shared.security.JWTEncoderData;
-import org.zoxweb.shared.security.JWTHeader;
-import org.zoxweb.shared.security.JWTPayload;
+import org.zoxweb.shared.security.*;
 import org.zoxweb.shared.security.JWT.JWTField;
 import org.zoxweb.shared.security.SecurityConsts.JWTAlgorithm;
-import org.zoxweb.shared.util.NVGenericMap;
-import org.zoxweb.shared.util.SharedBase64;
-import org.zoxweb.shared.util.SharedStringUtil;
-import org.zoxweb.shared.util.SharedUtil;
+import org.zoxweb.shared.util.*;
 import org.zoxweb.shared.util.SharedBase64.Base64Type;
 
 
@@ -180,10 +171,10 @@ public class CryptoClient
 		sb.append(SharedStringUtil.toString(b64Payload));
 		
 		// due to lib limitation only HS256 is supported
-		if (jwt.getHeader().getJWTAlgorithm() == JWTAlgorithm.HS512)
-		{
-			jwt.getHeader().setJWTAlgorithm(JWTAlgorithm.HS256);
-		}
+//		if (jwt.getHeader().getJWTAlgorithm() == JWTAlgorithm.HS512)
+//		{
+//			jwt.getHeader().setJWTAlgorithm(JWTAlgorithm.HS256);
+//		}
 		
 		String b64Hash = null;
 		switch(jwt.getHeader().getJWTAlgorithm())
@@ -341,6 +332,14 @@ public class CryptoClient
 //		// TODO Auto-generated method stub
 //		return  HmacUtils.hmacSha256(key, data);
 //	}
-	
 
+	public static  AuthToken getAuthToken()
+	{
+		return ResourceManager.SINGLETON.lookup(ResourceManager.Resource.AUTH_TOKEN);
+	}
+
+	public static void setAuthToken(AuthToken authToken)
+	{
+		ResourceManager.SINGLETON.map(ResourceManager.Resource.AUTH_TOKEN, authToken);
+	}
 }

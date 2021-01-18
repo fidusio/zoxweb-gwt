@@ -1,5 +1,6 @@
 package org.zoxweb.client.controller;
 
+import org.zoxweb.client.data.crypto.CryptoClient;
 import org.zoxweb.client.rpc.GenericRequestHandler;
 import org.zoxweb.client.widget.net.SystemWidget;
 import org.zoxweb.shared.data.SimpleDocumentDAO;
@@ -34,7 +35,7 @@ extends ControllerBase<SystemWidget>
 	
 	public SystemController(String url, SystemWidget widget, NVGenericMap config)
 	{
-		super(url, widget, config);
+		super(widget, config);
 		setup();
 	}
 	
@@ -60,7 +61,7 @@ extends ControllerBase<SystemWidget>
 	
 	private void command(Param command)
 	{	
-		HTTPMessageConfigInterface hcc = HTTPMessageConfig.createAndInit(getURL(),
+		HTTPMessageConfigInterface hcc = HTTPMessageConfig.createAndInit(CryptoClient.getAuthToken().getURL(),
                 						 (String)config.getValue((GetName)command),
                 						 HTTPMethod.POST);
 

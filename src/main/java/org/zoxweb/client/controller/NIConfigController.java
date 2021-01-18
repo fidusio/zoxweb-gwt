@@ -2,6 +2,7 @@ package org.zoxweb.client.controller;
 
 
 import org.zoxweb.client.data.JSONClientUtil;
+import org.zoxweb.client.data.crypto.CryptoClient;
 import org.zoxweb.client.rpc.GenericRequestHandler;
 import org.zoxweb.client.widget.PopupUtil;
 import org.zoxweb.client.widget.net.NIWidget;
@@ -9,11 +10,9 @@ import org.zoxweb.shared.http.HTTPMessageConfig;
 import org.zoxweb.shared.http.HTTPMessageConfigInterface;
 import org.zoxweb.shared.http.HTTPMethod;
 import org.zoxweb.shared.net.NIConfigDAO;
+
+import org.zoxweb.shared.util.*;
 import org.zoxweb.shared.util.Const.ReturnType;
-import org.zoxweb.shared.util.GetName;
-import org.zoxweb.shared.util.NVGenericMap;
-import org.zoxweb.shared.util.SharedStringUtil;
-import org.zoxweb.shared.util.UpdateOnSelect;
 
 import com.google.gwt.event.dom.client.ChangeEvent;
 import com.google.gwt.event.dom.client.ChangeHandler;
@@ -50,9 +49,9 @@ implements UpdateOnSelect
   
   private RadioButtonController radioButtonController;
   
-  public NIConfigController(String url, NIWidget niWidget, NVGenericMap nvgm)
+  public NIConfigController(NIWidget niWidget, NVGenericMap nvgm)
   {
-	super(url, niWidget, nvgm);
+	super(niWidget, nvgm);
 	
     
 	setup();
@@ -122,7 +121,8 @@ implements UpdateOnSelect
   
   public void readNIConfigData()
   {
-      HTTPMessageConfigInterface hcc = HTTPMessageConfig.createAndInit(getURL(),
+
+      HTTPMessageConfigInterface hcc = HTTPMessageConfig.createAndInit(CryptoClient.getAuthToken().getURL(),
                                       SharedStringUtil.embedText((String)config.getValue((GetName)Param.NI_CONFIG_READ), (String)config.getValue((GetName)Param.TAG), widget.getNetworkInterfaces().getValue()),
                                       HTTPMethod.GET);
       
@@ -151,7 +151,7 @@ implements UpdateOnSelect
   
   public void readNIInfo()
   {
-      HTTPMessageConfigInterface hcc = HTTPMessageConfig.createAndInit(getURL(),
+      HTTPMessageConfigInterface hcc = HTTPMessageConfig.createAndInit(CryptoClient.getAuthToken().getURL(),
                                        SharedStringUtil.embedText((String)config.getValue((GetName)Param.NI_INFO_READ), (String)config.getValue((GetName)Param.TAG), widget.getNetworkInterfaces().getValue()),
                                        HTTPMethod.GET);
       
@@ -199,7 +199,7 @@ implements UpdateOnSelect
 	  
 	  System.out.println("command:" + command);
 	  
-      HTTPMessageConfigInterface hcc = HTTPMessageConfig.createAndInit(getURL(),
+      HTTPMessageConfigInterface hcc = HTTPMessageConfig.createAndInit(CryptoClient.getAuthToken().getURL(),
     		  						   (String)config.getValue((GetName)command),
                                        HTTPMethod.POST);
       
