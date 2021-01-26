@@ -165,6 +165,12 @@ public class WidgetUtil
 		
 		return -1;
 	}
+
+
+	public static void setPlaceHolder(Widget widget, String str)
+	{
+		widget.getElement().setAttribute("placeholder", str);
+	}
 	
 	/**
 	 * Returns list item index based on item value.
