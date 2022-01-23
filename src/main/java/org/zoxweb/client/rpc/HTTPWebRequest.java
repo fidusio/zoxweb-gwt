@@ -54,7 +54,7 @@ public class HTTPWebRequest {
 	{
 		ZWRequestBuilder builder = new ZWRequestBuilder(hcc.getMethod(), URL.encode(formatFullURL(hcc)));
 
-		for (GetNameValue<String> gnvHeader : hcc.getHeaderParameters().values())
+		for (GetNameValue<String> gnvHeader : hcc.getHeaders().values())
 		{
 			builder.setHeader(gnvHeader.getName(), gnvHeader.getValue());
 		}
