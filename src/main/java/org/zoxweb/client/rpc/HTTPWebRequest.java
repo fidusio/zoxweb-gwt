@@ -54,7 +54,7 @@ public class HTTPWebRequest {
 	{
 		ZWRequestBuilder builder = new ZWRequestBuilder(hcc.getMethod(), URL.encode(formatFullURL(hcc)));
 
-		for (GetNameValue<String> gnvHeader : hcc.getHeaders().values())
+		for (GetNameValue<String> gnvHeader : hcc.getHeaders().asArrayValuesString().values())
 		{
 			builder.setHeader(gnvHeader.getName(), gnvHeader.getValue());
 		}
@@ -96,7 +96,7 @@ public class HTTPWebRequest {
 		
 		String fullURL = SharedStringUtil.concat(hcc.getURL(), hcc.getURI(), "/");
 		
-		String parameters =  hcc.getHTTPParameterFormatter().format(null, hcc.getParameters().values());
+		String parameters =  hcc.getHTTPParameterFormatter().format(null, hcc.getParameters().asArrayValuesString().values());
 				//SharedStringUtil.format(hcc.getParameters(), "=", false, "&");
 
 		if (!SharedStringUtil.isEmpty(parameters))
