@@ -18,6 +18,7 @@ package org.zoxweb.client.rpc;
 import org.zoxweb.shared.http.HTTPAuthorizationType;
 import org.zoxweb.shared.http.HTTPMessageConfigInterface;
 
+import org.zoxweb.shared.util.ArrayValues;
 import org.zoxweb.shared.util.GetNameValue;
 import org.zoxweb.shared.util.SharedStringUtil;
 import org.zoxweb.shared.util.SharedUtil;
@@ -95,8 +96,8 @@ public class HTTPWebRequest {
 		}
 		
 		String fullURL = SharedStringUtil.concat(hcc.getURL(), hcc.getURI(), "/");
-		
-		String parameters =  hcc.getHTTPParameterFormatter().format(null, hcc.getParameters().asArrayValuesString().values());
+		ArrayValues<GetNameValue<String>> params = hcc.getParameters().asArrayValuesString();
+		String parameters =  hcc.getHTTPParameterFormatter().format(null, params.values());
 				//SharedStringUtil.format(hcc.getParameters(), "=", false, "&");
 
 		if (!SharedStringUtil.isEmpty(parameters))
