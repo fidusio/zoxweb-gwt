@@ -15,7 +15,9 @@
   	  <packaging>jar</packaging>
 	  <name>zoxweb-gwt</name>
 	  <url>http://xlogistx.io</url>
-  
+    <properties>
+        <gwt.version>2.10.0</gwt.version>
+    </properties>
     <build>
     	    <directory>target</directory>
     		<outputDirectory>war/WEB-INF/classes</outputDirectory>
@@ -79,20 +81,20 @@
     <dependencies>
   
         <dependency>
-            <groupId>com.google.gwt</groupId>
+            <groupId>org.gwtproject</groupId>
             <artifactId>gwt-servlet</artifactId>
             <version>${gwt.version}</version>
             <scope>provided</scope>
         </dependency>
         
         <dependency>
-            <groupId>com.google.gwt</groupId>
+            <groupId>org.gwtproject</groupId>
             <artifactId>gwt-user</artifactId>
             <version>${gwt.version}</version>
             <scope>provided</scope>
         </dependency>
          <dependency>
-            <groupId>com.google.gwt</groupId>
+            <groupId>org.gwtproject</groupId>
             <artifactId>gwt-dev</artifactId>
             <version>${gwt.version}</version>
             <scope>provided</scope>
