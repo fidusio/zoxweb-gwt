@@ -15,9 +15,7 @@
   	  <packaging>jar</packaging>
 	  <name>zoxweb-gwt</name>
 	  <url>http://xlogistx.io</url>
-    <properties>
-        <gwt.version>2.10.0</gwt.version>
-    </properties>
+
     <build>
     	    <directory>target</directory>
     		<outputDirectory>war/WEB-INF/classes</outputDirectory>
