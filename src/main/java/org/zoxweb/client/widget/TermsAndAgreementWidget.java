@@ -20,7 +20,7 @@ import org.zoxweb.client.rpc.HTTPWebRequest;
 import org.zoxweb.shared.data.AgreementDAO;
 import org.zoxweb.shared.data.ZWDataFactory;
 import org.zoxweb.shared.http.HTTPMessageConfigInterface;
-import org.zoxweb.shared.http.HTTPHeaderName;
+import org.zoxweb.shared.http.HTTPHeader;
 import org.zoxweb.shared.http.HTTPHeaderValue;
 import org.zoxweb.shared.http.HTTPStatusCode;
 import org.zoxweb.shared.util.QuickLZ;
@@ -182,7 +182,7 @@ public class TermsAndAgreementWidget
 						
 						if (code == HTTPStatusCode.OK)
 						{
-							String contentEncoding = response.getHeader(HTTPHeaderName.CONTENT_ENCODING.getName());
+							String contentEncoding = response.getHeader(HTTPHeader.CONTENT_ENCODING.getName());
 							String json = null;
 							
 							if (SharedStringUtil.contains(contentEncoding, HTTPHeaderValue.CONTENT_ENCODING_LZ, true))
