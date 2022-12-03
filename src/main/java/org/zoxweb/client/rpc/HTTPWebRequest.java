@@ -15,7 +15,7 @@
  */
 package org.zoxweb.client.rpc;
 
-import org.zoxweb.shared.http.HTTPAuthorizationType;
+import org.zoxweb.shared.http.HTTPAuthScheme;
 import org.zoxweb.shared.http.HTTPMessageConfigInterface;
 
 import org.zoxweb.shared.util.ArrayValues;
@@ -68,11 +68,11 @@ public class HTTPWebRequest {
 			data = SharedStringUtil.toString(hcc.getContent());
 		}
 		
-		GetNameValue<String> authorizationHeader = HTTPAuthorizationType.BASIC.toHTTPHeader(hcc.getUser(), hcc.getPassword());
+		GetNameValue<String> authorizationHeader = HTTPAuthScheme.BASIC.toHTTPHeader(hcc.getUser(), hcc.getPassword());
 
-		if (authorizationHeader == null && hcc.getAuthentication() != null)
+		if (authorizationHeader == null && hcc.getAuthorization() != null)
 		{
-			authorizationHeader = hcc.getAuthentication().toHTTPHeader();
+			authorizationHeader = hcc.getAuthorization().toHTTPHeader();
 		}
 
 		if (authorizationHeader != null)
