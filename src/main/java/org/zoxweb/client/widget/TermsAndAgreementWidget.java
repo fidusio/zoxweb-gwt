@@ -19,9 +19,9 @@ import org.zoxweb.client.data.JSONClientUtil;
 import org.zoxweb.client.rpc.HTTPWebRequest;
 import org.zoxweb.shared.data.AgreementDAO;
 import org.zoxweb.shared.data.ZWDataFactory;
+import org.zoxweb.shared.http.HTTPAttribute;
 import org.zoxweb.shared.http.HTTPMessageConfigInterface;
 import org.zoxweb.shared.http.HTTPHeader;
-import org.zoxweb.shared.http.HTTPHeaderValue;
 import org.zoxweb.shared.http.HTTPStatusCode;
 import org.zoxweb.shared.util.QuickLZ;
 import org.zoxweb.shared.util.SharedBase64;
@@ -185,7 +185,7 @@ public class TermsAndAgreementWidget
 							String contentEncoding = response.getHeader(HTTPHeader.CONTENT_ENCODING.getName());
 							String json = null;
 							
-							if (SharedStringUtil.contains(contentEncoding, HTTPHeaderValue.CONTENT_ENCODING_LZ, true))
+							if (SharedStringUtil.contains(contentEncoding, HTTPAttribute.CONTENT_ENCODING_LZ, true))
 							{
 								byte[] data = SharedBase64.decode(SharedStringUtil.getBytes(response.getText()));
 								byte[] unzipped = QuickLZ.decompress(data);
