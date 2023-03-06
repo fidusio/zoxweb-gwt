@@ -51,7 +51,7 @@ public class CryptoClient
 	public byte[] hash(String mdAlgo, byte[]... tokens)
         throws NullPointerException, AccessSecurityException
 	{
-		CryptoConst.MDType mdType = CryptoConst.MDType.lookup(mdAlgo);
+		CryptoConst.AlgoType mdType = CryptoConst.AlgoType.lookup(mdAlgo);
 		SharedUtil.checkIfNulls("MD type not found", mdType);
 		StringBuilder sb = new StringBuilder();
 
@@ -83,7 +83,7 @@ public class CryptoClient
 	public byte[] hash(String mdAlgo, String... tokens)
         throws AccessSecurityException
 	{
-		CryptoConst.MDType mdType = CryptoConst.MDType.lookup(mdAlgo);
+		CryptoConst.AlgoType mdType = CryptoConst.AlgoType.lookup(mdAlgo);
 		SharedUtil.checkIfNulls("MD type not found", mdType);
 		StringBuilder sb = new StringBuilder();
 
