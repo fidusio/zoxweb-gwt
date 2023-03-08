@@ -20,7 +20,7 @@ import org.zoxweb.shared.crypto.CryptoConst;
 import org.zoxweb.shared.crypto.CryptoInterface;
 import org.zoxweb.shared.security.*;
 import org.zoxweb.shared.security.JWT.JWTField;
-import org.zoxweb.shared.security.SecurityConsts.JWTAlgorithm;
+
 import org.zoxweb.shared.util.*;
 import org.zoxweb.shared.util.SharedBase64.Base64Type;
 
@@ -51,7 +51,7 @@ public class CryptoClient
 	public byte[] hash(String mdAlgo, byte[]... tokens)
         throws NullPointerException, AccessSecurityException
 	{
-		CryptoConst.AlgoType mdType = CryptoConst.AlgoType.lookup(mdAlgo);
+		CryptoConst.HASHType mdType = CryptoConst.HASHType.lookup(mdAlgo);
 		SharedUtil.checkIfNulls("MD type not found", mdType);
 		StringBuilder sb = new StringBuilder();
 
@@ -83,7 +83,7 @@ public class CryptoClient
 	public byte[] hash(String mdAlgo, String... tokens)
         throws AccessSecurityException
 	{
-		CryptoConst.AlgoType mdType = CryptoConst.AlgoType.lookup(mdAlgo);
+		CryptoConst.HASHType mdType = CryptoConst.HASHType.lookup(mdAlgo);
 		SharedUtil.checkIfNulls("MD type not found", mdType);
 		StringBuilder sb = new StringBuilder();
 
