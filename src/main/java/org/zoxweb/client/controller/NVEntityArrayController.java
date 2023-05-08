@@ -21,7 +21,7 @@ import org.zoxweb.shared.data.DataConst.APIParameters;
 import org.zoxweb.shared.http.HTTPMessageConfig;
 import org.zoxweb.shared.http.HTTPMessageConfigInterface;
 import org.zoxweb.shared.http.HTTPMethod;
-import org.zoxweb.shared.http.HTTPMimeType;
+import org.zoxweb.shared.http.HTTPMediaType;
 import org.zoxweb.shared.util.NVEntity;
 import org.zoxweb.shared.util.NVPair;
 import org.zoxweb.shared.util.Const.ReturnType;
@@ -38,7 +38,7 @@ public class NVEntityArrayController
 	public void actionAdd(String v, AsyncCallback<NVEntity> callback)
 	{
 		HTTPMessageConfigInterface hcc = HTTPMessageConfig.createAndInit(null, uri, HTTPMethod.POST);
-		hcc.setContentType(HTTPMimeType.APPLICATION_JSON);
+		hcc.setContentType(HTTPMediaType.APPLICATION_JSON);
 		hcc.getParameters().add(new NVPair(APIParameters.CLASS_NAME.getName(), v));
 		
 		new GenericRequestHandler<NVEntity>(hcc, ReturnType.NVENTITY, callback);	

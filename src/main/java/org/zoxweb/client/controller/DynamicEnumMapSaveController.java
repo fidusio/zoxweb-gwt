@@ -25,7 +25,7 @@ import org.zoxweb.shared.data.DataConst.APIParameters;
 import org.zoxweb.shared.http.HTTPMessageConfig;
 import org.zoxweb.shared.http.HTTPMessageConfigInterface;
 import org.zoxweb.shared.http.HTTPMethod;
-import org.zoxweb.shared.http.HTTPMimeType;
+import org.zoxweb.shared.http.HTTPMediaType;
 import org.zoxweb.shared.util.Const.ReturnType;
 import org.zoxweb.shared.util.DynamicEnumMap;
 import org.zoxweb.shared.util.MetaToken;
@@ -45,7 +45,7 @@ public class DynamicEnumMapSaveController
 		map.put(MetaToken.NAME.getName(), dem.getName());
 		map.put(APIParameters.NVPAIR_LIST.getName(), dem.getValue());
 		
-		hcc.setContentType(HTTPMimeType.APPLICATION_JSON);			
+		hcc.setContentType(HTTPMediaType.APPLICATION_JSON);
 		hcc.setContent(JSONClientUtil.toJSONMap(map).toString());
 		
 		new GenericRequestHandler<DynamicEnumMap>(hcc, ReturnType.DYNAMIC_ENUM_MAP, callback);
