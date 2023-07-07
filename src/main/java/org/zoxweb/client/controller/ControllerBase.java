@@ -16,8 +16,8 @@ public abstract class ControllerBase<V extends Widget>
 	{
 		this.widget = widget;
 		this.config = config;
-		ResourceManager.SINGLETON.map(widget, this);
-		ResourceManager.SINGLETON.map(this, widget);
+		ResourceManager.SINGLETON.register(widget, this);
+		ResourceManager.SINGLETON.register(this, widget);
 	}
 	
 	

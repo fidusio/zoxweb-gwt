@@ -335,11 +335,11 @@ public class CryptoClient
 
 	public static  AuthToken getAuthToken()
 	{
-		return ResourceManager.SINGLETON.lookup((GetName)ResourceManager.Resource.AUTH_TOKEN);
+		return ResourceManager.lookupResource((GetName)ResourceManager.Resource.AUTH_TOKEN);
 	}
 
 	public static void setAuthToken(AuthToken authToken)
 	{
-		ResourceManager.SINGLETON.map((GetName)ResourceManager.Resource.AUTH_TOKEN, authToken);
+		ResourceManager.SINGLETON.register((GetName)ResourceManager.Resource.AUTH_TOKEN, authToken);
 	}
 }
