@@ -68,9 +68,9 @@ public class HTTPWebRequest {
 			data = SharedStringUtil.toString(hcc.getContent());
 		}
 		
-		GetNameValue<String> authorizationHeader = HTTPAuthScheme.BASIC.toHTTPHeader(hcc.getUser(), hcc.getPassword());
+		GetNameValue<String> authorizationHeader = null;//HTTPAuthScheme.BASIC.toHTTPHeader(hcc.getUser(), hcc.getPassword());
 
-		if (authorizationHeader == null && hcc.getAuthorization() != null)
+		if (hcc.getAuthorization() != null)
 		{
 			authorizationHeader = hcc.getAuthorization().toHTTPHeader();
 		}
