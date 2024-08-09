@@ -27,7 +27,7 @@ public class NVIntegerArrayWidget
 			@Override
 			public void onClick(ClickEvent event) 
 			{
-				NVIntegerWidget nvIntegerWidget = new NVIntegerWidget(null, getNVConfig());
+				NVIntegerWidget nvIntegerWidget = new NVIntegerWidget(getNVConfig());
 				addRow(nvIntegerWidget);
 			}
 			

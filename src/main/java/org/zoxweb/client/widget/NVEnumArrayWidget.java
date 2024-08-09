@@ -49,7 +49,7 @@ public class NVEnumArrayWidget
 
 	public NVEnumArrayWidget(NVConfig nvc) 
 	{
-		super(null, nvc);
+		super(nvc);
 				
 		lbFullList = new ListBox();
 		lbFullList.setMultipleSelect(true);

@@ -27,7 +27,7 @@ public class NVLongArrayWidget
 			@Override
 			public void onClick(ClickEvent event) 
 			{
-				NVLongWidget nvLongWidget = new NVLongWidget(null, getNVConfig());
+				NVLongWidget nvLongWidget = new NVLongWidget(getNVConfig());
 				addRow(nvLongWidget);
 			}
 			

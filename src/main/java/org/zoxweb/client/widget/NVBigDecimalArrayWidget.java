@@ -32,7 +32,7 @@ public class NVBigDecimalArrayWidget
 			@Override
 			public void onClick(ClickEvent event) 
 			{
-				NVBigDecimalWidget nvBigDecimalWidget = new NVBigDecimalWidget(null, getNVConfig());
+				NVBigDecimalWidget nvBigDecimalWidget = new NVBigDecimalWidget(getNVConfig());
 				addRow(nvBigDecimalWidget);
 			}
 			

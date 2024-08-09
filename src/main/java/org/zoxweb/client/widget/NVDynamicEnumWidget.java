@@ -56,7 +56,7 @@ public class NVDynamicEnumWidget
 	
 	public NVDynamicEnumWidget(NVConfig nvConfig, Const.NVDisplayProp displayProp, boolean isTitleAvailable)
 	{
-		super(null, nvConfig);
+		super(nvConfig);
 		setTitleAvailable(isTitleAvailable);
 		
 		if (!nvConfig.isEditable())
@@ -86,7 +86,7 @@ public class NVDynamicEnumWidget
 	
 	public NVDynamicEnumWidget(String name, DynamicEnumMap dem, Const.NVDisplayProp displayProp, boolean isTitleAvailable, StringDataDecoderComparator<NVPair> comparator)
 	{
-		super(null, null, true);
+		super(null, true);
 		
 		this.comparator = comparator;
 		

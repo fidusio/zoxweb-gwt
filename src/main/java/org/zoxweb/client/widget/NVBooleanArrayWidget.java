@@ -27,7 +27,7 @@ public class NVBooleanArrayWidget
 			@Override
 			public void onClick(ClickEvent event) 
 			{
-				NVBooleanWidget nvBooleanWidget = new NVBooleanWidget(null, getNVConfig());
+				NVBooleanWidget nvBooleanWidget = new NVBooleanWidget(getNVConfig());
 				addRow(nvBooleanWidget);
 			}
 			

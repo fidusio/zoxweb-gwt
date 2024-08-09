@@ -134,7 +134,7 @@ public class AddressDAOWidget
 		
 		hpLinkPlaceHolder.add(anchorLink);
         
-		stateOrProvince =  new NVStringWidget(null, AddressDAO.Param.STATE_PROVINCE.getNVConfig());
+		stateOrProvince =  new NVStringWidget(AddressDAO.Param.STATE_PROVINCE.getNVConfig());
 		country = new NVDynamicEnumWidget(AddressDAO.Param.COUNTRY.getNVConfig(), Const.NVDisplayProp.VALUE, false);
 		
 		((ListBox) country.getWidget()).addChangeHandler(new ChangeHandler()

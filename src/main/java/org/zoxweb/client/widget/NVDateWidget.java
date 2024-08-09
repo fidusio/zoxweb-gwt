@@ -17,7 +17,7 @@ package org.zoxweb.client.widget;
 
 import java.util.Date;
 
-import org.zoxweb.shared.security.CRUDManager;
+
 import org.zoxweb.shared.util.NVConfig;
 
 import com.google.gwt.user.client.ui.Widget;
@@ -30,9 +30,9 @@ public class NVDateWidget
 	
 	private DateBox dateBox = new DateBox();
 	
-	public NVDateWidget(CRUDManager crudManager, NVConfig nvConfig) 
+	public NVDateWidget(NVConfig nvConfig)
 	{
-		super(crudManager, nvConfig);
+		super(nvConfig);
 		
 		if (!nvConfig.isEditable())
 		{

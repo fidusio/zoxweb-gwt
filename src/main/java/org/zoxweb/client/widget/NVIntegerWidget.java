@@ -16,7 +16,7 @@
 package org.zoxweb.client.widget;
 
 import org.zoxweb.shared.filters.FilterType;
-import org.zoxweb.shared.security.CRUDManager;
+
 import org.zoxweb.shared.util.NVConfig;
 
 import com.google.gwt.user.client.ui.IntegerBox;
@@ -29,9 +29,9 @@ public class NVIntegerWidget
 	private IntegerBox integerBox = new IntegerBox();
 	
 	@SuppressWarnings({ "rawtypes", "unchecked" })
-	public NVIntegerWidget(CRUDManager crudManager, NVConfig nvConfig) 
+	public NVIntegerWidget(NVConfig nvConfig)
 	{
-		super(crudManager, nvConfig);
+		super(nvConfig);
 		
 		if (!nvConfig.isEditable())
 		{

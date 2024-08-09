@@ -15,7 +15,6 @@
  */
 package org.zoxweb.client.widget;
 
-import org.zoxweb.shared.security.CRUDManager;
 import org.zoxweb.shared.util.NVConfig;
 
 import com.google.gwt.user.client.ui.CheckBox;
@@ -28,9 +27,9 @@ public class NVBooleanWidget
 	
 	private CheckBox checkBox = new CheckBox();
 	
-	public NVBooleanWidget(CRUDManager crudManager, NVConfig nvConfig) 
+	public NVBooleanWidget(NVConfig nvConfig)
 	{
-		super(crudManager, nvConfig);
+		super(nvConfig);
 		
 		if (!nvConfig.isEditable())
 		{

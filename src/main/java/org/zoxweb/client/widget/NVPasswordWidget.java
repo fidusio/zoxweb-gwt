@@ -16,7 +16,7 @@
 package org.zoxweb.client.widget;
 
 import org.zoxweb.shared.filters.FilterType;
-import org.zoxweb.shared.security.CRUDManager;
+
 import org.zoxweb.shared.util.NVConfig;
 import org.zoxweb.shared.util.SharedStringUtil;
 
@@ -30,9 +30,9 @@ public class NVPasswordWidget
 	private PasswordTextBox passwordTextBox = new PasswordTextBox();
 	
 	@SuppressWarnings({ "rawtypes", "unchecked" })
-	public NVPasswordWidget(CRUDManager crudManager, NVConfig nvConfig)
+	public NVPasswordWidget(NVConfig nvConfig)
 	{
-		super(crudManager, nvConfig);
+		super(nvConfig);
 		
 		if (!nvConfig.isEditable())
 		{

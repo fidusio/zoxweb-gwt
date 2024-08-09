@@ -70,7 +70,7 @@ public class EmailWidget
 	
 	public EmailWidget() 
 	{
-		super(null, null, true);
+		super(null, true);
 		initWidget(uiBinder.createAndBindUi(this));
 
 		for (DataConst.EmailType type : DataConst.EmailType.values())

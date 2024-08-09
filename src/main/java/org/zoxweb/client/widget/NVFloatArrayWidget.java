@@ -27,7 +27,7 @@ public class NVFloatArrayWidget
 			@Override
 			public void onClick(ClickEvent event) 
 			{
-				NVFloatWidget nvFloatWidget = new NVFloatWidget(null, getNVConfig());
+				NVFloatWidget nvFloatWidget = new NVFloatWidget(getNVConfig());
 				addRow(nvFloatWidget);
 			}
 			

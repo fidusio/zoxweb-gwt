@@ -86,7 +86,7 @@ public class NVArrayWidget<V>
 	
 	public NVArrayWidget(NVConfig nvc, NVConfigNameMap nvcnm, boolean enableScrolling)
 	{
-		super(null, nvc);
+		super(nvc);
 		
 		initWidget(uiBinder.createAndBindUi(this));
 		

@@ -37,7 +37,7 @@ public class NVEnumWidget
 	
 	public NVEnumWidget(NVConfig nvc, boolean titleIncluded) 
 	{
-		super(null, nvc);
+		super( nvc);
 		
 		if (!nvc.isEditable())
 		{

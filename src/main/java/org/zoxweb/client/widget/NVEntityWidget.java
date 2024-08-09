@@ -30,7 +30,7 @@ public abstract class NVEntityWidget
 	
 	protected NVEntityWidget() 
 	{
-		super(null, null, true);
+		super(null, true);
 		
 		setUpdateValue(new UpdateValue<NVEntity>()
 		{

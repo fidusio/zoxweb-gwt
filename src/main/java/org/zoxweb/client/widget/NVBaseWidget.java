@@ -23,8 +23,8 @@ import org.zoxweb.shared.util.SharedUtil;
 import org.zoxweb.shared.util.NVConfigNameMap;
 import org.zoxweb.shared.util.SetMandatory;
 import org.zoxweb.shared.util.ExceptionCollection;
-import org.zoxweb.shared.security.CRUDManager;
-import org.zoxweb.shared.security.CRUDOperations;
+//import org.zoxweb.shared.security.CRUDManager;
+//import org.zoxweb.shared.security.CRUDOperations;
 
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HasName;
@@ -39,14 +39,16 @@ import com.google.gwt.user.client.ui.Widget;
 @SuppressWarnings("serial")
 public abstract class NVBaseWidget<V> 
 	extends Composite
-	implements GetNVConfig, SetValue<V>, CRUDOperations, HasName, SetMandatory
+	implements GetNVConfig, SetValue<V>,
+		//CRUDOperations,
+		HasName, SetMandatory
 {
 	protected NVConfig nvConfig;
 	protected NVConfigNameMap nvConfigNameMap;
 	
 	@SuppressWarnings("rawtypes")
 	protected NVTextWidgetController textWidgetController;
-	protected CRUDManager crudManager;
+	//protected CRUDManager crudManager;
 	private String name;
 	protected boolean readOnly = false;
 	private boolean isManadatory = true;
@@ -56,10 +58,10 @@ public abstract class NVBaseWidget<V>
 	 * @param nvConfig
 	 * @throws NullPointerException
 	 */
-	protected NVBaseWidget(CRUDManager crudManager, NVConfig nvConfig)
+	protected NVBaseWidget(NVConfig nvConfig)
 		throws NullPointerException
 	{
-		this(crudManager, nvConfig, false);
+		this(nvConfig, false);
 	}
 
 	/**
@@ -68,7 +70,7 @@ public abstract class NVBaseWidget<V>
 	 * @param nullAllowed
 	 * @throws NullPointerException
 	 */
-	protected NVBaseWidget(CRUDManager crudManager, NVConfig nvConfig, boolean nullAllowed)
+	protected NVBaseWidget(NVConfig nvConfig, boolean nullAllowed)
 			throws NullPointerException
 	{
 		if (!nullAllowed)
@@ -77,7 +79,7 @@ public abstract class NVBaseWidget<V>
 		}
 		
 		this.nvConfig = nvConfig;
-		this.crudManager = crudManager;
+//		this.crudManager = crudManager;
 	}
 	
 	/**
@@ -184,32 +186,32 @@ public abstract class NVBaseWidget<V>
 		this.textWidgetController = textWidgetController;
 	}
 	
-	/**
-	 * @return the crudManager
-	 */
-	public CRUDManager getCRUDManager() 
-	{
-		return crudManager;
-	}
-
-	/**
-	 * @param crudManager the crudManager to set
-	 */
-	public void setCRUDManager(CRUDManager crudManager) 
-	{
-		this.crudManager = crudManager;
-	}
-	
-	@Override
-	public boolean hasPermission(String resourceID, CRUD crud)
-	{
-		if (crudManager != null)
-		{
-			return crudManager.hasPermission(resourceID, crud);
-		}
-		
-		return true;
-	}
+//	/**
+//	 * @return the crudManager
+//	 */
+//	public CRUDManager getCRUDManager()
+//	{
+//		return crudManager;
+//	}
+//
+//	/**
+//	 * @param crudManager the crudManager to set
+//	 */
+//	public void setCRUDManager(CRUDManager crudManager)
+//	{
+//		this.crudManager = crudManager;
+//	}
+//
+//	@Override
+//	public boolean hasPermission(String resourceID, CRUD crud)
+//	{
+//		if (crudManager != null)
+//		{
+//			return crudManager.hasPermission(resourceID, crud);
+//		}
+//
+//		return true;
+//	}
 	
 	public String getName()
 	{

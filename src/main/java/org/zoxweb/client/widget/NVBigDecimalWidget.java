@@ -18,7 +18,7 @@ package org.zoxweb.client.widget;
 import java.math.BigDecimal;
 
 import org.zoxweb.shared.filters.FilterType;
-import org.zoxweb.shared.security.CRUDManager;
+
 import org.zoxweb.shared.util.NVConfig;
 import org.zoxweb.shared.util.SharedStringUtil;
 
@@ -36,13 +36,13 @@ public class NVBigDecimalWidget
 	
 	public NVBigDecimalWidget() 
 	{
-		this(null, null);
+		this(null);
 	}
 	
 	@SuppressWarnings({ "unchecked", "rawtypes" })
-	public NVBigDecimalWidget(CRUDManager crudManager, NVConfig nvc) 
+	public NVBigDecimalWidget(NVConfig nvc)
 	{
-		super(crudManager, nvc, true);
+		super(nvc, true);
 		
 		if (nvc != null && !nvc.isEditable())
 		{

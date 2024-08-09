@@ -76,32 +76,32 @@ public abstract class NVCWidgetFactory
 						
 						if (clazz == int[].class || clazz == Integer[].class)
 						{
-							return new NVIntegerWidget(null, nvc);
+							return new NVIntegerWidget(nvc);
 						}
 						
 						if (clazz == long[].class || clazz == Long[].class)
 						{
-							return new NVLongWidget(null, nvc);
+							return new NVLongWidget(nvc);
 						}
 						
 						if (clazz == boolean[].class || clazz == Boolean[].class)
 						{
-							return new NVBooleanWidget(null, nvc);
+							return new NVBooleanWidget(nvc);
 						}
 						
 						if (clazz == double[].class || clazz == Double[].class)
 						{
-							return new NVDoubleWidget(null, nvc);
+							return new NVDoubleWidget(nvc);
 						}
 						
 						if (clazz == float[].class || clazz == Float[].class)
 						{
-							return new NVFloatWidget(null, nvc);
+							return new NVFloatWidget(nvc);
 						}
 						
 						if (clazz == BigDecimal[].class)
 						{
-							return new NVBigDecimalWidget(null, nvc);
+							return new NVBigDecimalWidget(nvc);
 						}
 					}
 					
@@ -222,40 +222,40 @@ public abstract class NVCWidgetFactory
 							}
 							else if (nvc.getValueFilter() != null && nvc.getValueFilter() == FilterType.EMAIL)
 							{
-								ret = new NVStringEmailWidget(null, nvc);
+								ret = new NVStringEmailWidget(nvc);
 							}
 							else
 							{
-								ret = new NVStringWidget(null, nvc);
+								ret = new NVStringWidget(nvc);
 							}
 						}
 						else if (clazz == int.class || clazz == Integer.class)
 						{
-							ret = new NVIntegerWidget(null, nvc);
+							ret = new NVIntegerWidget(nvc);
 						}
 						else if (clazz == long.class || clazz == Long.class)
 						{
-							ret = new NVLongWidget(null, nvc);
+							ret = new NVLongWidget(nvc);
 						}
 						else if (clazz == double.class || clazz == Double.class)
 						{
-							ret = new NVDoubleWidget(null, nvc);
+							ret = new NVDoubleWidget(nvc);
 						}
 						else if (clazz == float.class || clazz == Float.class)
 						{
-							ret = new NVFloatWidget(null, nvc);
+							ret = new NVFloatWidget(nvc);
 						}
 						else if (clazz == boolean.class || clazz == Boolean.class)
 						{
-							ret = new NVBooleanWidget(null, nvc);
+							ret = new NVBooleanWidget(nvc);
 						}
 						else if (clazz == BigDecimal.class)
 						{
-							ret = new NVBigDecimalWidget(null, nvc);
+							ret = new NVBigDecimalWidget(nvc);
 						}
 						else if (clazz == Date.class)
 						{	
-							ret = new NVDateWidget(null, nvc);
+							ret = new NVDateWidget(nvc);
 						}
 					}
 					
@@ -376,44 +376,44 @@ public abstract class NVCWidgetFactory
 		{
 			if (vf == FilterType.BIG_DECIMAL)
 			{
-				return new NVBigDecimalWidget(null, nvc);
+				return new NVBigDecimalWidget(nvc);
 			}
 			
 			if (vf == FilterType.BOOLEAN)
 			{
-				return new NVBooleanWidget(null, nvc);
+				return new NVBooleanWidget(nvc);
 			}
 				
 			if (vf == FilterType.DOUBLE)
 			{
-				return new NVDoubleWidget(null, nvc);
+				return new NVDoubleWidget(nvc);
 			}
 				
 			if (vf == FilterType.FLOAT)
 			{
-				return new NVFloatWidget(null, nvc);
+				return new NVFloatWidget(nvc);
 			}	
 				
 			if (vf == FilterType.INTEGER)
 			{
-				return new NVIntegerWidget(null, nvc);
+				return new NVIntegerWidget(nvc);
 			}
 			
 			if (vf == FilterType.LONG)
 			{
-				return new NVLongWidget(null, nvc);
+				return new NVLongWidget(nvc);
 			}
 			
 			if (vf == FilterType.EMAIL || vf == FilterType.URL)
 			{
-				NVStringWidget nvsw = new NVStringWidget(null, nvc);
+				NVStringWidget nvsw = new NVStringWidget(nvc);
 				nvsw.getTextWidgetController().setValueFilter(new PartialFilter(vf));
 				return nvsw;
 			}
 			
 			if (vf == FilterType.PASSWORD || vf == FilterType.ENCRYPT_MASK)
 			{
-				NVPasswordWidget nvpw = new NVPasswordWidget(null, nvc);
+				NVPasswordWidget nvpw = new NVPasswordWidget(nvc);
 				nvpw.getTextWidgetController().setValueFilter(new PartialFilter(vf));
 				return nvpw;
 			}
@@ -426,7 +426,7 @@ public abstract class NVCWidgetFactory
 			}
 		}
 		
-		return new NVStringWidget(null, nvc);
+		return new NVStringWidget(nvc);
 	}
 	
 	public NVBaseWidget<?> createWidgetFromArrayBase(NVConfig nvc)

@@ -16,7 +16,7 @@
 package org.zoxweb.client.widget;
 
 import org.zoxweb.shared.filters.FilterType;
-import org.zoxweb.shared.security.CRUDManager;
+
 import org.zoxweb.shared.util.NVConfig;
 
 import com.google.gwt.user.client.ui.LongBox;
@@ -29,9 +29,9 @@ public class NVLongWidget
 	private LongBox longBox = new LongBox();
 
 	@SuppressWarnings({ "rawtypes", "unchecked" })
-	public NVLongWidget(CRUDManager crudManager, NVConfig nvConfig)
+	public NVLongWidget(NVConfig nvConfig)
 	{
-		super(crudManager, nvConfig);
+		super(nvConfig);
 		
 		if (!nvConfig.isEditable())
 		{

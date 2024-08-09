@@ -61,7 +61,7 @@ public class StateListWidgetFilter
 		}
 		else
 		{
-			ret = new NVStringWidget(null, AddressDAO.Param.STATE_PROVINCE.getNVConfig());
+			ret = new NVStringWidget(AddressDAO.Param.STATE_PROVINCE.getNVConfig());
 			ret.setSize("100%", "1.5EM");
 		}
 		

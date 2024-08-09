@@ -27,7 +27,7 @@ public class NVDoubleArrayWidget
 			@Override
 			public void onClick(ClickEvent event) 
 			{
-				NVDoubleWidget nvDoubleWidget = new NVDoubleWidget(null, getNVConfig());
+				NVDoubleWidget nvDoubleWidget = new NVDoubleWidget(getNVConfig());
 				addRow(nvDoubleWidget);
 			}
 			

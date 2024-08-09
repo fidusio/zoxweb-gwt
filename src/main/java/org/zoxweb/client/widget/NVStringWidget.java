@@ -16,7 +16,7 @@
 package org.zoxweb.client.widget;
 
 import org.zoxweb.shared.filters.FilterType;
-import org.zoxweb.shared.security.CRUDManager;
+
 import org.zoxweb.shared.util.NVConfig;
 import org.zoxweb.shared.util.SharedStringUtil;
 
@@ -31,9 +31,9 @@ public class NVStringWidget
 	private TextBox textBox = new TextBox();
 	
 	@SuppressWarnings({ "rawtypes", "unchecked" })
-	public NVStringWidget(CRUDManager crudManager, NVConfig nvConfig)
+	public NVStringWidget(NVConfig nvConfig)
 	{
-		super(crudManager, nvConfig);
+		super( nvConfig);
 		
 		if (!nvConfig.isEditable())
 		{

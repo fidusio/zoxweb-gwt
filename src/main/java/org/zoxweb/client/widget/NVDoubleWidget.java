@@ -16,7 +16,7 @@
 package org.zoxweb.client.widget;
 
 import org.zoxweb.shared.filters.FilterType;
-import org.zoxweb.shared.security.CRUDManager;
+
 import org.zoxweb.shared.util.NVConfig;
 
 import com.google.gwt.event.dom.client.KeyPressEvent;
@@ -33,9 +33,9 @@ public class NVDoubleWidget
 	private DoubleBox doubleBox = new DoubleBox();
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })
-	public NVDoubleWidget(CRUDManager crudManager, NVConfig nvConfig)
+	public NVDoubleWidget(NVConfig nvConfig)
 	{
-		super(crudManager, nvConfig);
+		super(nvConfig);
 		
 		if (!nvConfig.isEditable())
 		{

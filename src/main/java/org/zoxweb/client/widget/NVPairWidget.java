@@ -49,12 +49,12 @@ public class NVPairWidget
 	
 	public NVPairWidget(NVConfig nvConfig, boolean fixed) 
 	{		
-		super(null, nvConfig);
+		super(nvConfig);
 		initWidget(uiBinder.createAndBindUi(this));
 		
 		defaultStyle = tbName.getStyleName();
 		
-		currentValueWidget = new NVStringWidget(null, nvConfig);
+		currentValueWidget = new NVStringWidget(nvConfig);
 		
 		filterWidget.setSelectedFilter(FilterType.CLEAR);
 		

@@ -16,7 +16,6 @@
 package org.zoxweb.client.widget;
 
 import org.zoxweb.shared.filters.FilterType;
-import org.zoxweb.shared.security.CRUDManager;
 import org.zoxweb.shared.util.NVConfig;
 
 import com.google.gwt.event.dom.client.KeyPressEvent;
@@ -33,9 +32,9 @@ public class NVFloatWidget
 	private DoubleBox doubleBox = new DoubleBox();
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })
-	public NVFloatWidget(CRUDManager crudManager, NVConfig nvConfig)
+	public NVFloatWidget(NVConfig nvConfig)
 	{
-		super(crudManager, nvConfig);
+		super(nvConfig);
 		
 		if (!nvConfig.isEditable())
 		{
