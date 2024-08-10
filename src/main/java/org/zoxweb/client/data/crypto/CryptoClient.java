@@ -77,7 +77,7 @@ public class CryptoClient
 	}
 
 	/**
-	 * @see CryptoInterface#hash(java.lang.String, java.lang.String[])
+	 * @see JWTCodec#hash(java.lang.String, java.lang.String[])
 	 */
 	@Override
 	public byte[] hash(String mdAlgo, String... tokens)
