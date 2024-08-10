@@ -17,7 +17,7 @@ package org.zoxweb.client.data.crypto;
 
 import org.zoxweb.client.data.JSONClientUtil;
 import org.zoxweb.shared.crypto.CryptoConst;
-import org.zoxweb.shared.crypto.CryptoInterface;
+import org.zoxweb.shared.crypto.JWTCodec;
 import org.zoxweb.shared.security.*;
 import org.zoxweb.shared.security.JWT.JWTField;
 
@@ -31,10 +31,10 @@ import org.zoxweb.shared.util.SharedBase64.Base64Type;
  *
  */
 public class CryptoClient
-	implements CryptoInterface
+	implements JWTCodec
 {
 
-	public static final CryptoInterface SINGLETON = new CryptoClient();
+	public static final JWTCodec SINGLETON = new CryptoClient();
 	//private long requestID = 0;
 
 	protected CryptoClient()
