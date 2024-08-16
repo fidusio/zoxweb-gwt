@@ -1251,7 +1251,7 @@ public class JSONClientUtil
 		if (dem != null)
 		{
 			ret.put(MetaToken.REFERENCE_ID.getName(), new JSONString((String) dem.getReferenceID()));
-			ret.put(MetaToken.USER_ID.getName(), new JSONString((String) dem.getUserID()));
+			ret.put(MetaToken.SUBJECT_GUID.getName(), new JSONString((String) dem.getSubjectGUID()));
 			ret.put(MetaToken.ACCOUNT_ID.getName(), new JSONString((String) dem.getAccountID()));
 			ret.put(MetaToken.NAME.getName(), new JSONString((String) dem.getName()));
 			ret.put(MetaToken.DESCRIPTION.getName(), new JSONString((String) dem.getDescription()));
@@ -1291,10 +1291,10 @@ public class JSONClientUtil
 				dem.setReferenceID(((JSONString) jsonObject.get(MetaToken.REFERENCE_ID.getName())).stringValue());
 			}
 			
-			if (jsonObject.get(MetaToken.USER_ID.getName()) != null
-					&& jsonObject.get(MetaToken.USER_ID.getName()) instanceof JSONString)
+			if (jsonObject.get(MetaToken.SUBJECT_GUID.getName()) != null
+					&& jsonObject.get(MetaToken.SUBJECT_GUID.getName()) instanceof JSONString)
 			{
-				dem.setUserID(((JSONString) jsonObject.get(MetaToken.USER_ID.getName())).stringValue());
+				dem.setSubjectGUID(((JSONString) jsonObject.get(MetaToken.SUBJECT_GUID.getName())).stringValue());
 			}
 			
 			if (jsonObject.get(MetaToken.ACCOUNT_ID.getName()) != null
