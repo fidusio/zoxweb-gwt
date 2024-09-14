@@ -173,7 +173,7 @@ public class CustomDateWidget
 				
 				break;
 			case 2:
-				if (SharedUtil.isLeapYear(Integer.valueOf(lbYear.getValue(lbYear.getSelectedIndex()))))
+				if (Const.TimeInMillis.isLeapYear(Integer.valueOf(lbYear.getValue(lbYear.getSelectedIndex()))))
 				{
 					for (Const.DaysInMonth day : Const.DaysInMonth.values())
 					{

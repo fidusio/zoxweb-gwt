@@ -18,15 +18,9 @@ package org.zoxweb.client.data;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
-import java.util.ArrayList;
-import java.util.Date;
+import java.util.*;
 
-import java.util.LinkedHashMap;
-
-import java.util.List;
-import java.util.Map;
 import java.util.Map.Entry;
-import java.util.Set;
 
 import org.zoxweb.shared.data.NVEntityFactory;
 import org.zoxweb.shared.db.QueryMarker;
@@ -34,46 +28,11 @@ import org.zoxweb.shared.db.QueryMatch;
 import org.zoxweb.shared.db.QueryRequest;
 import org.zoxweb.shared.filters.FilterType;
 import org.zoxweb.shared.filters.ValueFilter;
-import org.zoxweb.shared.util.ArrayValues;
+import org.zoxweb.shared.util.*;
 import org.zoxweb.shared.util.Const.GNVType;
 import org.zoxweb.shared.util.Const.LogicalOperator;
-import org.zoxweb.shared.util.DynamicEnumMap;
-import org.zoxweb.shared.util.DynamicEnumMapManager;
-import org.zoxweb.shared.util.GetNameValue;
-import org.zoxweb.shared.util.MetaToken;
-import org.zoxweb.shared.util.NVBase;
-import org.zoxweb.shared.util.NVBigDecimal;
-import org.zoxweb.shared.util.NVBigDecimalList;
-import org.zoxweb.shared.util.NVConfig;
-import org.zoxweb.shared.util.NVConfigEntity;
-import org.zoxweb.shared.util.NVDouble;
-import org.zoxweb.shared.util.NVDoubleList;
-import org.zoxweb.shared.util.NVEntity;
-import org.zoxweb.shared.util.NVEntityGetNameMap;
 
-import org.zoxweb.shared.util.NVEntityReferenceIDMap;
-import org.zoxweb.shared.util.NVEntityReferenceList;
-import org.zoxweb.shared.util.NVEnum;
-import org.zoxweb.shared.util.NVEnumList;
-import org.zoxweb.shared.util.NVFloat;
-import org.zoxweb.shared.util.NVFloatList;
-import org.zoxweb.shared.util.NVGenericMap;
-import org.zoxweb.shared.util.NVGenericMapList;
-import org.zoxweb.shared.util.NVGetNameValueList;
-import org.zoxweb.shared.util.NVInt;
-import org.zoxweb.shared.util.NVIntList;
-import org.zoxweb.shared.util.NVLong;
-import org.zoxweb.shared.util.NVLongList;
-import org.zoxweb.shared.util.NVPair;
-import org.zoxweb.shared.util.NVPairGetNameMap;
-import org.zoxweb.shared.util.NVPairList;
-import org.zoxweb.shared.util.NVStringList;
-import org.zoxweb.shared.util.NVBlob;
-import org.zoxweb.shared.util.NVBoolean;
-import org.zoxweb.shared.util.SharedBase64;
 import org.zoxweb.shared.util.SharedBase64.Base64Type;
-import org.zoxweb.shared.util.SharedStringUtil;
-import org.zoxweb.shared.util.SharedUtil;
 
 import com.google.gwt.core.client.JsonUtils;
 import com.google.gwt.json.client.JSONArray;
@@ -310,6 +269,12 @@ public class JSONClientUtil
 	                        NVStringList nvb = (NVStringList)nve.lookup(nvc);
 	                        fromJSON(jsonArray, nvb);
 	                    }
+						else if (nvc.getMetaType().equals(NVStringSet.class))
+						{
+							JSONArray jsonArray = (JSONArray) value.get(nvc.getName());
+							NVStringSet nvb = (NVStringSet)nve.lookup(nvc);
+							fromJSON(jsonArray, nvb);
+						}
 					}
 					else if (nvc.getMetaType().equals(byte[].class))
 					{
@@ -610,7 +575,11 @@ public class JSONClientUtil
 						}
 						else if (nvc.getMetaTypeBase().equals(NVStringList.class))
 						{
-							jsonValue = toJSONStringList((NVStringList)nve.lookup(nvc));
+							jsonValue = toJSONStringArray((Collection<String>) nve.lookupValue(nvc));
+						}
+						else if (nvc.getMetaTypeBase().equals(NVStringSet.class))
+						{
+							jsonValue = toJSONStringArray((Collection<String>)nve.lookupValue(nvc));
 						}
 						
 						if (jsonValue != null)
@@ -841,7 +810,11 @@ public class JSONClientUtil
 					}
 					else if(gnv instanceof NVStringList)
 					{
-						jsonValue = toJSONStringList((NVStringList) gnv);
+						jsonValue = toJSONStringArray(((NVStringList) gnv).getValue());
+					}
+					else if(gnv instanceof NVStringSet)
+					{
+						jsonValue = toJSONStringArray(((NVStringSet) gnv).getValue());
 					}
 					else if (gnv instanceof NVBase)
 					{
@@ -1141,6 +1114,10 @@ public class JSONClientUtil
 							else if (nvb instanceof NVStringList)
 							{
 								((NVStringList)nvb).getValue().add(ja.get(i).isString().stringValue());
+							}
+							else if (nvb instanceof NVStringSet)
+							{
+								((NVStringSet)nvb).getValue().add(ja.get(i).isString().stringValue());
 							}
 							else if (nvb instanceof NVGenericMapList)
 							{
@@ -1444,16 +1421,16 @@ public class JSONClientUtil
 		
 		return jsonArray;
 	}
-	public static JSONArray toJSONStringList(NVStringList nvsl)
+	public static JSONArray toJSONStringArray(Collection<String> cs)
 	{
 		JSONArray jsonArray = new JSONArray();
 		
 		int counter = 0;
-		for (String nvp : nvsl.getValue())
+		for (String sValue : cs)
 		{
-			if (nvp != null)
+			if (sValue != null)
 			{
-				jsonArray.set(counter++, new JSONString(nvp));
+				jsonArray.set(counter++, new JSONString(sValue));
 			}
 		}
 		
@@ -1587,6 +1564,16 @@ public class JSONClientUtil
 			for (int i = 0; i < jsonArray.size(); i++)
 			{
 				nvsl.getValue().add(((JSONString)jsonArray.get(i)).stringValue());
+			}
+		}
+	}
+	private static void fromJSON(JSONArray jsonArray, NVStringSet nvss)
+	{
+		if(jsonArray != null)
+		{
+			for (int i = 0; i < jsonArray.size(); i++)
+			{
+				nvss.getValue().add(((JSONString)jsonArray.get(i)).stringValue());
 			}
 		}
 	}
