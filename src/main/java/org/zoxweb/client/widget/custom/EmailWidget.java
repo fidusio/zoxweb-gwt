@@ -1,14 +1,5 @@
 package org.zoxweb.client.widget.custom;
 
-import org.zoxweb.client.widget.NVBaseWidget;
-import org.zoxweb.client.widget.ValueFilterHandler;
-import org.zoxweb.client.widget.ValueFilterSetValidator;
-import org.zoxweb.shared.data.DataConst;
-import org.zoxweb.shared.filters.FilterType;
-import org.zoxweb.shared.util.NVPair;
-import org.zoxweb.shared.util.SharedStringUtil;
-import org.zoxweb.shared.widget.WidgetConst;
-
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Style.Cursor;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -16,14 +7,17 @@ import com.google.gwt.event.logical.shared.AttachEvent;
 import com.google.gwt.event.logical.shared.AttachEvent.Handler;
 import com.google.gwt.resources.client.CssResource;
 import com.google.gwt.uibinder.client.UiBinder;
-import com.google.gwt.uibinder.client.UiHandler;
-import com.google.gwt.user.client.ui.Anchor;
-import com.google.gwt.user.client.ui.HorizontalPanel;
-import com.google.gwt.user.client.ui.ListBox;
-import com.google.gwt.user.client.ui.TextBox;
-import com.google.gwt.user.client.ui.UIObject;
-import com.google.gwt.user.client.ui.Widget;
 import com.google.gwt.uibinder.client.UiField;
+import com.google.gwt.uibinder.client.UiHandler;
+import com.google.gwt.user.client.ui.*;
+import org.zoxweb.client.widget.NVBaseWidget;
+import org.zoxweb.client.widget.ValueFilterHandler;
+import org.zoxweb.client.widget.ValueFilterSetValidator;
+import org.zoxweb.shared.data.DataConst;
+import org.zoxweb.shared.filters.FilterType;
+import org.zoxweb.shared.util.NVPair;
+import org.zoxweb.shared.util.SUS;
+import org.zoxweb.shared.widget.WidgetConst;
 
 /**
  * The email widget.
@@ -117,7 +111,7 @@ public class EmailWidget
 			setSelectedType(value.getName());
 			tbEmail.setValue(value.getValue());
 			
-			if (!SharedStringUtil.isEmpty(value.getValue()))
+			if (SUS.isNotEmpty(value.getValue()))
 			{
 
 				hrefLink.setText(value.getValue());
@@ -141,12 +135,12 @@ public class EmailWidget
 		
 		nvp.setName(getSelectedType());
 		
-		if (!SharedStringUtil.isEmpty(tbEmail.getValue()))
+		if (SUS.isNotEmpty(tbEmail.getValue()))
 		{
 			nvp.setValue(tbEmail.getValue());
 		}
 		
-		if (!SharedStringUtil.isEmpty(nvp.getValue()))
+		if (SUS.isNotEmpty(nvp.getValue()))
 		{
 			hrefLink.setText(nvp.getValue());
 			hrefLink.setTitle(WidgetConst.HREF_DEFAULT_TEXT);

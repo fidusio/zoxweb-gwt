@@ -24,12 +24,8 @@ import org.zoxweb.shared.http.HTTPMessageConfigInterface;
 import org.zoxweb.shared.http.HTTPHeader;
 import org.zoxweb.shared.http.HTTPAttribute;
 import org.zoxweb.shared.http.HTTPStatusCode;
+import org.zoxweb.shared.util.*;
 import org.zoxweb.shared.util.Const.ReturnType;
-import org.zoxweb.shared.util.NVEntity;
-import org.zoxweb.shared.util.NVEntityInstance;
-import org.zoxweb.shared.util.QuickLZ;
-import org.zoxweb.shared.util.SharedBase64;
-import org.zoxweb.shared.util.SharedStringUtil;
 
 import com.google.gwt.http.client.Request;
 import com.google.gwt.http.client.RequestCallback;
@@ -112,7 +108,7 @@ public class GenericRequestHandler<T>
 			{
 				Object value = null;
 				String rContent = getResponseContent(response);
-				if (!SharedStringUtil.isEmpty(rContent))
+				if (SUS.isNotEmpty(rContent))
 				{
 					switch(returnType)
 					{
@@ -188,7 +184,7 @@ public class GenericRequestHandler<T>
 			{
 				Throwable throwable = null;
 				
-				if (!SharedStringUtil.isEmpty(getResponseContent(response)))
+				if (SUS.isNotEmpty(getResponseContent(response)))
 				{
 					try
 					{

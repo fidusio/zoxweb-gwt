@@ -1,25 +1,21 @@
 package org.zoxweb.client.widget;
 
-import java.util.Date;
-
-import org.zoxweb.client.widget.NVBaseWidget;
-import org.zoxweb.client.widget.NVStringWidget;
-import org.zoxweb.client.widget.NVTextWidgetController;
-import org.zoxweb.shared.filters.FilterType;
-import org.zoxweb.shared.filters.ValueFilter;
-import org.zoxweb.shared.util.NVConfig;
-import org.zoxweb.shared.util.NVPair;
-import org.zoxweb.shared.util.SharedStringUtil;
-import org.zoxweb.shared.widget.WidgetConst;
-
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ChangeEvent;
 import com.google.gwt.event.dom.client.ChangeHandler;
 import com.google.gwt.uibinder.client.UiBinder;
+import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.Widget;
-import com.google.gwt.uibinder.client.UiField;
+import org.zoxweb.shared.filters.FilterType;
+import org.zoxweb.shared.filters.ValueFilter;
+import org.zoxweb.shared.util.NVConfig;
+import org.zoxweb.shared.util.NVPair;
+import org.zoxweb.shared.util.SUS;
+import org.zoxweb.shared.widget.WidgetConst;
+
+import java.util.Date;
 
 @SuppressWarnings("serial")
 public class NVPairWidget
@@ -143,7 +139,7 @@ public class NVPairWidget
 		
 		NVPair nvp = new NVPair();
 		
-		if (SharedStringUtil.isEmpty(tbName.getText()))
+		if (SUS.isEmpty(tbName.getText()))
 		{
 			tbName.setStyleName(WidgetConst.CSSStyle.TEXTBOX_ERROR.getName());
 			throw new NullPointerException("Empty value:" + nvConfig);

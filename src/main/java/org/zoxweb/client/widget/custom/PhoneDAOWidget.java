@@ -1,5 +1,16 @@
 package org.zoxweb.client.widget.custom;
 
+import com.google.gwt.core.client.GWT;
+import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.event.dom.client.KeyPressEvent;
+import com.google.gwt.event.dom.client.KeyPressHandler;
+import com.google.gwt.event.logical.shared.AttachEvent;
+import com.google.gwt.event.logical.shared.AttachEvent.Handler;
+import com.google.gwt.resources.client.CssResource;
+import com.google.gwt.uibinder.client.UiBinder;
+import com.google.gwt.uibinder.client.UiField;
+import com.google.gwt.user.client.ui.*;
 import org.zoxweb.client.widget.NVDynamicEnumWidget;
 import org.zoxweb.client.widget.NVEntityIntermediateWidget;
 import org.zoxweb.client.widget.ValueFilterHandler;
@@ -7,28 +18,8 @@ import org.zoxweb.client.widget.ValueFilterSetValidator;
 import org.zoxweb.shared.data.PhoneDAO;
 import org.zoxweb.shared.data.SharedDataUtil;
 import org.zoxweb.shared.filters.NumberFilter;
-import org.zoxweb.shared.util.Const;
-import org.zoxweb.shared.util.NVConfigEntity;
-import org.zoxweb.shared.util.NVConfigMapUtil;
-import org.zoxweb.shared.util.NVEntity;
-import org.zoxweb.shared.util.SharedStringUtil;
+import org.zoxweb.shared.util.*;
 import org.zoxweb.shared.widget.WidgetConst;
-
-import com.google.gwt.core.client.GWT;
-import com.google.gwt.event.logical.shared.AttachEvent;
-import com.google.gwt.event.logical.shared.AttachEvent.Handler;
-import com.google.gwt.resources.client.CssResource;
-import com.google.gwt.uibinder.client.UiBinder;
-import com.google.gwt.user.client.ui.Widget;
-import com.google.gwt.uibinder.client.UiField;
-import com.google.gwt.user.client.ui.TextBox;
-import com.google.gwt.user.client.ui.UIObject;
-import com.google.gwt.user.client.ui.VerticalPanel;
-import com.google.gwt.user.client.ui.HorizontalPanel;
-import com.google.gwt.event.dom.client.ClickEvent;
-import com.google.gwt.event.dom.client.ClickHandler;
-import com.google.gwt.event.dom.client.KeyPressEvent;
-import com.google.gwt.event.dom.client.KeyPressHandler;
 
 /**
  * The PhoneDAO widget.
@@ -265,7 +256,7 @@ public class PhoneDAOWidget
 			tbNumber.setValue(phone.getNumber());
 			tbExtension.setValue(phone.getExtension());
 			
-			if (!SharedStringUtil.isEmpty(NVConfigMapUtil.toString(phone, getNVConfigAttributesMap(), false)))
+			if (SUS.isNotEmpty(NVConfigMapUtil.toString(phone, getNVConfigAttributesMap(), false)))
 			{
 				setHrefText(phone);
 				anchorLink.setTitle(WidgetConst.HREF_DEFAULT_TEXT);
@@ -304,7 +295,7 @@ public class PhoneDAOWidget
 			phone.setNumber(tbNumber.getValue());
 			phone.setExtension(tbExtension.getValue());
 			
-			if (!SharedStringUtil.isEmpty(NVConfigMapUtil.toString(phone, getNVConfigAttributesMap(), false)))
+			if (SUS.isNotEmpty(NVConfigMapUtil.toString(phone, getNVConfigAttributesMap(), false)))
 			{
 				setHrefText(phone);
 				anchorLink.setTitle(WidgetConst.HREF_DEFAULT_TEXT);
@@ -435,7 +426,7 @@ public class PhoneDAOWidget
 	@Override
 	public String getFormName()
 	{
-		if (!SharedStringUtil.isEmpty(tbName.getValue()))
+		if (SUS.isNotEmpty(tbName.getValue()))
 		{
 			return tbName.getValue();
 		}

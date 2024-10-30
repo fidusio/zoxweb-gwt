@@ -15,13 +15,11 @@
  */
 package org.zoxweb.client.widget;
 
-import org.zoxweb.shared.filters.FilterType;
-
-import org.zoxweb.shared.util.NVConfig;
-import org.zoxweb.shared.util.SharedStringUtil;
-
 import com.google.gwt.user.client.ui.PasswordTextBox;
 import com.google.gwt.user.client.ui.Widget;
+import org.zoxweb.shared.filters.FilterType;
+import org.zoxweb.shared.util.NVConfig;
+import org.zoxweb.shared.util.SUS;
 
 @SuppressWarnings("serial")
 public class NVPasswordWidget 
@@ -71,7 +69,7 @@ public class NVPasswordWidget
 	{
 		textWidgetController.setStyle(true);
 
-		if (nvConfig.isMandatory() && SharedStringUtil.isEmpty(passwordTextBox.getText()))
+		if (nvConfig.isMandatory() && SUS.isEmpty(passwordTextBox.getText()))
 		{
 			textWidgetController.setStyle(false);
 			throw new NullPointerException("Empty value:" + nvConfig);

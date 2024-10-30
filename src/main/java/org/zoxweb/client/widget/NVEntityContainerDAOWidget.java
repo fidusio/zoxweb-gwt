@@ -27,12 +27,7 @@ import org.zoxweb.shared.data.events.ExportFormListener;
 import org.zoxweb.shared.data.events.PreviewActionListener;
 import org.zoxweb.shared.data.events.SaveActionListener;
 import org.zoxweb.shared.data.events.ValueSelectionListener;
-import org.zoxweb.shared.util.CRUD;
-import org.zoxweb.shared.util.NVConfigEntity;
-import org.zoxweb.shared.util.NVEntity;
-import org.zoxweb.shared.util.NVPair;
-import org.zoxweb.shared.util.SharedStringUtil;
-import org.zoxweb.shared.util.SharedUtil;
+import org.zoxweb.shared.util.*;
 import org.zoxweb.shared.data.DataConst.FormMode;
 import org.zoxweb.shared.data.FolderInfoDAO;
 
@@ -692,17 +687,17 @@ public class NVEntityContainerDAOWidget
 				
 				customPager.setPagerSize(systemInfo.getContent().size());
 				
-				if (!SharedStringUtil.isEmpty(systemInfo.getName()))
+				if (SUS.isNotEmpty(systemInfo.getName()))
 				{
 					tbName.setValue(systemInfo.getName());
 				}
 				
-				if (!SharedStringUtil.isEmpty(systemInfo.getDescription()))
+				if (SUS.isNotEmpty(systemInfo.getDescription()))
 				{
 					tbDescription.setValue(systemInfo.getDescription());
 				}
 				
-				if (!SharedStringUtil.isEmpty(systemInfo.getCanonicalID()))
+				if (SUS.isNotEmpty(systemInfo.getCanonicalID()))
 				{
 					labelCanonicalID.setVisible(true);
 					tbCanonicalID.setVisible(true);
@@ -731,12 +726,12 @@ public class NVEntityContainerDAOWidget
 				
 				customPager.setPagerSize(nveContainer.getContent().size());
 				
-				if (!SharedStringUtil.isEmpty(nveContainer.getName()))
+				if (SUS.isNotEmpty(nveContainer.getName()))
 				{
 					tbName.setValue(nveContainer.getName());
 				}
 				
-				if (!SharedStringUtil.isEmpty(nveContainer.getDescription()))
+				if (SUS.isNotEmpty(nveContainer.getDescription()))
 				{
 					tbDescription.setValue(nveContainer.getDescription());
 				}
@@ -1095,7 +1090,7 @@ public class NVEntityContainerDAOWidget
 	@Override
 	public String getFormName()
 	{
-		if (!SharedStringUtil.isEmpty(tbName.getValue()))
+		if (SUS.isNotEmpty(tbName.getValue()))
 		{
 			return tbName.getValue();
 		}
@@ -1106,7 +1101,7 @@ public class NVEntityContainerDAOWidget
 	@Override
 	public String getFormDescription() 
 	{
-		if (!SharedStringUtil.isEmpty(tbDescription.getValue()))
+		if (SUS.isNotEmpty(tbDescription.getValue()))
 		{
 			return tbDescription.getValue();
 		}

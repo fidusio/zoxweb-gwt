@@ -1,53 +1,27 @@
 package org.zoxweb.client.widget;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.List;
-
-import org.zoxweb.client.rpc.CallBackHandler;
-import org.zoxweb.client.widget.WidgetController;
-import org.zoxweb.client.widget.WidgetUtil;
-import org.zoxweb.shared.util.CRUD;
-import org.zoxweb.shared.util.DynamicEnumMap;
-import org.zoxweb.shared.util.DynamicEnumMapManager;
-import org.zoxweb.shared.util.NVBase;
-import org.zoxweb.shared.util.NVPair;
-import org.zoxweb.shared.util.NotificationType;
-import org.zoxweb.shared.util.SharedStringUtil;
-import org.zoxweb.shared.util.SharedUtil;
-import org.zoxweb.shared.widget.WidgetConst;
-import org.zoxweb.shared.data.CRUDNVBaseDAO;
-
 import com.google.gwt.core.client.GWT;
-import com.google.gwt.uibinder.client.UiBinder;
-import com.google.gwt.user.client.rpc.AsyncCallback;
-import com.google.gwt.user.client.ui.Composite;
-import com.google.gwt.user.client.ui.Widget;
-import com.google.gwt.uibinder.client.UiField;
-import com.google.gwt.user.client.ui.CheckBox;
-import com.google.gwt.user.client.ui.HTMLTable;
-import com.google.gwt.user.client.ui.ScrollPanel;
-import com.google.gwt.user.client.ui.FlexTable;
-import com.google.gwt.user.client.ui.HorizontalPanel;
-import com.google.gwt.user.client.ui.Label;
-import com.google.gwt.user.client.ui.Button;
-import com.google.gwt.user.client.ui.TextBox;
-import com.google.gwt.user.client.ui.UIObject;
-import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.logical.shared.AttachEvent;
 import com.google.gwt.event.logical.shared.AttachEvent.Handler;
 import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.resources.client.CssResource;
-import com.google.gwt.user.client.ui.VerticalPanel;
-
+import com.google.gwt.uibinder.client.UiBinder;
+import com.google.gwt.uibinder.client.UiField;
+import com.google.gwt.uibinder.client.UiHandler;
+import com.google.gwt.user.client.rpc.AsyncCallback;
+import com.google.gwt.user.client.ui.*;
 import org.zoxweb.client.data.ApplicationClientDAO;
 import org.zoxweb.client.data.events.CRUDNVBaseEvent;
 import org.zoxweb.client.data.events.CRUDNVBaseHandler;
 import org.zoxweb.client.data.events.SaveControllerHandler;
+import org.zoxweb.client.rpc.CallBackHandler;
+import org.zoxweb.shared.data.CRUDNVBaseDAO;
+import org.zoxweb.shared.util.*;
+import org.zoxweb.shared.widget.WidgetConst;
+
+import java.util.*;
 
 public class DynamicEnumMapEditorWidget 
 	extends Composite
@@ -345,7 +319,7 @@ public class DynamicEnumMapEditorWidget
 	{
 		tbAddName.setStyleName(WidgetConst.CSSStyle.TEXTBOX_DEFAULT.getName());
 		
-		if (!SharedStringUtil.isEmpty(tbAddName.getText()))
+		if (SUS.isNotEmpty(tbAddName.getText()))
 		{
 			TextBox tbName = new TextBox();
 			tbName.setText(tbAddName.getText());
@@ -585,7 +559,7 @@ public class DynamicEnumMapEditorWidget
 			TextBox tbName = (TextBox) WidgetUtil.lookupWidget(flexTable, i, NAME_COLUMN);
 			
 			//	Checks if the text box is empty, if yes adds the index to hash set.
-			if (SharedStringUtil.isEmpty(tbName.getText()))
+			if (SUS.isEmpty(tbName.getText()))
 			{
 				errorIndexes.add(i);
 			}
@@ -626,7 +600,7 @@ public class DynamicEnumMapEditorWidget
 	@Override
 	public void setNotification(NotificationType type, String message) 
 	{
-		if (!SharedStringUtil.isEmpty(message))
+		if (SUS.isNotEmpty(message))
 		{
 			labelMessage.setVisible(true);
 			labelMessage.setText(message);

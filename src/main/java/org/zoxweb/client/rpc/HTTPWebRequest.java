@@ -18,10 +18,7 @@ package org.zoxweb.client.rpc;
 import org.zoxweb.shared.http.HTTPAuthScheme;
 import org.zoxweb.shared.http.HTTPMessageConfigInterface;
 
-import org.zoxweb.shared.util.ArrayValues;
-import org.zoxweb.shared.util.GetNameValue;
-import org.zoxweb.shared.util.SharedStringUtil;
-import org.zoxweb.shared.util.SharedUtil;
+import org.zoxweb.shared.util.*;
 
 import com.google.gwt.core.client.GWT;
 
@@ -100,7 +97,7 @@ public class HTTPWebRequest {
 		String parameters =  hcc.getHTTPParameterFormatter().format(null, params.values());
 				//SharedStringUtil.format(hcc.getParameters(), "=", false, "&");
 
-		if (!SharedStringUtil.isEmpty(parameters))
+		if (SUS.isNotEmpty(parameters))
 		{
 			switch(hcc.getHTTPParameterFormatter())
 			{

@@ -7,11 +7,7 @@ import org.zoxweb.client.widget.NVStringWidget;
 import org.zoxweb.shared.data.AddressDAO;
 import org.zoxweb.shared.data.SharedDataUtil;
 import org.zoxweb.shared.filters.AddressFilterType;
-import org.zoxweb.shared.util.Const;
-import org.zoxweb.shared.util.NVConfigEntity;
-import org.zoxweb.shared.util.NVConfigMapUtil;
-import org.zoxweb.shared.util.NVEntity;
-import org.zoxweb.shared.util.SharedStringUtil;
+import org.zoxweb.shared.util.*;
 import org.zoxweb.shared.widget.WidgetConst;
 
 import com.google.gwt.core.client.GWT;
@@ -235,7 +231,7 @@ public class AddressDAOWidget
 			stateOrProvince.setValue(address.getStateOrProvince());
 			hpStateOrProvince.add(stateOrProvince);
 			
-			if (!SharedStringUtil.isEmpty(NVConfigMapUtil.toString(address, getNVConfigAttributesMap(), false)))
+			if (SUS.isNotEmpty(NVConfigMapUtil.toString(address, getNVConfigAttributesMap(), false)))
 			{
 				setHrefText(address);
 				anchorLink.setTitle(WidgetConst.HREF_DEFAULT_TEXT);
@@ -274,7 +270,7 @@ public class AddressDAOWidget
 			
 			if (country.getValue().equals("USA") || country.getValue().equals("CAN"))
 			{
-				if (!SharedStringUtil.isEmpty(stateOrProvince.getValue()))
+				if (SUS.isNotEmpty(stateOrProvince.getValue()))
 				{
 					address.setStateOrProvince((String) stateOrProvince.getValue());
 				}
@@ -287,7 +283,7 @@ public class AddressDAOWidget
 				address.setZIPOrPostalCode(tbZipOrPostalCode.getValue());
 			}
 			
-			if (!SharedStringUtil.isEmpty(NVConfigMapUtil.toString(address, getNVConfigAttributesMap(), false)))
+			if (SUS.isNotEmpty(NVConfigMapUtil.toString(address, getNVConfigAttributesMap(), false)))
 			{
 				setHrefText(address);
 				anchorLink.setTitle(WidgetConst.HREF_DEFAULT_TEXT);
@@ -350,12 +346,12 @@ public class AddressDAOWidget
 		boolean cityValid = false;
 		boolean zipValid = false;
 		
-		if (!SharedStringUtil.isEmpty(tbStreetAddress.getValue()) && !SharedStringUtil.isEmpty(tbCity.getValue()))
+		if (SUS.isNotEmpty(tbStreetAddress.getValue()) && SUS.isNotEmpty(tbCity.getValue()))
 		{
 			streetAddressValid = true;
 		}
 
-		if (!SharedStringUtil.isEmpty(tbCity.getValue()))
+		if (SUS.isNotEmpty(tbCity.getValue()))
 		{
 			cityValid = true;
 		}
@@ -385,7 +381,7 @@ public class AddressDAOWidget
 	{
 		boolean ret = false;
 		
-		if (!SharedStringUtil.isEmpty(tbStreetAddress.getValue()))
+		if (SUS.isNotEmpty(tbStreetAddress.getValue()))
 		{
 			ret = true;
 		}
@@ -406,7 +402,7 @@ public class AddressDAOWidget
 	{
 		boolean ret = false;
 		
-		if (!SharedStringUtil.isEmpty(tbCity.getValue()))
+		if (SUS.isNotEmpty(tbCity.getValue()))
 		{
 			ret = true;
 		}
@@ -555,7 +551,7 @@ public class AddressDAOWidget
 	@Override
 	public String getFormName() 
 	{
-		if (!SharedStringUtil.isEmpty(tbName.getValue()))
+		if (SUS.isNotEmpty(tbName.getValue()))
 		{
 			return tbName.getValue();
 		}

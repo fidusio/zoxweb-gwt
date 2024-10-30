@@ -1,33 +1,14 @@
 package org.zoxweb.client.widget;
 
-import org.zoxweb.client.widget.NVBaseWidget;
-import org.zoxweb.client.widget.NVStringWidget;
-import org.zoxweb.client.widget.WidgetUtil;
-import org.zoxweb.shared.util.NVConfig;
-import org.zoxweb.shared.util.NVConfigEntity;
-import org.zoxweb.shared.util.NVEntity;
-import org.zoxweb.shared.util.NVConfigNameMap;
-import org.zoxweb.shared.util.NVConfigMapUtil;
-import org.zoxweb.shared.util.NVPair;
-import org.zoxweb.shared.util.SharedStringUtil;
-import org.zoxweb.shared.util.ExceptionCollection;
-import org.zoxweb.shared.data.DataConst.DataParam;
-import org.zoxweb.shared.util.ArrayValues;
-
 import com.google.gwt.core.client.GWT;
-import com.google.gwt.uibinder.client.UiBinder;
-import com.google.gwt.user.client.ui.HasVerticalAlignment;
-import com.google.gwt.user.client.ui.Label;
-import com.google.gwt.user.client.ui.Widget;
-import com.google.gwt.uibinder.client.UiField;
-import com.google.gwt.user.client.ui.FlexTable;
-import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.resources.client.CssResource;
-import com.google.gwt.user.client.ui.VerticalPanel;
-import com.google.gwt.user.client.ui.HorizontalPanel;
-import com.google.gwt.user.client.ui.ScrollPanel;
+import com.google.gwt.uibinder.client.UiBinder;
+import com.google.gwt.uibinder.client.UiField;
+import com.google.gwt.user.client.ui.*;
+import org.zoxweb.shared.data.DataConst.DataParam;
+import org.zoxweb.shared.util.*;
 
 @SuppressWarnings("serial")
 public class NVEntityDefaultWidget 
@@ -282,7 +263,7 @@ public class NVEntityDefaultWidget
 				}
 			}			
 			
-			if (!SharedStringUtil.isEmpty(NVConfigMapUtil.toString(currentNVE, getNVConfigAttributesMap(), false)))
+			if (SUS.isNotEmpty(NVConfigMapUtil.toString(currentNVE, getNVConfigAttributesMap(), false)))
 			{
 				anchorLink.setText(getHrefLinkText(currentNVE));
 			}
@@ -365,7 +346,7 @@ public class NVEntityDefaultWidget
 				throw ec;
 			}
 			
-			if (!SharedStringUtil.isEmpty(NVConfigMapUtil.toString(currentNVE, getNVConfigAttributesMap(), false)))
+			if (SUS.isNotEmpty(NVConfigMapUtil.toString(currentNVE, getNVConfigAttributesMap(), false)))
 			{
 				anchorLink.setText(getHrefLinkText(currentNVE));
 			}

@@ -1,8 +1,12 @@
 package org.zoxweb.client.widget.custom;
 
-import java.util.Date;
-import java.util.HashMap;
-
+import com.google.gwt.core.client.GWT;
+import com.google.gwt.event.dom.client.*;
+import com.google.gwt.i18n.client.DateTimeFormat;
+import com.google.gwt.resources.client.CssResource;
+import com.google.gwt.uibinder.client.UiBinder;
+import com.google.gwt.uibinder.client.UiField;
+import com.google.gwt.user.client.ui.*;
 import org.zoxweb.client.widget.CustomDateWidget;
 import org.zoxweb.client.widget.NVEntityIntermediateWidget;
 import org.zoxweb.client.widget.ValueFilterHandler;
@@ -13,33 +17,11 @@ import org.zoxweb.shared.data.SharedDataUtil;
 import org.zoxweb.shared.filters.CreditCardNumberFilter;
 import org.zoxweb.shared.filters.NotNullOrEmpty;
 import org.zoxweb.shared.filters.NumberFilter;
-import org.zoxweb.shared.util.NVConfigEntity;
-import org.zoxweb.shared.util.NVConfigMapUtil;
-import org.zoxweb.shared.util.NVEntity;
-import org.zoxweb.shared.util.SharedStringUtil;
-import org.zoxweb.shared.util.SharedUtil;
+import org.zoxweb.shared.util.*;
 import org.zoxweb.shared.widget.WidgetConst;
 
-import com.google.gwt.core.client.GWT;
-import com.google.gwt.event.dom.client.ChangeEvent;
-import com.google.gwt.event.dom.client.ChangeHandler;
-import com.google.gwt.event.dom.client.ClickEvent;
-import com.google.gwt.event.dom.client.ClickHandler;
-import com.google.gwt.event.dom.client.KeyPressEvent;
-import com.google.gwt.event.dom.client.KeyPressHandler;
-import com.google.gwt.i18n.client.DateTimeFormat;
-import com.google.gwt.resources.client.CssResource;
-import com.google.gwt.uibinder.client.UiBinder;
-import com.google.gwt.user.client.ui.Widget;
-import com.google.gwt.uibinder.client.UiField;
-import com.google.gwt.user.client.ui.Anchor;
-import com.google.gwt.user.client.ui.ListBox;
-import com.google.gwt.user.client.ui.PasswordTextBox;
-import com.google.gwt.user.client.ui.TextBox;
-import com.google.gwt.user.client.ui.VerticalPanel;
-import com.google.gwt.user.client.ui.HorizontalPanel;
-import com.google.gwt.user.client.ui.Image;
-import com.google.gwt.user.client.ui.Label;
+import java.util.Date;
+import java.util.HashMap;
 
 /**
  * The CreditCardDAO widget.
@@ -298,13 +280,13 @@ public class CreditCardDAOWidget
 				ptbSecurityCode.setValue(card.getSecurityCode());
 			}
 
-			if (!SharedStringUtil.isEmpty(NVConfigMapUtil.toString(card, getNVConfigAttributesMap(), false)))
+			if (SUS.isNotEmpty(NVConfigMapUtil.toString(card, getNVConfigAttributesMap(), false)))
 			{
 				setHrefText(card);
 				anchorLink.setTitle(WidgetConst.HREF_DEFAULT_TEXT);
 			}
 			
-			if (SharedStringUtil.isEmpty(anchorLink.getText()) || anchorLink.getText().equals("0"))
+			if (SUS.isEmpty(anchorLink.getText()) || anchorLink.getText().equals("0"))
 			{
 				setLinkDefaultText();
 			}
@@ -347,13 +329,13 @@ public class CreditCardDAOWidget
 				}
 			}
 			
-			if (!SharedStringUtil.isEmpty(NVConfigMapUtil.toString(card, getNVConfigAttributesMap(), false)))
+			if (SUS.isNotEmpty(NVConfigMapUtil.toString(card, getNVConfigAttributesMap(), false)))
 			{
 				setHrefText(card);
 				anchorLink.setTitle(WidgetConst.HREF_DEFAULT_TEXT);
 			}
 			
-			if (SharedStringUtil.isEmpty(anchorLink.getText()) || anchorLink.getText().equals("0"))
+			if (SUS.isEmpty(anchorLink.getText()) || anchorLink.getText().equals("0"))
 			{
 				anchorLink.setText(WidgetConst.HREF_DEFAULT_TEXT);
 				anchorLink.setTitle(WidgetConst.HREF_DEFAULT_TEXT);
@@ -399,13 +381,13 @@ public class CreditCardDAOWidget
 				}
 			}
 		
-			if (!SharedStringUtil.isEmpty(NVConfigMapUtil.toString(card, getNVConfigAttributesMap(), false)))
+			if (SUS.isNotEmpty(NVConfigMapUtil.toString(card, getNVConfigAttributesMap(), false)))
 			{
 				setHrefText(card);
 				anchorLink.setTitle(WidgetConst.HREF_DEFAULT_TEXT);
 			}
 			
-			if (SharedStringUtil.isEmpty(anchorLink.getText()) || anchorLink.getText().equals("0"))
+			if (SUS.isEmpty(anchorLink.getText()) || anchorLink.getText().equals("0"))
 			{
 				anchorLink.setText(WidgetConst.HREF_DEFAULT_TEXT);
 				anchorLink.setTitle(WidgetConst.HREF_DEFAULT_TEXT);
@@ -423,7 +405,7 @@ public class CreditCardDAOWidget
 	{
 		hpCardNumber.clear();
 		
-		if (readOnly && !SharedStringUtil.isEmpty(cardNumber))
+		if (readOnly && SUS.isNotEmpty(cardNumber))
 		{
 			hrefLinkCardNumber.setText(SharedDataUtil.maskCreditCardNumber(cardNumber));
 			hpCardNumber.add(hrefLinkCardNumber);
@@ -449,7 +431,7 @@ public class CreditCardDAOWidget
 	
 	private boolean validateCardNumber()
 	{
-		if (!SharedStringUtil.isEmpty(tbCardNumber.getValue()) && getSelectedCardType() != null)
+		if (SUS.isNotEmpty(tbCardNumber.getValue()) && getSelectedCardType() != null)
 		{
 			CreditCardType validType = CreditCardType.lookup(tbCardNumber.getValue());
 			
@@ -623,7 +605,7 @@ public class CreditCardDAOWidget
 	@Override
 	public String getFormName() 
 	{
-		if (!SharedStringUtil.isEmpty(tbName.getValue()))
+		if (SUS.isNotEmpty(tbName.getValue()))
 		{
 			return tbName.getValue();
 		}

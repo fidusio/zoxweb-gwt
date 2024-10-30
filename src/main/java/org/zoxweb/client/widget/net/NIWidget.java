@@ -5,6 +5,7 @@ import org.zoxweb.client.controller.ListBoxController;
 import org.zoxweb.shared.net.InetProp.InetProto;
 import org.zoxweb.shared.net.NIConfigDAO;
 import org.zoxweb.shared.net.SharedNetUtil;
+import org.zoxweb.shared.util.SUS;
 import org.zoxweb.shared.util.SetValue;
 import org.zoxweb.shared.util.SharedStringUtil;
 
@@ -191,7 +192,7 @@ implements SetValue<NIConfigDAO>
 			if (w instanceof TextBox)
 			{
 				TextBox tb = (TextBox)w;
-				if (!SharedStringUtil.isEmpty(tb.getValue()))
+				if (SUS.isNotEmpty(tb.getValue()))
 				{
 					try
 					{

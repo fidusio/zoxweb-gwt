@@ -1,23 +1,18 @@
 package org.zoxweb.client.widget;
 
-import java.util.Date;
-
-import org.zoxweb.shared.util.Const;
-import org.zoxweb.shared.util.SetValue;
-import org.zoxweb.shared.util.SharedStringUtil;
-import org.zoxweb.shared.util.SharedUtil;
-import org.zoxweb.shared.util.Const.DayPeriod;
-
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ChangeHandler;
 import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
-import com.google.gwt.user.client.ui.Composite;
-import com.google.gwt.user.client.ui.HorizontalPanel;
-import com.google.gwt.user.client.ui.ListBox;
-import com.google.gwt.user.client.ui.Widget;
-import com.google.gwt.user.client.ui.Label;
+import com.google.gwt.user.client.ui.*;
+import org.zoxweb.shared.util.Const;
+import org.zoxweb.shared.util.Const.DayPeriod;
+import org.zoxweb.shared.util.SUS;
+import org.zoxweb.shared.util.SetValue;
+import org.zoxweb.shared.util.SharedUtil;
+
+import java.util.Date;
 
 /**
  * Customized time which includes hour, minutes, seconds, and AM/PM marker.
@@ -133,7 +128,7 @@ public class CustomTimeWidget
 	
 	public void setHour(String hour)
 	{
-		if (!SharedStringUtil.isEmpty(hour))
+		if (SUS.isNotEmpty(hour))
 		{
 			for (int i = 0; i < lbHour.getItemCount(); i++)
 			{
@@ -148,7 +143,7 @@ public class CustomTimeWidget
 	
 	public void setMinutes(String minutes)
 	{
-		if (!SharedStringUtil.isEmpty(minutes))
+		if (SUS.isNotEmpty(minutes))
 		{
 			for (int i = 0; i < lbMinutes.getItemCount(); i++)
 			{
@@ -163,7 +158,7 @@ public class CustomTimeWidget
 	
 	public void setSeconds(String seconds)
 	{
-		if (!SharedStringUtil.isEmpty(seconds))
+		if (SUS.isNotEmpty(seconds))
 		{
 			for (int i = 0; i < lbSeconds.getItemCount(); i++)
 			{

@@ -15,20 +15,18 @@
  */
 package org.zoxweb.client.widget;
 
-import org.zoxweb.shared.filters.FilterType;
-
-import org.zoxweb.shared.util.NVConfig;
-import org.zoxweb.shared.util.SharedStringUtil;
-
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.Widget;
+import org.zoxweb.shared.filters.FilterType;
+import org.zoxweb.shared.util.NVConfig;
+import org.zoxweb.shared.util.SUS;
 
 @SuppressWarnings("serial")
 public class NVStringWidget 
 	extends NVBaseWidget<String>
 {
 	
-	private TextBox textBox = new TextBox();
+	private final TextBox textBox = new TextBox();
 	
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public NVStringWidget(NVConfig nvConfig)
@@ -72,7 +70,7 @@ public class NVStringWidget
 	{
 		textWidgetController.setStyle(true);
 
-		if (nvConfig.isMandatory() && SharedStringUtil.isEmpty(textBox.getText()))
+		if (nvConfig.isMandatory() && SUS.isEmpty(textBox.getText()))
 		{
 			textWidgetController.setStyle(false);
 			throw new NullPointerException("Empty value:" + nvConfig);

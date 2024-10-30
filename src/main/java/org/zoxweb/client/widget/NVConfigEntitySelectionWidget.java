@@ -15,33 +15,23 @@
  */
 package org.zoxweb.client.widget;
 
-import java.util.HashMap;
-import java.util.List;
-
+import com.google.gwt.core.client.GWT;
+import com.google.gwt.event.dom.client.*;
+import com.google.gwt.event.shared.HandlerRegistration;
+import com.google.gwt.uibinder.client.UiBinder;
+import com.google.gwt.uibinder.client.UiField;
+import com.google.gwt.user.client.rpc.AsyncCallback;
+import com.google.gwt.user.client.ui.*;
 import org.zoxweb.client.data.events.SearchControllerHandler;
 import org.zoxweb.client.rpc.CallBackHandler;
 import org.zoxweb.shared.data.NVEntityContainerDAO;
 import org.zoxweb.shared.util.NVConfigEntity;
 import org.zoxweb.shared.util.NVEntity;
-import org.zoxweb.shared.util.SharedStringUtil;
+import org.zoxweb.shared.util.SUS;
 import org.zoxweb.shared.widget.WidgetConst;
 
-import com.google.gwt.core.client.GWT;
-import com.google.gwt.event.dom.client.ChangeEvent;
-import com.google.gwt.event.dom.client.ChangeHandler;
-import com.google.gwt.event.dom.client.ClickEvent;
-import com.google.gwt.event.dom.client.ClickHandler;
-import com.google.gwt.event.dom.client.DoubleClickHandler;
-import com.google.gwt.event.shared.HandlerRegistration;
-import com.google.gwt.uibinder.client.UiBinder;
-import com.google.gwt.uibinder.client.UiField;
-import com.google.gwt.user.client.rpc.AsyncCallback;
-import com.google.gwt.user.client.ui.Composite;
-import com.google.gwt.user.client.ui.ListBox;
-import com.google.gwt.user.client.ui.PopupPanel;
-import com.google.gwt.user.client.ui.Widget;
-import com.google.gwt.user.client.ui.HorizontalPanel;
-import com.google.gwt.user.client.ui.Label;
+import java.util.HashMap;
+import java.util.List;
 
 /**
  * @author mzebib
@@ -126,7 +116,7 @@ public class NVConfigEntitySelectionWidget
 				
 								if (nvce != null)
 								{
-									if (!SharedStringUtil.isEmpty(nvce.getDisplayName()))
+									if (SUS.isNotEmpty(nvce.getDisplayName()))
 									{
 										lbNVConfigEntityTypes.addItem(nvce.getDisplayName());
 										nvceMap.put(nvce.getDisplayName(), nvce);
@@ -176,7 +166,7 @@ public class NVConfigEntitySelectionWidget
 			{
 				if (nvce != null)
 				{
-					if (!SharedStringUtil.isEmpty(nvce.getDisplayName()))
+					if (SUS.isNotEmpty(nvce.getDisplayName()))
 					{
 						lbNVConfigEntityTypes.addItem(nvce.getDisplayName());
 						nvceMap.put(nvce.getDisplayName(), nvce);

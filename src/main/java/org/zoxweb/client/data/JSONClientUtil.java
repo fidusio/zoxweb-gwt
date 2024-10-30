@@ -912,7 +912,7 @@ public class JSONClientUtil
 			
 			for (String fn : qr.getFieldNames())
 			{
-				if (!SharedStringUtil.isEmpty(fn))
+				if (SUS.isNotEmpty(fn))
 				{
 					jsonArray.set(i++, new JSONString(fn));
 				}

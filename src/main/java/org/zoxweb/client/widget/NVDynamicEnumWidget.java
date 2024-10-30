@@ -1,34 +1,20 @@
 package org.zoxweb.client.widget;
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
-
-import org.zoxweb.shared.util.CRUD;
-import org.zoxweb.shared.util.Const;
-import org.zoxweb.shared.util.DynamicEnumMap;
-import org.zoxweb.shared.util.NVBase;
-import org.zoxweb.shared.util.NVConfig;
-import org.zoxweb.shared.util.NVPair;
-import org.zoxweb.shared.util.SharedStringUtil;
-import org.zoxweb.shared.util.DataDecoderComparator.StringDataDecoderComparator;
-import org.zoxweb.shared.widget.WidgetConst;
-
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
-import com.google.gwt.event.shared.HandlerRegistration;
-import com.google.gwt.user.client.ui.HorizontalPanel;
-import com.google.gwt.user.client.ui.Image;
-import com.google.gwt.user.client.ui.ListBox;
-import com.google.gwt.user.client.ui.PushButton;
-import com.google.gwt.user.client.ui.Widget;
 import com.google.gwt.event.logical.shared.AttachEvent;
-
+import com.google.gwt.event.shared.HandlerRegistration;
+import com.google.gwt.user.client.ui.*;
 import org.zoxweb.client.data.ApplicationClientDAO;
 import org.zoxweb.client.data.events.CRUDNVBaseEvent;
 import org.zoxweb.client.data.events.CRUDNVBaseHandler;
-import org.zoxweb.client.widget.NVBaseWidget;
-import org.zoxweb.client.widget.PopupContentWidget;
+import org.zoxweb.shared.util.*;
+import org.zoxweb.shared.util.DataDecoderComparator.StringDataDecoderComparator;
+import org.zoxweb.shared.widget.WidgetConst;
+
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 @SuppressWarnings("serial")
 public class NVDynamicEnumWidget
@@ -251,7 +237,7 @@ public class NVDynamicEnumWidget
 			switch(displayProp)
 			{
 			case DEFAULT:
-					if (!SharedStringUtil.isEmpty(nvp.getValue()))
+					if (SUS.isNotEmpty(nvp.getValue()))
 					{
 						listBox.addItem(nvp.getValue());
 						map.put(nvp.getValue(), nvp.getName());
@@ -267,7 +253,7 @@ public class NVDynamicEnumWidget
 					map.put(nvp.getName(), nvp.getName());
 				break;
 			case NAME_VALUE:
-					if (!SharedStringUtil.isEmpty(nvp.getValue()))
+					if (SUS.isNotEmpty(nvp.getValue()))
 					{
 						listBox.addItem(nvp.getName() + "-" + nvp.getValue());
 						map.put(nvp.getName() + "-" + nvp.getValue(), nvp.getName());
@@ -279,7 +265,7 @@ public class NVDynamicEnumWidget
 					}
 				break;
 			case VALUE:
-					if (!SharedStringUtil.isEmpty(nvp.getValue()))
+					if (SUS.isNotEmpty(nvp.getValue()))
 					{
 						listBox.addItem(nvp.getValue());
 						map.put(nvp.getValue(), nvp.getName());

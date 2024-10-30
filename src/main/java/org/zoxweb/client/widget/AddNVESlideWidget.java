@@ -14,6 +14,7 @@ import org.zoxweb.shared.data.SharedDataUtil;
 import org.zoxweb.shared.data.ZWDataFactory;
 import org.zoxweb.shared.util.NVConfigEntity;
 import org.zoxweb.shared.util.NVEntity;
+import org.zoxweb.shared.util.SUS;
 import org.zoxweb.shared.util.SharedStringUtil;
 import org.zoxweb.shared.widget.WidgetConst;
 
@@ -124,7 +125,7 @@ public class AddNVESlideWidget
 				
 								if (nvce != null)
 								{
-									if (!SharedStringUtil.isEmpty(nvce.getDisplayName()))
+									if (SUS.isNotEmpty(nvce.getDisplayName()))
 									{
 										lbNVConfigEntityTypes.addItem(nvce.getDisplayName());
 										nvceMap.put(nvce.getDisplayName(), nvce);
@@ -190,7 +191,7 @@ public class AddNVESlideWidget
 			{
 				if (nvce != null)
 				{
-					if (!SharedStringUtil.isEmpty(nvce.getDisplayName()))
+					if (SUS.isNotEmpty(nvce.getDisplayName()))
 					{
 						lbNVConfigEntityTypes.addItem(nvce.getDisplayName());
 						nvceMap.put(nvce.getDisplayName(), nvce);
@@ -275,22 +276,22 @@ public class AddNVESlideWidget
 						{
 							FormInfoDAO formInfo = (FormInfoDAO) nve;
 							
-							if (!SharedStringUtil.isEmpty(formInfo.getName()))
+							if (SUS.isNotEmpty(formInfo.getName()))
 							{
 								lbNVEntitySelections.addItem(formInfo.getName());
 							}
-							else if (formInfo.getFormReference() != null && !SharedStringUtil.isEmpty(formInfo.getFormReference().getName()))
+							else if (formInfo.getFormReference() != null && SUS.isNotEmpty(formInfo.getFormReference().getName()))
 							{
 								lbNVEntitySelections.addItem(formInfo.getFormReference().getName());
 							}
-							else if (formInfo.getFormReference() != null && !SharedStringUtil.isEmpty(formInfo.getFormReference().getNVConfig().getName()))
+							else if (formInfo.getFormReference() != null && SUS.isNotEmpty(formInfo.getFormReference().getNVConfig().getName()))
 							{
 								lbNVEntitySelections.addItem(formInfo.getFormReference().getNVConfig().getName());
 							}
 						}
 						else
 						{
-							if (!SharedStringUtil.isEmpty(nve.getName()))
+							if (SUS.isNotEmpty(nve.getName()))
 							{
 								lbNVEntitySelections.addItem(nve.getName());
 							}

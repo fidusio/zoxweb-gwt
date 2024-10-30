@@ -15,17 +15,15 @@
  */
 package org.zoxweb.client.widget;
 
-import java.math.BigDecimal;
-
-import org.zoxweb.shared.filters.FilterType;
-
-import org.zoxweb.shared.util.NVConfig;
-import org.zoxweb.shared.util.SharedStringUtil;
-
 import com.google.gwt.event.dom.client.KeyPressEvent;
 import com.google.gwt.event.dom.client.KeyPressHandler;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.Widget;
+import org.zoxweb.shared.filters.FilterType;
+import org.zoxweb.shared.util.NVConfig;
+import org.zoxweb.shared.util.SUS;
+
+import java.math.BigDecimal;
 
 @SuppressWarnings("serial")
 public class NVBigDecimalWidget 
@@ -100,7 +98,7 @@ public class NVBigDecimalWidget
 			textBox.setValue(textBox.getValue());
 		}
 		
-		if (SharedStringUtil.isEmpty(textBox.getValue()) || WidgetUtil.isNull(textBox))
+		if (SUS.isEmpty(textBox.getValue()) || WidgetUtil.isNull(textBox))
 		{
 			textWidgetController.setStyle(false);
 			throw new IllegalArgumentException("Invalid value:" + nvConfig);

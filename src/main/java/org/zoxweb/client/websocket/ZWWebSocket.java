@@ -19,6 +19,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import org.zoxweb.shared.http.HTTPMessageConfigInterface;
+import org.zoxweb.shared.util.SUS;
 import org.zoxweb.shared.util.SharedBase64;
 import org.zoxweb.shared.util.SharedStringUtil;
 
@@ -53,7 +54,7 @@ public class ZWWebSocket
 
     private static String formatFullURL(HTTPMessageConfigInterface hcc)
     {
-    	if (SharedStringUtil.isEmpty(hcc.getURL()))
+    	if (SUS.isEmpty(hcc.getURL()))
     	{
     		String url = GWT.getModuleBaseURL().toLowerCase();
 
