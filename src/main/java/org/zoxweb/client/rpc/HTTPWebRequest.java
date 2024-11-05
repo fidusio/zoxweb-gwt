@@ -51,8 +51,8 @@ public class HTTPWebRequest {
 		{
 			builder.setHeader(gnvHeader.getName(), gnvHeader.getValue());
 		}
-
-		builder.setTimeoutMillis((int)hcc.getTimeout());
+		hcc.setTimeout(20);
+		builder.setTimeoutMillis((int)(Const.TimeInMillis.SECOND.MILLIS * hcc.getTimeout()));
 		String data = null;
 
 		if (hcc.getContent() != null && hcc.getContent().length > 0)
