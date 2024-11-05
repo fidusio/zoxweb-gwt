@@ -15,17 +15,12 @@
  */
 package org.zoxweb.client.rpc;
 
-import org.zoxweb.shared.http.HTTPAuthScheme;
-import org.zoxweb.shared.http.HTTPMessageConfigInterface;
-
-import org.zoxweb.shared.util.*;
-
 import com.google.gwt.core.client.GWT;
-
-
 import com.google.gwt.http.client.RequestCallback;
 import com.google.gwt.http.client.RequestException;
 import com.google.gwt.http.client.URL;
+import org.zoxweb.shared.http.HTTPMessageConfigInterface;
+import org.zoxweb.shared.util.*;
 
 /**
  *
@@ -57,7 +52,7 @@ public class HTTPWebRequest {
 			builder.setHeader(gnvHeader.getName(), gnvHeader.getValue());
 		}
 
-		builder.setTimeoutMillis(hcc.getReadTimeout());
+		builder.setTimeoutMillis((int)hcc.getTimeout());
 		String data = null;
 
 		if (hcc.getContent() != null && hcc.getContent().length > 0)
