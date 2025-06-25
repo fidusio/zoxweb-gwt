@@ -51,8 +51,8 @@ public class CryptoClient
 	public byte[] hash(String mdAlgo, byte[]... tokens)
         throws NullPointerException, AccessSecurityException
 	{
-		CryptoConst.HASHType mdType = CryptoConst.HASHType.lookup(mdAlgo);
-		SharedUtil.checkIfNulls("MD type not found", mdType);
+		CryptoConst.HashType mdType = CryptoConst.HashType.lookup(mdAlgo);
+		SUS.checkIfNulls("MD type not found", mdType);
 		StringBuilder sb = new StringBuilder();
 
 		switch (mdType)
@@ -83,8 +83,8 @@ public class CryptoClient
 	public byte[] hash(String mdAlgo, String... tokens)
         throws AccessSecurityException
 	{
-		CryptoConst.HASHType mdType = CryptoConst.HASHType.lookup(mdAlgo);
-		SharedUtil.checkIfNulls("MD type not found", mdType);
+		CryptoConst.HashType mdType = CryptoConst.HashType.lookup(mdAlgo);
+		SUS.checkIfNulls("MD type not found", mdType);
 		StringBuilder sb = new StringBuilder();
 
 		switch(mdType)
@@ -161,7 +161,7 @@ public class CryptoClient
 
 	@Override
 	public String encode(byte[] key, JWT jwt) throws AccessSecurityException {
-		SharedUtil.checkIfNulls("Null jwt", jwt, jwt.getHeader(), jwt.getHeader().getJWTAlgorithm());
+		SUS.checkIfNulls("Null jwt", jwt, jwt.getHeader(), jwt.getHeader().getJWTAlgorithm());
 		
 		StringBuilder sb = new StringBuilder();
 		byte[] b64Header = SharedBase64.encode(Base64Type.URL, JSONClientUtil.toString(JSONClientUtil.toJSONGenericMap(jwt.getHeader().getProperties(), false)));
@@ -180,11 +180,11 @@ public class CryptoClient
 		switch(jwt.getHeader().getJWTAlgorithm())
 		{
 		case HS256:
-			SharedUtil.checkIfNulls("Null key", key);
+			SUS.checkIfNulls("Null key", key);
 			b64Hash = SharedBase64.encodeAsString(Base64Type.URL, hmacSHA256(key, SharedStringUtil.getBytes(sb.toString())));
 			break;
 		case HS512:
-			SharedUtil.checkIfNulls("Null key", key);
+			SUS.checkIfNulls("Null key", key);
 			b64Hash = SharedBase64.encodeAsString(Base64Type.URL, hmacSHA512(key, SharedStringUtil.getBytes(sb.toString())));
 			break;	
 		case none:
@@ -248,7 +248,7 @@ public class CryptoClient
 	
 	public static JWT parseJWT(String token) throws NullPointerException, IllegalArgumentException, AccessException
     {
-        SharedUtil.checkIfNulls("Null token", token);
+        SUS.checkIfNulls("Null token", token);
         String tokens[] = token.trim().split("\\.");
         
         if(tokens.length < 2 || tokens.length> 3)
@@ -274,7 +274,7 @@ public class CryptoClient
         }
         
         
-        SharedUtil.checkIfNulls("Null jwt header or parameters", jwtHeader, jwtHeader.getJWTAlgorithm());
+        SUS.checkIfNulls("Null jwt header or parameters", jwtHeader, jwtHeader.getJWTAlgorithm());
 //      JWT ret = new JWT();
         //ret.setHeader(jwtHeader);
         //ret.setPayload(jwtPayload);
