@@ -2,6 +2,7 @@ package org.zoxweb.client.controller;
 
 import com.google.gwt.user.client.ui.CheckBox;
 import com.google.gwt.user.client.ui.PasswordTextBox;
+import com.google.gwt.user.client.ui.TextBox;
 
 public class PasswordWidgetController {
 
@@ -20,7 +21,7 @@ public class PasswordWidgetController {
         );
     }
 
-    public PasswordTextBox getWidget() {
+    public TextBox getWidget() {
         return passwordTextBox;
     }
 
