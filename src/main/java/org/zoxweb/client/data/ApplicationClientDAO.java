@@ -1,12 +1,12 @@
 /*
  * Copyright (c) 2012-2017 ZoxWeb.com LLC.
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
  * use this file except in compliance with the License. You may obtain a copy of
  * the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
  * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
@@ -24,64 +24,53 @@ import com.google.gwt.event.shared.HasHandlers;
 
 /**
  * [Please state the purpose for this class or method because it will help the team for future maintenance ...].
- * 
+ *
  */
 public class ApplicationClientDAO
-	implements CallBackHandlerListener, HasHandlers, GetName
-{
+        implements CallBackHandlerListener, HasHandlers, GetName {
 
-	public static final ApplicationClientDAO DEFAULT = new ApplicationClientDAO("zoxweb-core", null);
-	
-	protected HandlerManager handlerManager = null;
-	protected String name;
-	
-	protected ApplicationClientDAO(String name, HandlerManager handlerManager)
-	{
-		this.name = name;
-		
-		if (handlerManager != null)
-		{
-			this.handlerManager = handlerManager;
-		}
-		else
-		{
-			this.handlerManager = new HandlerManager(this);
-		}
-	}
+    public static final ApplicationClientDAO DEFAULT = new ApplicationClientDAO("zoxweb-core", null);
 
-	@Override
-	public String getName()
-	{
-		return name;
-	}
+    protected HandlerManager handlerManager = null;
+    protected String name;
 
-	@Override
-	public void fireEvent(GwtEvent<?> event)
-	{
-		handlerManager.fireEvent(event);
-	}
-	
-	public HandlerManager getHandlerManager()
-	{
-		return handlerManager;
-	}
+    protected ApplicationClientDAO(String name, HandlerManager handlerManager) {
+        this.name = name;
 
-	@Override
-	public void callBackInitiated()
-	{
-		// to be compliant
-	}
+        if (handlerManager != null) {
+            this.handlerManager = handlerManager;
+        } else {
+            this.handlerManager = new HandlerManager(this);
+        }
+    }
 
-	@Override
-	public void callBackEnded()
-	{
-		// no impl
-	}
+    @Override
+    public String getName() {
+        return name;
+    }
 
-	@Override
-	public boolean callBackEndedWithException(Throwable caught)
-	{
-		return false;
-	}
+    @Override
+    public void fireEvent(GwtEvent<?> event) {
+        handlerManager.fireEvent(event);
+    }
+
+    public HandlerManager getHandlerManager() {
+        return handlerManager;
+    }
+
+    @Override
+    public void callBackInitiated() {
+        // to be compliant
+    }
+
+    @Override
+    public void callBackEnded() {
+        // no impl
+    }
+
+    @Override
+    public boolean callBackEndedWithException(Throwable caught) {
+        return false;
+    }
 
 }

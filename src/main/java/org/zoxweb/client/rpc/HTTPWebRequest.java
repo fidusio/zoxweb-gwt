@@ -1,12 +1,12 @@
 /*
  * Copyright (c) 2012-2017 ZoxWeb.com LLC.
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
  * use this file except in compliance with the License. You may obtain a copy of
  * the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
  * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
@@ -27,90 +27,80 @@ import org.zoxweb.shared.util.*;
  */
 public class HTTPWebRequest {
 
-	private  HTTPMessageConfigInterface hcc;
-	
-	public HTTPWebRequest(HTTPMessageConfigInterface hcc)
-	{
-		SharedUtil.checkIfNulls("Null HTTPCallConfigInterface", hcc);
-		this.hcc = hcc;
-	}
+    private HTTPMessageConfigInterface hcc;
 
-	/**
-	 *
-	 * @param callBack
-	 * @throws NullPointerException
-	 * @throws IllegalArgumentException
-	 * @throws RequestException
-	 */
-	public void send(RequestCallback callBack)
-        throws NullPointerException, IllegalArgumentException, RequestException
-	{
-		ZWRequestBuilder builder = new ZWRequestBuilder(hcc.getMethod(), URL.encode(formatFullURL(hcc)));
+    public HTTPWebRequest(HTTPMessageConfigInterface hcc) {
+        SharedUtil.checkIfNulls("Null HTTPCallConfigInterface", hcc);
+        this.hcc = hcc;
+    }
 
-		for (GetNameValue<String> gnvHeader : hcc.getHeaders().asArrayValuesString().values())
-		{
-			builder.setHeader(gnvHeader.getName(), gnvHeader.getValue());
-		}
-		hcc.setTimeout(20);
-		builder.setTimeoutMillis((int)(Const.TimeInMillis.SECOND.MILLIS * hcc.getTimeout()));
-		String data = null;
+    /**
+     *
+     * @param callBack
+     * @throws NullPointerException
+     * @throws IllegalArgumentException
+     * @throws RequestException
+     */
+    public void send(RequestCallback callBack)
+            throws NullPointerException, IllegalArgumentException, RequestException {
+        ZWRequestBuilder builder = new ZWRequestBuilder(hcc.getMethod(), URL.encode(formatFullURL(hcc)));
 
-		if (hcc.getContent() != null && hcc.getContent().length > 0)
-		{
-			data = SharedStringUtil.toString(hcc.getContent());
-		}
-		
-		GetNameValue<String> authorizationHeader = null;//HTTPAuthScheme.BASIC.toHTTPHeader(hcc.getUser(), hcc.getPassword());
+        for (GetNameValue<String> gnvHeader : hcc.getHeaders().asArrayValuesString().values()) {
+            builder.setHeader(gnvHeader.getName(), gnvHeader.getValue());
+        }
+        hcc.setTimeout(20);
+        builder.setTimeoutMillis((int) (Const.TimeInMillis.SECOND.MILLIS * hcc.getTimeout()));
+        String data = null;
 
-		if (hcc.getAuthorization() != null)
-		{
-			authorizationHeader = hcc.getAuthorization().toHTTPHeader();
-		}
+        if (hcc.getContent() != null && hcc.getContent().length > 0) {
+            data = SharedStringUtil.toString(hcc.getContent());
+        }
 
-		if (authorizationHeader != null)
-		{
-			builder.setHeader(authorizationHeader.getName(), authorizationHeader.getValue());
-		}
-		
-		builder.sendRequest(data, callBack);	
-	}
+        GetNameValue<String> authorizationHeader = null;//HTTPAuthScheme.BASIC.toHTTPHeader(hcc.getUser(), hcc.getPassword());
 
-	/**
-	 *
-	 * @param hcc
-	 * @return
-	 */
-	public static String formatFullURL(final HTTPMessageConfigInterface hcc)
-	{
-		if (hcc.getURL() == null)
-		{
-			hcc.setURL(GWT.getModuleBaseURL());
-		}
-		
-		String fullURL = SharedStringUtil.concat(hcc.getURL(), hcc.getURI(), "/");
-		ArrayValues<GetNameValue<String>> params = hcc.getParameters().asArrayValuesString();
-		String parameters =  hcc.getHTTPParameterFormatter().format(null, params.values());
-				//SharedStringUtil.format(hcc.getParameters(), "=", false, "&");
+        if (hcc.getAuthorization() != null) {
+            authorizationHeader = hcc.getAuthorization().toHTTPHeader();
+        }
 
-		if (SUS.isNotEmpty(parameters))
-		{
-			switch(hcc.getHTTPParameterFormatter())
-			{
-			case URI_REST_ENCODED:
-				fullURL = SharedStringUtil.concat(fullURL, parameters, "/");
-				break;
-			case URL_ENCODED:
-				fullURL += "?" + parameters;
-				break;
-            case HEADER:
-              break;
-			}
-		}
-		
-		return fullURL;
-	}
+        if (authorizationHeader != null) {
+            builder.setHeader(authorizationHeader.getName(), authorizationHeader.getValue());
+        }
 
-	
+        builder.sendRequest(data, callBack);
+    }
+
+    /**
+     *
+     * @param hcc
+     * @return
+     */
+    public static String formatFullURL(final HTTPMessageConfigInterface hcc) {
+        if (hcc.getURL() == null) {
+            hcc.setURL(GWT.getModuleBaseURL());
+        }
+
+        String fullURL = SharedStringUtil.concat(hcc.getURL(), hcc.getURI(), "/");
+        ArrayValues<GetNameValue<String>> params = hcc.getParameters().asArrayValuesString();
+        String parameters = hcc.getHTTPParameterFormatter().format(null, params.values());
+        //SharedStringUtil.format(hcc.getParameters(), "=", false, "&");
+
+        if (SUS.isNotEmpty(parameters)) {
+            switch (hcc.getHTTPParameterFormatter()) {
+                case URI_REST_ENCODED:
+                    fullURL = SharedStringUtil.concat(fullURL, parameters, "/");
+                    break;
+                case URL_ENCODED:
+                    fullURL += "?" + parameters;
+                    break;
+                case HEADER:
+                    break;
+            }
+        }
+
+        return fullURL;
+    }
+
+
 //	public static  RequestBuilder.Method toMethod(HTTPMethod httpMethod) 
 //		throws NullPointerException, IllegalArgumentException
 //	{

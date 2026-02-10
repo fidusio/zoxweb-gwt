@@ -17,31 +17,30 @@ package org.zoxweb.client.data;
 
 import com.google.gwt.regexp.shared.RegExp;
 
-public class GWTHTMLFilter
-{
-	
-	public static final String TAG_START =
-		"^\\<\\w+((\\s+\\w+(\\s*\\=\\s*(?:\".*?\"|'.*?'|[^'\"\\>\\s]+))?)+\\s*|\\s*)\\>";
-	public static final String TAG_END =
-	    "\\</\\w+\\>$";
-	public static final String TAG_SELG_CLOSING =
-	    "\\<\\w+((\\s+\\w+(\\s*\\=\\s*(?:\".*?\"|'.*?'|[^'\"\\>\\s]+))?)+\\s*|\\s*)/\\>";
-	public static final String HTML_ENTITY =
-	    "&[a-zA-Z][a-zA-Z0-9]+;";
-	    
-	
-	private GWTHTMLFilter()
-	{
-		
-	}
+public class GWTHTMLFilter {
+
+    public static final String TAG_START =
+            "^\\<\\w+((\\s+\\w+(\\s*\\=\\s*(?:\".*?\"|'.*?'|[^'\"\\>\\s]+))?)+\\s*|\\s*)\\>";
+    public static final String TAG_END =
+            "\\</\\w+\\>$";
+    public static final String TAG_SELG_CLOSING =
+            "\\<\\w+((\\s+\\w+(\\s*\\=\\s*(?:\".*?\"|'.*?'|[^'\"\\>\\s]+))?)+\\s*|\\s*)/\\>";
+    public static final String HTML_ENTITY =
+            "&[a-zA-Z][a-zA-Z0-9]+;";
+
+
+    private GWTHTMLFilter() {
+
+    }
+
     /**
      * The HTML format pattern.
      */
-	public static final RegExp HTML_PATTERN = 
-    		RegExp.compile
-		(
-			"(" + TAG_START + ".*" + TAG_END + ")|(" + TAG_SELG_CLOSING + ")|(" + HTML_ENTITY +")"
-		);
+    public static final RegExp HTML_PATTERN =
+            RegExp.compile
+                    (
+                            "(" + TAG_START + ".*" + TAG_END + ")|(" + TAG_SELG_CLOSING + ")|(" + HTML_ENTITY + ")"
+                    );
 
 
     /**
@@ -49,15 +48,13 @@ public class GWTHTMLFilter
      * @param str of type html to be checked
      * @return true is html
      */
-    public static boolean isHTML(String str)
-    {
+    public static boolean isHTML(String str) {
         boolean ret = false;
-        
-        if (str != null)
-        {
+
+        if (str != null) {
             ret = HTML_PATTERN.test(str);
         }
-        
+
         return ret;
     }
 

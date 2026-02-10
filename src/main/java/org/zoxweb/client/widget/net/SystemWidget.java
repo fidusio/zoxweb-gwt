@@ -10,16 +10,16 @@ import com.google.gwt.user.client.ui.RadioButton;
 
 public class SystemWidget extends Composite {
 
-	private static SystemWidgetUiBinder uiBinder = GWT.create(SystemWidgetUiBinder.class);
-	public @UiField RadioButton rbReboot;
-	public @UiField RadioButton rbShutdown;
-	public @UiField Button bSend;
+    private static SystemWidgetUiBinder uiBinder = GWT.create(SystemWidgetUiBinder.class);
+    public @UiField RadioButton rbReboot;
+    public @UiField RadioButton rbShutdown;
+    public @UiField Button bSend;
 
-	interface SystemWidgetUiBinder extends UiBinder<Widget, SystemWidget> {
-	}
+    interface SystemWidgetUiBinder extends UiBinder<Widget, SystemWidget> {
+    }
 
-	public SystemWidget() {
-		initWidget(uiBinder.createAndBindUi(this));
-	}
+    public SystemWidget() {
+        initWidget(uiBinder.createAndBindUi(this));
+    }
 
 }

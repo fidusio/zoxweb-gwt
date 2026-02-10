@@ -26,7 +26,7 @@ import com.google.gwt.user.client.ui.Anchor;
 public class CustomAnchorController<V>
         implements ClickHandler {
 
-    private Anchor anchor;
+    private final Anchor anchor;
     private V value;
     private ValueSelectionListener<V> valueSelectionListener;
     private HandlerRegistration clickHandlerRegistration;
