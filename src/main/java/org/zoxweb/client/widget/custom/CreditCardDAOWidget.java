@@ -364,7 +364,7 @@ public class CreditCardDAOWidget
 			
 			setCardNumberReadOnly(true, tbCardNumber.getValue());
 			
-			String cardNumber = SharedStringUtil.trimOrNull(tbCardNumber.getValue());
+			String cardNumber = SUS.trimOrNull(tbCardNumber.getValue());
 			cardNumber = cardNumber.replaceAll("[ -]", "");
 			
 			card.setCardNumber(cardNumber);
