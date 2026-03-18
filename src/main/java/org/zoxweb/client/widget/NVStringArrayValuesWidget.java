@@ -1,14 +1,8 @@
 package org.zoxweb.client.widget;
 
-import org.zoxweb.client.widget.WidgetUtil;
-import org.zoxweb.shared.util.ArrayValues;
-import org.zoxweb.shared.util.ExceptionCollection;
-import org.zoxweb.shared.util.NVConfig;
-import org.zoxweb.shared.util.NVPair;
-import org.zoxweb.shared.util.SharedUtil;
-
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
+import org.zoxweb.shared.util.*;
 
 @SuppressWarnings("serial")
 public class NVStringArrayValuesWidget
@@ -72,7 +66,7 @@ public class NVStringArrayValuesWidget
 	@Override
 	public ArrayValues<NVPair> getWidgetValue() 
 	{
-		ArrayValues<NVPair> ret = (ArrayValues<NVPair>) SharedUtil.metaConfigToNVBase(getNVConfig());
+		ArrayValues<NVPair> ret = (ArrayValues<NVPair>) SharedMetaUtil.SINGLETON.toNVBase(getNVConfig());
 		ExceptionCollection ec = new ExceptionCollection("Invalid value.");
 
 		for (int i = 0; i < flexTable.getRowCount(); i++)

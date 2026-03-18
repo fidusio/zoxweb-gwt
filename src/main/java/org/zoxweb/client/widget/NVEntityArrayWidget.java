@@ -1,20 +1,13 @@
 package org.zoxweb.client.widget;
 
-import org.zoxweb.client.data.events.AddControllerHandler;
-import org.zoxweb.client.rpc.CallBackHandler;
-import org.zoxweb.client.widget.PopupUtil;
-import org.zoxweb.shared.util.ArrayValues;
-import org.zoxweb.shared.util.ExceptionCollection;
-import org.zoxweb.shared.util.NVConfig;
-import org.zoxweb.shared.util.NVConfigEntity;
-import org.zoxweb.shared.util.NVEntity;
-import org.zoxweb.shared.util.SharedUtil;
-
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.DoubleClickEvent;
 import com.google.gwt.event.dom.client.DoubleClickHandler;
 import com.google.gwt.user.client.rpc.AsyncCallback;
+import org.zoxweb.client.data.events.AddControllerHandler;
+import org.zoxweb.client.rpc.CallBackHandler;
+import org.zoxweb.shared.util.*;
 
 @SuppressWarnings("serial")
 public class NVEntityArrayWidget
@@ -224,7 +217,7 @@ public class NVEntityArrayWidget
 	@Override
 	public ArrayValues<NVEntity> getWidgetValue()
 	{
-		ArrayValues<NVEntity> ret = (ArrayValues<NVEntity>) SharedUtil.metaConfigToNVBase(getNVConfig());
+		ArrayValues<NVEntity> ret = (ArrayValues<NVEntity>) SharedMetaUtil.SINGLETON.toNVBase(getNVConfig());
 		ExceptionCollection ec = new ExceptionCollection("Invalid value.");
 
 		for (int i = 0; i < flexTable.getRowCount(); i++)
