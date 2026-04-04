@@ -1,23 +1,22 @@
 package org.zoxweb.client.widget;
 
-import java.util.Date;
-
-import org.zoxweb.shared.util.Const;
-import org.zoxweb.client.data.DateTimeUtil;
-import org.zoxweb.shared.util.SetValue;
-import org.zoxweb.shared.util.SharedUtil;
-
 import com.google.gwt.core.client.GWT;
-import com.google.gwt.uibinder.client.UiBinder;
-import com.google.gwt.user.client.ui.Composite;
-import com.google.gwt.user.client.ui.HorizontalPanel;
-import com.google.gwt.user.client.ui.Widget;
-import com.google.gwt.uibinder.client.UiField;
-import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.event.dom.client.ChangeEvent;
 import com.google.gwt.event.dom.client.ChangeHandler;
 import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.resources.client.CssResource;
+import com.google.gwt.uibinder.client.UiBinder;
+import com.google.gwt.uibinder.client.UiField;
+import com.google.gwt.user.client.ui.Composite;
+import com.google.gwt.user.client.ui.HorizontalPanel;
+import com.google.gwt.user.client.ui.ListBox;
+import com.google.gwt.user.client.ui.Widget;
+import org.zoxweb.client.data.DateTimeUtil;
+import org.zoxweb.shared.util.Const;
+import org.zoxweb.shared.util.SUS;
+import org.zoxweb.shared.util.SetValue;
+
+import java.util.Date;
 
 /**
  * Customized date widget which includes year, month, and day.
@@ -280,7 +279,7 @@ public class CustomDateWidget
 	{
 		if (isVisible(lbYear) && isVisible(lbMonth) && isVisible(lbDay))
 		{
-			SharedUtil.checkIfNulls("Year, month, and/or day not selected.", 
+			SUS.checkIfNulls("Year, month, and/or day not selected.",
 					lbYear.getValue(lbYear.getSelectedIndex()), 
 					lbMonth.getSelectedIndex(), 
 					lbDay.getValue(lbDay.getSelectedIndex())
@@ -304,7 +303,7 @@ public class CustomDateWidget
 		
 		if (isVisible(lbYear) && isVisible(lbMonth) && !isVisible(lbDay))
 		{
-			SharedUtil.checkIfNulls("Year and/or month not selected.", 
+			SUS.checkIfNulls("Year and/or month not selected.",
 					lbYear.getValue(lbYear.getSelectedIndex()), 
 					lbMonth.getSelectedIndex()
 					);

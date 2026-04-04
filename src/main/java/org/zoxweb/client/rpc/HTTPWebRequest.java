@@ -30,7 +30,7 @@ public class HTTPWebRequest {
     private HTTPMessageConfigInterface hcc;
 
     public HTTPWebRequest(HTTPMessageConfigInterface hcc) {
-        SharedUtil.checkIfNulls("Null HTTPCallConfigInterface", hcc);
+        SUS.checkIfNulls("Null HTTPCallConfigInterface", hcc);
         this.hcc = hcc;
     }
 

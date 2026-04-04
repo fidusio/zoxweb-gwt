@@ -10,7 +10,6 @@ import org.zoxweb.shared.util.Const;
 import org.zoxweb.shared.util.Const.DayPeriod;
 import org.zoxweb.shared.util.SUS;
 import org.zoxweb.shared.util.SetValue;
-import org.zoxweb.shared.util.SharedUtil;
 
 import java.util.Date;
 
@@ -222,21 +221,21 @@ public class CustomTimeWidget
 	@Override
 	public Long getValue() 
 	{
-		SharedUtil.checkIfNulls("Hour and/or minutes not selected.", 
+		SUS.checkIfNulls("Hour and/or minutes not selected.",
 				lbHour.getValue(lbHour.getSelectedIndex()), 
 				lbMinutes.getValue(lbMinutes.getSelectedIndex())
 				);
 		
 		if (!militaryTime)
 		{
-			SharedUtil.checkIfNulls("Day period not selected.",
+			SUS.checkIfNulls("Day period not selected.",
 					lbDayPeriod.getValue(lbDayPeriod.getSelectedIndex())
 					);
 		}
 
 		if (showSeconds)
 		{
-			SharedUtil.checkIfNulls("Seconds not selected.", 
+			SUS.checkIfNulls("Seconds not selected.",
 					lbSeconds.getValue(lbSeconds.getSelectedIndex())
 					);
 			

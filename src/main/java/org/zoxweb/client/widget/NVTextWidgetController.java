@@ -15,14 +15,13 @@
  */
 package org.zoxweb.client.widget;
 
-import org.zoxweb.shared.filters.ValueFilter;
-import org.zoxweb.shared.util.SharedUtil;
-import org.zoxweb.shared.widget.WidgetConst;
-
 import com.google.gwt.event.dom.client.KeyPressEvent;
 import com.google.gwt.event.dom.client.KeyPressHandler;
 import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.ui.ValueBoxBase;
+import org.zoxweb.shared.filters.ValueFilter;
+import org.zoxweb.shared.util.SUS;
+import org.zoxweb.shared.widget.WidgetConst;
 
 public class NVTextWidgetController<T>
 	implements KeyPressHandler
@@ -36,7 +35,7 @@ public class NVTextWidgetController<T>
 	public NVTextWidgetController(ValueBoxBase<T> valueBox, ValueFilter<Object, Object> vf, KeyPressHandler keyPressHandler)
 		throws NullPointerException
 	{
-		SharedUtil.checkIfNulls("Null values.", valueBox, vf);
+		SUS.checkIfNulls("Null values.", valueBox, vf);
 		
 		this.valueBox = valueBox;
 		this.vf = vf;

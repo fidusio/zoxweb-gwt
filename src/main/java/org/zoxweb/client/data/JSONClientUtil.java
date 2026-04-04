@@ -395,7 +395,7 @@ public class JSONClientUtil {
      */
     @SuppressWarnings("unchecked")
     public static JSONObject toJSON(NVEntity nve, boolean printClass) {
-        SharedUtil.checkIfNulls("Null NVEntity", nve);
+        SUS.checkIfNulls("Null NVEntity", nve);
         JSONObject jsonObject = new JSONObject();
 
         NVConfigEntity nvce = (NVConfigEntity) nve.getNVConfig();
