@@ -808,12 +808,8 @@ public class JSONClientUtil {
 
 
     public static NVGenericMap fromJSONGenericMap(String json, NVEntityFactory nvef) {
-        @SuppressWarnings("deprecation")
-        JSONObject jsonObject = (JSONObject) JSONParser.parseLenient(json);
-
-        return fromJSONGenericMap(jsonObject, null, nvef);
+        return fromJSONGenericMap((JSONObject)JSONParser.parseLenient(json), null, nvef);
     }
-
 
     public static NVGenericMap fromJSONGenericMap(JSONObject json, NVEntityFactory nvef) {
         return fromJSONGenericMap(json, null, nvef);
