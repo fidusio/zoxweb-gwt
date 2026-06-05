@@ -15,12 +15,6 @@
  */
 package org.zoxweb.client.widget;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.zoxweb.shared.util.NVConfig;
-import org.zoxweb.shared.util.NotificationType;
-
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.safecss.shared.SafeStyles;
 import com.google.gwt.safecss.shared.SafeStylesUtils;
@@ -28,11 +22,11 @@ import com.google.gwt.safehtml.client.SafeHtmlTemplates;
 import com.google.gwt.safehtml.shared.SafeHtml;
 import com.google.gwt.safehtml.shared.SafeHtmlUtils;
 import com.google.gwt.user.client.Window;
-import com.google.gwt.user.client.ui.ComplexPanel;
-import com.google.gwt.user.client.ui.FlexTable;
-import com.google.gwt.user.client.ui.ListBox;
-import com.google.gwt.user.client.ui.ValueBoxBase;
-import com.google.gwt.user.client.ui.Widget;
+import com.google.gwt.user.client.ui.*;
+import org.zoxweb.shared.util.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 
@@ -67,7 +61,115 @@ public class WidgetUtil
 		
 		return uri;
 	}
-	 
+
+
+	/**
+	 * Recursively walks an attached GWT widget tree and converts it into an
+	 * {@link NVGenericMap} — the Java-side equivalent of the browser serializing a
+	 * form's inputs.
+	 *
+	 * <p>Rules, applied per widget:</p>
+	 * <ul>
+	 *   <li><b>Named sub-panel</b> ({@link HasWidgets} + {@link HasName} with a
+	 *       non-empty name): becomes its own named {@link NVGenericMap}, the panel's
+	 *       children are walked into it, and it is attached to the parent map.</li>
+	 *   <li><b>Unnamed panel</b> ({@link HasWidgets} only): its children are
+	 *       flattened into the current map.</li>
+	 *   <li><b>{@link RadioButton}</b>: only the selected button contributes, as the
+	 *       group name &rarr; its form value (text).</li>
+	 *   <li><b>{@link ListBox}</b>: single-select &rarr; name &rarr; selected option
+	 *       value (text); multi-select &rarr; an {@link NVStringList} of all selected
+	 *       values.</li>
+	 *   <li><b>Boolean widgets</b> (e.g. {@link com.google.gwt.user.client.ui.CheckBox}):
+	 *       stored as {@link NVBoolean}.</li>
+	 *   <li><b>Other named value widgets</b> ({@link HasValue}): stored as a string.</li>
+	 * </ul>
+	 *
+	 * Empty named sub-panels and empty selections add nothing.
+	 *
+	 * @param root  widget to start from (a FormPanel, panel, or single widget); null-safe
+	 * @param nvgm  map to fill; a new one is created when null
+	 * @return the populated map (never null)
+	 */
+	public static NVGenericMap widgetToNVGenericMap(Widget root, NVGenericMap nvgm)
+	{
+		if (nvgm == null)
+			nvgm = new NVGenericMap();
+
+		if (root == null)
+			return nvgm;
+
+		// Named sub-panel -> nest into its own named NVGenericMap, then attach to parent
+		if (root instanceof HasWidgets && root instanceof HasName
+				&& SUS.isNotEmpty(((HasName) root).getName()))
+		{
+			NVGenericMap child = new NVGenericMap(((HasName) root).getName());
+			for (Widget w : (HasWidgets) root)
+				widgetToNVGenericMap(w, child);
+			if (child.size() > 0)        // skip empty sub-panels
+				nvgm.add(child);
+			return nvgm;
+		}
+
+		// Leaf inputs
+		if (root instanceof HasName)
+		{
+			String name = ((HasName) root).getName();
+			if (SUS.isNotEmpty(name))
+			{
+				if (root instanceof RadioButton)
+				{
+					// radio group: only the selected button contributes,
+					// keyed by the shared group name -> selected value (text)
+					RadioButton rb = (RadioButton) root;
+					if (Boolean.TRUE.equals(rb.getValue()))
+						nvgm.add(name, rb.getFormValue());
+				}
+				else if (root instanceof ListBox)
+				{
+					ListBox lb = (ListBox) root;
+					if (lb.isMultipleSelect())
+					{
+						// multi-select -> one NVStringList holding every selected value
+						NVStringList nvsl = new NVStringList(name);
+						for (int i = 0; i < lb.getItemCount(); i++)
+						{
+							if (lb.isItemSelected(i))
+								nvsl.getValue().add(lb.getValue(i));
+						}
+						if (!nvsl.getValue().isEmpty())
+							nvgm.build(nvsl);
+					}
+					else
+					{
+						// single-select -> name -> selected option value (text)
+						String selected = lb.getSelectedValue();
+						if (SUS.isNotEmpty(selected))
+							nvgm.add(name, selected);
+					}
+				}
+				else if (root instanceof HasValue)
+				{
+					Object value = ((HasValue<?>) root).getValue();
+					if (value instanceof Boolean)
+						nvgm.build(new NVBoolean(name, (Boolean) value));
+					else
+						nvgm.add(name, value != null ? value.toString() : "");
+				}
+			}
+		}
+
+		// Unnamed container -> flatten children into the current map
+		if (root instanceof HasWidgets)
+		{
+			for (Widget w : (HasWidgets) root)
+				widgetToNVGenericMap(w, nvgm);
+		}
+
+		return nvgm;
+	}
+
+
 	/**
      * The HTML templates used to render the cell.
      */
@@ -136,7 +238,7 @@ public class WidgetUtil
     /*-{
     	try 
 	    {
-	        console.log(message);
+	        $wnd.console.log(message);
 	    } 
 	    catch (e) 
 	    {

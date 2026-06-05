@@ -48,8 +48,9 @@ public class HTTPWebRequest {
         for (GetNameValue<String> gnvHeader : hcc.getHeaders().asArrayValuesString().values()) {
             builder.setHeader(gnvHeader.getName(), gnvHeader.getValue());
         }
-        hcc.setTimeout(20);
-        builder.setTimeoutMillis((int) (Const.TimeInMillis.SECOND.MILLIS * hcc.getTimeout()));
+        if(hcc.getTimeout() < 1) {}
+            hcc.setTimeout(30);
+        builder.setTimeoutMillis((int) hcc.getTimeoutInMillis());
         String data = null;
 
         if (hcc.getContent() != null && hcc.getContent().length > 0) {
