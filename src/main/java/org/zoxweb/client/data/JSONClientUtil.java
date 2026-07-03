@@ -931,9 +931,9 @@ public class JSONClientUtil {
         JSONObject ret = new JSONObject();
 
         if (dem != null) {
-            ret.put(MetaToken.REFERENCE_ID.getName(), new JSONString((String) dem.getReferenceID()));
+            ret.put(MetaToken.GUID.getName(), new JSONString((String) dem.getGUID()));
             ret.put(MetaToken.SUBJECT_GUID.getName(), new JSONString((String) dem.getSubjectGUID()));
-            ret.put(MetaToken.ACCOUNT_ID.getName(), new JSONString((String) dem.getAccountID()));
+            //ret.put(MetaToken.ACCOUNT_ID.getName(), new JSONString((String) dem.getAccountID()));
             ret.put(MetaToken.NAME.getName(), new JSONString((String) dem.getName()));
             ret.put(MetaToken.DESCRIPTION.getName(), new JSONString((String) dem.getDescription()));
             ret.put(MetaToken.IS_FIXED.getName(), JSONBoolean.getInstance((Boolean) dem.isFixed()));
@@ -964,9 +964,9 @@ public class JSONClientUtil {
         JSONObject jsonObject = (JSONObject) JSONParser.parseLenient(json);
 
         if (jsonObject != null) {
-            if (jsonObject.get(MetaToken.REFERENCE_ID.getName()) != null
-                    && jsonObject.get(MetaToken.REFERENCE_ID.getName()) instanceof JSONString) {
-                dem.setReferenceID(((JSONString) jsonObject.get(MetaToken.REFERENCE_ID.getName())).stringValue());
+            if (jsonObject.get(MetaToken.GUID.getName()) != null
+                    && jsonObject.get(MetaToken.GUID.getName()) instanceof JSONString) {
+                dem.setReferenceID(((JSONString) jsonObject.get(MetaToken.GUID.getName())).stringValue());
             }
 
             if (jsonObject.get(MetaToken.SUBJECT_GUID.getName()) != null
@@ -974,10 +974,10 @@ public class JSONClientUtil {
                 dem.setSubjectGUID(((JSONString) jsonObject.get(MetaToken.SUBJECT_GUID.getName())).stringValue());
             }
 
-            if (jsonObject.get(MetaToken.ACCOUNT_ID.getName()) != null
-                    && jsonObject.get(MetaToken.ACCOUNT_ID.getName()) instanceof JSONString) {
-                dem.setAccountID(((JSONString) jsonObject.get(MetaToken.ACCOUNT_ID.getName())).stringValue());
-            }
+//            if (jsonObject.get(MetaToken.ACCOUNT_ID.getName()) != null
+//                    && jsonObject.get(MetaToken.ACCOUNT_ID.getName()) instanceof JSONString) {
+//                dem.setAccountID(((JSONString) jsonObject.get(MetaToken.ACCOUNT_ID.getName())).stringValue());
+//            }
 
             if (jsonObject.get(MetaToken.NAME.getName()) != null
                     && jsonObject.get(MetaToken.NAME.getName()) instanceof JSONString) {
