@@ -228,7 +228,7 @@ public class CryptoClient
     }
 
 
-    public static JWT parseJWT(String token) throws NullPointerException, IllegalArgumentException, AccessException {
+    public static JWT parseJWT(String token) throws NullPointerException, IllegalArgumentException, AccessSecurityException {
         SUS.checkIfNulls("Null token", token);
         String tokens[] = token.trim().split("\\.");
 
@@ -239,7 +239,7 @@ public class CryptoClient
         NVGenericMap nvgmHeader = JSONClientUtil.fromJSONGenericMap(SharedBase64.decodeAsString(Base64Type.URL, tokens[JWTField.HEADER.ordinal()]), null);//JWTHeader.NVC_JWT_HEADER, Base64Type.URL);//GSONUtil.fromJSON(SharedBase64.decodeAsString(Base64Type.URL,tokens[JWTField.HEADER.ordinal()]), JWTHeader.class);
         NVGenericMap nvgmPayload = JSONClientUtil.fromJSONGenericMap(SharedBase64.decodeAsString(Base64Type.URL, tokens[JWTField.PAYLOAD.ordinal()]), null);
         if (nvgmPayload == null)
-            throw new AccessException("Invalid JWT");
+            throw new AccessSecurityException("Invalid JWT");
         JWT ret = new JWT();
 
 
@@ -249,7 +249,7 @@ public class CryptoClient
         JWTHeader jwtHeader = ret.getHeader();
         jwtHeader.setProperties(nvgmHeader);
         if (jwtHeader == null || jwtPayload == null) {
-            throw new AccessException("Invalid JWT");
+            throw new AccessSecurityException("Invalid JWT");
         }
 
 
