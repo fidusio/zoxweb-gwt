@@ -123,7 +123,7 @@ implements UpdateOnSelect
   {
 
       HTTPMessageConfigInterface hcc = HTTPMessageConfig.createAndInit(CryptoClient.getAuthToken().getURL(),
-                                      SharedStringUtil.embedText((String)config.getValue((GetName)Param.NI_CONFIG_READ), (String)config.getValue((GetName)Param.TAG), widget.getNetworkInterfaces().getValue()),
+                                      SUS.embedText((String)config.getValue((GetName)Param.NI_CONFIG_READ), (String)config.getValue((GetName)Param.TAG), widget.getNetworkInterfaces().getValue()),
                                       HTTPMethod.GET);
       
      
@@ -141,7 +141,7 @@ implements UpdateOnSelect
           @Override
           public void onSuccess(NIConfigDAO result) {
               // TODO Auto-generated method stub
-              //System.out.println(SharedUtil.toCanonicalID(',', result.getNIName(), result.getInetProtocol(), result.getAddress(), result.getNetmask()));
+              //System.out.println(SUS.toCanonicalID(',', result.getNIName(), result.getInetProtocol(), result.getAddress(), result.getNetmask()));
               
               widget.setValue(result);
               controlsEnabled(true);
@@ -152,7 +152,7 @@ implements UpdateOnSelect
   public void readNIInfo()
   {
       HTTPMessageConfigInterface hcc = HTTPMessageConfig.createAndInit(CryptoClient.getAuthToken().getURL(),
-                                       SharedStringUtil.embedText((String)config.getValue((GetName)Param.NI_INFO_READ), (String)config.getValue((GetName)Param.TAG), widget.getNetworkInterfaces().getValue()),
+                                       SUS.embedText((String)config.getValue((GetName)Param.NI_INFO_READ), (String)config.getValue((GetName)Param.TAG), widget.getNetworkInterfaces().getValue()),
                                        HTTPMethod.GET);
       
      
@@ -171,7 +171,7 @@ implements UpdateOnSelect
           @Override
           public void onSuccess(NIConfigDAO result) {
               // TODO Auto-generated method stub
-              //System.out.println(SharedUtil.toCanonicalID(',', result.getNIName(), result.getInetProtocol(), result.getAddress(), result.getNetmask()));
+              //System.out.println(SUS.toCanonicalID(',', result.getNIName(), result.getInetProtocol(), result.getAddress(), result.getNetmask()));
               
         	  controlsEnabled(true);
               widget.setInfo(result);
@@ -224,7 +224,7 @@ implements UpdateOnSelect
           @Override
           public void onSuccess(NIConfigDAO result) {
               // TODO Auto-generated method stub
-              //System.out.println(SharedUtil.toCanonicalID(',', result.getNIName(), result.getInetProtocol(), result.getAddress(), result.getNetmask()));
+              //System.out.println(SUS.toCanonicalID(',', result.getNIName(), result.getInetProtocol(), result.getAddress(), result.getNetmask()));
         	  controlsEnabled(true);
               readNIInfo();
           }});

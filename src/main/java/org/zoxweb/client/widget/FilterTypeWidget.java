@@ -4,7 +4,7 @@ import org.zoxweb.shared.filters.FilterType;
 import org.zoxweb.shared.filters.ValueFilter;
 import org.zoxweb.shared.util.DynamicEnumMap;
 import org.zoxweb.shared.util.DynamicEnumMapManager;
-import org.zoxweb.shared.util.SharedUtil;
+import org.zoxweb.shared.util.SUS;
 
 import com.google.gwt.event.dom.client.ChangeHandler;
 import com.google.gwt.event.shared.HandlerRegistration;
@@ -72,7 +72,7 @@ public class FilterTypeWidget
 		
 		if (index < basicFilterCount)
 		{
-			return (ValueFilter<String, String>) SharedUtil.lookupEnum(lbFilterType.getItemText(index), FilterType.values());
+			return (ValueFilter<String, String>) SUS.lookupEnum(lbFilterType.getItemText(index), FilterType.values());
 		}
 		else
 		{
@@ -88,7 +88,7 @@ public class FilterTypeWidget
 	{
 		for (int i = 0; i < lbFilterType.getItemCount(); i++)
 		{
-			if (vf instanceof FilterType && SharedUtil.lookupEnum(lbFilterType.getValue(i), FilterType.values()) == vf)
+			if (vf instanceof FilterType && SUS.lookupEnum(lbFilterType.getValue(i), FilterType.values()) == vf)
 			{
 				lbFilterType.setItemSelected(i, true);
 				break;

@@ -181,7 +181,7 @@ public class JSONClientUtil {
                         } else if (nvc.getMetaTypeBase().equals(Boolean.class)) {
                             nve.setValue(nvc.getName(), ((JSONBoolean) value.get(nvc.getName())).booleanValue());
                         } else if (nvc.getMetaTypeBase().equals(Number.class)) {
-                            Number val = SharedUtil.parseNumber(((JSONNumber) value.get(nvc.getName())).toString());
+                            Number val = SUS.parseNumber(((JSONNumber) value.get(nvc.getName())).toString());
                             nve.setValue(nvc.getName(), val);
                         } else if (nvc.getMetaType().equals(NVGenericMap.class)) {
                             JSONObject jsonObject = (JSONObject) value.get(nvc.getName());
@@ -197,7 +197,7 @@ public class JSONClientUtil {
                             bd = bd.setScale(3, RoundingMode.HALF_EVEN);
                             nve.setValue(nvc.getName(), bd);
                         } else if (nvc.getMetaType().isEnum()) {
-                            Enum<?> e = SharedUtil.lookupEnum(((JSONString) jsonValue).stringValue(), (Enum<?>[]) nvc.getMetaType().getEnumConstants());
+                            Enum<?> e = SUS.lookupEnum(((JSONString) jsonValue).stringValue(), (Enum<?>[]) nvc.getMetaType().getEnumConstants());
 
                             if (e != null) {
                                 nve.setValue(nvc.getName(), e);
@@ -275,7 +275,7 @@ public class JSONClientUtil {
                             List<Enum<?>> list = new ArrayList<Enum<?>>();
 
                             for (int i = 0; i < jsonArray.size(); i++) {
-                                Enum<?> e = SharedUtil.lookupEnum(((JSONString) jsonArray.get(i)).stringValue(), (Enum<?>[]) metaBase.getEnumConstants());
+                                Enum<?> e = SUS.lookupEnum(((JSONString) jsonArray.get(i)).stringValue(), (Enum<?>[]) metaBase.getEnumConstants());
 
                                 if (e != null) {
                                     list.add(e);
@@ -344,7 +344,7 @@ public class JSONClientUtil {
         JSONString jsonVF = (JSONString) jsonObject.get(MetaToken.VALUE_FILTER.getName());
 
         if (jsonVF != null) {
-            ValueFilter<String, String> vf = (FilterType) SharedUtil.lookupEnum(jsonVF.stringValue(), FilterType.values());
+            ValueFilter<String, String> vf = (FilterType) SUS.lookupEnum(jsonVF.stringValue(), FilterType.values());
 
             if (vf == null) {
                 vf = DynamicEnumMapManager.SINGLETON.lookup(jsonVF.stringValue());
@@ -361,7 +361,7 @@ public class JSONClientUtil {
 //		{
 //			if (jsonVF instanceof JSONString)
 //			{
-//				FilterType ft = (FilterType) SharedUtil.lookupEnum(FilterType.values(), ((JSONString) jsonVF).stringValue());
+//				FilterType ft = (FilterType) SUS.lookupEnum(FilterType.values(), ((JSONString) jsonVF).stringValue());
 //				
 //				if (ft != null)
 //				{
@@ -835,13 +835,13 @@ public class JSONClientUtil {
                             if (nvb instanceof NVPairList) {
                                 ((NVPairList) nvb).add(toNVPair((JSONObject) ja.get(i)));
                             } else if (nvb instanceof NVIntList) {
-                                ((NVIntList) nvb).getValue().add((Integer) SharedUtil.parsePrimitiveValue(GNVType.NVINT, ja.get(i).isNumber().doubleValue()));
+                                ((NVIntList) nvb).getValue().add((Integer) SUS.parsePrimitiveValue(GNVType.NVINT, ja.get(i).isNumber().doubleValue()));
                             } else if (nvb instanceof NVLongList) {
-                                ((NVLongList) nvb).getValue().add((Long) SharedUtil.parsePrimitiveValue(GNVType.NVLONG, ja.get(i).isNumber().doubleValue()));
+                                ((NVLongList) nvb).getValue().add((Long) SUS.parsePrimitiveValue(GNVType.NVLONG, ja.get(i).isNumber().doubleValue()));
                             } else if (nvb instanceof NVFloatList) {
-                                ((NVFloatList) nvb).getValue().add((Float) SharedUtil.parsePrimitiveValue(GNVType.NVFLOAT, ja.get(i).isNumber().doubleValue()));
+                                ((NVFloatList) nvb).getValue().add((Float) SUS.parsePrimitiveValue(GNVType.NVFLOAT, ja.get(i).isNumber().doubleValue()));
                             } else if (nvb instanceof NVDoubleList) {
-                                ((NVDoubleList) nvb).getValue().add((Double) SharedUtil.parsePrimitiveValue(GNVType.NVDOUBLE, ja.get(i).isNumber().doubleValue()));
+                                ((NVDoubleList) nvb).getValue().add((Double) SUS.parsePrimitiveValue(GNVType.NVDOUBLE, ja.get(i).isNumber().doubleValue()));
                             } else if (nvb instanceof NVStringList) {
                                 ((NVStringList) nvb).getValue().add(ja.get(i).isString().stringValue());
                             } else if (nvb instanceof NVStringSet) {

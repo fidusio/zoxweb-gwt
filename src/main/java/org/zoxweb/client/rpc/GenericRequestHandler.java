@@ -186,10 +186,10 @@ public class GenericRequestHandler<T>
         if (response != null) {
             String ret = response.getText();
 
-            if (SharedStringUtil.contains(response.getHeader(HTTPHeader.CONTENT_ENCODING.getName()), HTTPAttribute.CONTENT_ENCODING_LZ, true)) {
-                byte data[] = SharedBase64.decode(SharedStringUtil.getBytes(ret));
+            if (SUS.contains(response.getHeader(HTTPHeader.CONTENT_ENCODING.getName()), HTTPAttribute.CONTENT_ENCODING_LZ, true)) {
+                byte data[] = SharedBase64.decode(SUS.getBytes(ret));
                 byte unzipped[] = QuickLZ.decompress(data);
-                ret = SharedStringUtil.toString(unzipped);
+                ret = SUS.toString(unzipped);
             }
 
             return ret;

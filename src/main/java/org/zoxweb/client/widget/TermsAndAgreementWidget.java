@@ -25,7 +25,7 @@ import org.zoxweb.shared.http.HTTPHeader;
 import org.zoxweb.shared.http.HTTPStatusCode;
 import org.zoxweb.shared.util.QuickLZ;
 import org.zoxweb.shared.util.SharedBase64;
-import org.zoxweb.shared.util.SharedStringUtil;
+import org.zoxweb.shared.util.SUS;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.uibinder.client.UiBinder;
@@ -185,11 +185,11 @@ public class TermsAndAgreementWidget
 							String contentEncoding = response.getHeader(HTTPHeader.CONTENT_ENCODING.getName());
 							String json = null;
 							
-							if (SharedStringUtil.contains(contentEncoding, HTTPAttribute.CONTENT_ENCODING_LZ, true))
+							if (SUS.contains(contentEncoding, HTTPAttribute.CONTENT_ENCODING_LZ, true))
 							{
-								byte[] data = SharedBase64.decode(SharedStringUtil.getBytes(response.getText()));
+								byte[] data = SharedBase64.decode(SUS.getBytes(response.getText()));
 								byte[] unzipped = QuickLZ.decompress(data);
-								json = SharedStringUtil.toString(unzipped);								
+								json = SUS.toString(unzipped);								
 							}
 							else
 							{

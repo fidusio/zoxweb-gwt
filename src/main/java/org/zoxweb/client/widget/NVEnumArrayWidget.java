@@ -5,7 +5,7 @@ import java.util.List;
 
 import org.zoxweb.client.widget.NVBaseWidget;
 import org.zoxweb.shared.util.NVConfig;
-import org.zoxweb.shared.util.SharedUtil;
+import org.zoxweb.shared.util.SUS;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.uibinder.client.UiBinder;
@@ -196,7 +196,7 @@ public class NVEnumArrayWidget
 		
 		for (int i = 0; i < lbSelectedList.getItemCount(); i++)
 		{
-			Enum<?> value = SharedUtil.lookupEnum(lbSelectedList.getItemText(i), (Enum<?>[]) nvConfig.getMetaTypeBase().getEnumConstants());
+			Enum<?> value = SUS.lookupEnum(lbSelectedList.getItemText(i), (Enum<?>[]) nvConfig.getMetaTypeBase().getEnumConstants());
 		
 			if (value != null)
 			{

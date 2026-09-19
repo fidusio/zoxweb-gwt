@@ -327,7 +327,7 @@ public class DynamicEnumMapEditorWidget
 			TextBox tbValue = new TextBox();
 			tbValue.setText(tbAddValue.getText());
 			
-			if (!SharedUtil.doesNameExistNVList(dem.getValue(), tbAddName.getText()))
+			if (!SUS.doesNameExistNVList(dem.getValue(), tbAddName.getText()))
 			{
 				addRow(tbName, tbValue, flexTable.getRowCount());
 				scrollPanel.scrollToBottom();

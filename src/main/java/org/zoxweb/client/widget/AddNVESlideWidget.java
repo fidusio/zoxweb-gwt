@@ -15,7 +15,6 @@ import org.zoxweb.shared.data.ZWDataFactory;
 import org.zoxweb.shared.util.NVConfigEntity;
 import org.zoxweb.shared.util.NVEntity;
 import org.zoxweb.shared.util.SUS;
-import org.zoxweb.shared.util.SharedStringUtil;
 import org.zoxweb.shared.widget.WidgetConst;
 
 import com.google.gwt.core.client.GWT;

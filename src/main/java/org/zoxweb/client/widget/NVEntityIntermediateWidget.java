@@ -11,7 +11,7 @@ import org.zoxweb.shared.data.events.PreviewActionListener;
 import org.zoxweb.shared.data.events.SaveActionListener;
 import org.zoxweb.shared.util.CRUD;
 import org.zoxweb.shared.util.NVEntity;
-import org.zoxweb.shared.util.SharedUtil;
+import org.zoxweb.shared.util.SUS;
 
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
@@ -104,7 +104,7 @@ public abstract class NVEntityIntermediateWidget
 	{
 		if (autoCloseableSave != null)
 		{
-			SharedUtil.close(autoCloseableSave);
+			SUS.close(autoCloseableSave);
 		}
 	}
 	

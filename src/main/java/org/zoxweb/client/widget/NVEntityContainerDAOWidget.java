@@ -924,7 +924,7 @@ public class NVEntityContainerDAOWidget
 								scrollPanel.clear();
 							}
 									
-							SharedUtil.close(autoCloseable);
+							SUS.close(autoCloseable);
 						}
 						
 						ApplicationClientDAO.DEFAULT.fireEvent(new CRUDNVEntityEvent(new CRUDNVEntityDAO(CRUD.UPDATE, result)));
@@ -954,7 +954,7 @@ public class NVEntityContainerDAOWidget
 				scrollPanel.clear();
 			}
 			
-			SharedUtil.close(autoCloseableSave);
+			SUS.close(autoCloseableSave);
 		}
 	}
 	
@@ -1147,7 +1147,7 @@ public class NVEntityContainerDAOWidget
 			case DELETE:
 				if (v instanceof FormInfoDAO && ((FormInfoDAO) v).getFormReference() != null)
 				{
-					if (((FormInfoDAO) v).getFormReference() instanceof NVEntityContainerDAO && SharedUtil.equals(((FormInfoDAO) v).getFormReference(), getValue()))
+					if (((FormInfoDAO) v).getFormReference() instanceof NVEntityContainerDAO && SUS.equals(((FormInfoDAO) v).getFormReference(), getValue()))
 					{
 						//	Form was deleted, therefore NVEntityContainer no longer exists and widget must be deleted.
 						//setValue(((FormInfoDAO) v).getFormReference());
@@ -1167,14 +1167,14 @@ public class NVEntityContainerDAOWidget
 			case UPDATE:
 				if (v instanceof FormInfoDAO)
 				{
-					if (SharedUtil.equals(v, getAssociatedFormInfo()))
+					if (SUS.equals(v, getAssociatedFormInfo()))
 					{
 						setAssociatedFormInfo((FormInfoDAO) v);
 					}
 					
 					if (((FormInfoDAO) v).getFormReference() != null)
 					{
-						if (((FormInfoDAO) v).getFormReference() instanceof NVEntityContainerDAO && SharedUtil.equals(((FormInfoDAO) v).getFormReference(), getValue()))
+						if (((FormInfoDAO) v).getFormReference() instanceof NVEntityContainerDAO && SUS.equals(((FormInfoDAO) v).getFormReference(), getValue()))
 						{
 							setValue(((FormInfoDAO) v).getFormReference());
 						}

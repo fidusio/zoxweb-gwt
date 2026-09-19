@@ -491,7 +491,7 @@ public class CreditCardDAOWidget
 		
 		if (lbCardType.getSelectedIndex() != 0 )
 		{
-			type = ((CreditCardType) SharedUtil.enumValue(CreditCardType.class, mapCardType.get(lbCardType.getItemText(lbCardType.getSelectedIndex()))));
+			type = ((CreditCardType) SUS.enumValue(CreditCardType.class, mapCardType.get(lbCardType.getItemText(lbCardType.getSelectedIndex()))));
 		}
 		
 		return type;

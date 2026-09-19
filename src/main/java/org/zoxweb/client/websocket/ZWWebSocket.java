@@ -21,7 +21,6 @@ import java.util.List;
 import org.zoxweb.shared.http.HTTPMessageConfigInterface;
 import org.zoxweb.shared.util.SUS;
 import org.zoxweb.shared.util.SharedBase64;
-import org.zoxweb.shared.util.SharedStringUtil;
 
 import com.google.gwt.core.client.GWT;
 
@@ -114,7 +113,7 @@ public class ZWWebSocket
             }
         }
 
-        return SharedStringUtil.concat(hcc.getURL(), hcc.getURI(), "/");
+        return SUS.concat(hcc.getURL(), hcc.getURI(), "/");
     }
 
     /**
@@ -262,7 +261,7 @@ public class ZWWebSocket
     {
         if (bytes != null)
         {
-            send(SharedStringUtil.toString(SharedBase64.encode(bytes, index, length)));
+            send(SUS.toString(SharedBase64.encode(bytes, index, length)));
         }
     }
 

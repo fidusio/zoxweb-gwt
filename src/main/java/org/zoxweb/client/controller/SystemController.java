@@ -80,7 +80,7 @@ extends ControllerBase<SystemWidget>
 		@Override
 		public void onSuccess(SimpleDocumentDAO result) {
 		// TODO Auto-generated method stub
-		//System.out.println(SharedUtil.toCanonicalID(',', result.getNIName(), result.getInetProtocol(), result.getAddress(), result.getNetmask()));
+		//System.out.println(SUS.toCanonicalID(',', result.getNIName(), result.getInetProtocol(), result.getAddress(), result.getNetmask()));
 		
 		
 		}});

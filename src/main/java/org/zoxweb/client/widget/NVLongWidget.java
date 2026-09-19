@@ -87,7 +87,7 @@ public class NVLongWidget
 		
 		
 		
-//		if (nvConfig.isMandatory() && SharedStringUtil.isEmpty(longBox.getText()))
+//		if (nvConfig.isMandatory() && SUS.isEmpty(longBox.getText()))
 //		{
 //			textWidgetController.setStyle(false);
 //			throw new NullPointerException("Empty value:" + nvConfig);	

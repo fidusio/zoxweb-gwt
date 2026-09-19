@@ -54,7 +54,7 @@ public class HTTPWebRequest {
         String data = null;
 
         if (hcc.getContent() != null && hcc.getContent().length > 0) {
-            data = SharedStringUtil.toString(hcc.getContent());
+            data = SUS.toString(hcc.getContent());
         }
 
         GetNameValue<String> authorizationHeader = null;//HTTPAuthScheme.BASIC.toHTTPHeader(hcc.getUser(), hcc.getPassword());
@@ -80,15 +80,15 @@ public class HTTPWebRequest {
             hcc.setURL(GWT.getModuleBaseURL());
         }
 
-        String fullURL = SharedStringUtil.concat(hcc.getURL(), hcc.getURI(), "/");
+        String fullURL = SUS.concat(hcc.getURL(), hcc.getURI(), "/");
         ArrayValues<GetNameValue<String>> params = hcc.getParameters().asArrayValuesString();
         String parameters = hcc.getHTTPParameterFormatter().format(null, params.values());
-        //SharedStringUtil.format(hcc.getParameters(), "=", false, "&");
+        //SUS.format(hcc.getParameters(), "=", false, "&");
 
         if (SUS.isNotEmpty(parameters)) {
             switch (hcc.getHTTPParameterFormatter()) {
                 case URI_REST_ENCODED:
-                    fullURL = SharedStringUtil.concat(fullURL, parameters, "/");
+                    fullURL = SUS.concat(fullURL, parameters, "/");
                     break;
                 case URL_ENCODED:
                     fullURL += "?" + parameters;

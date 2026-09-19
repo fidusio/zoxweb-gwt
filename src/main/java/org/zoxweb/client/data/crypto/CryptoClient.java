@@ -55,15 +55,15 @@ public class CryptoClient
         switch (mdType) {
             case MD5:
                 for (byte[] array : tokens) {
-                    sb.append(SharedStringUtil.toString(array));
+                    sb.append(SUS.toString(array));
                 }
 
-                return SharedStringUtil.hexToBytes(hashMD5(sb.toString()));
+                return SUS.hexToBytes(hashMD5(sb.toString()));
             case SHA_256:
                 for (byte[] array : tokens) {
-                    sb.append(SharedStringUtil.toString(array));
+                    sb.append(SUS.toString(array));
                 }
-                return SharedStringUtil.hexToBytes(hashSHA256(sb.toString()));
+                return SUS.hexToBytes(hashSHA256(sb.toString()));
 
             default:
                 throw new AccessSecurityException("Digest not supported " + mdType);
@@ -85,12 +85,12 @@ public class CryptoClient
                 for (String str : tokens) {
                     sb.append(str);
                 }
-                return SharedStringUtil.hexToBytes(hashMD5(sb.toString()));
+                return SUS.hexToBytes(hashMD5(sb.toString()));
             case SHA_256:
                 for (String str : tokens) {
                     sb.append(str);
                 }
-                return SharedStringUtil.hexToBytes(hashSHA256(sb.toString()));
+                return SUS.hexToBytes(hashSHA256(sb.toString()));
 
             default:
                 throw new AccessSecurityException("Digest not supported " + mdType);
@@ -139,12 +139,12 @@ public class CryptoClient
     @Override
     public byte[] hmacSHA256(byte[] key, byte[] data) throws AccessSecurityException {
 
-        String keyBytes = SharedStringUtil.bytesToHex(key);
-        String dataBytes = SharedStringUtil.bytesToHex(data);
+        String keyBytes = SUS.bytesToHex(key);
+        String dataBytes = SUS.bytesToHex(data);
         String result = hmacSHA256Native(keyBytes, dataBytes);
 
         // TODO Auto-generated method stub
-        return SharedStringUtil.hexToBytes(result);
+        return SUS.hexToBytes(result);
     }
 
     @Override
@@ -154,9 +154,9 @@ public class CryptoClient
         StringBuilder sb = new StringBuilder();
         byte[] b64Header = SharedBase64.encode(Base64Type.URL, JSONClientUtil.toString(JSONClientUtil.toJSONGenericMap(jwt.getHeader().getProperties(), false)));
         byte[] b64Payload = SharedBase64.encode(Base64Type.URL, JSONClientUtil.toString(JSONClientUtil.toJSONGenericMap(jwt.getPayload().getProperties(), false)));
-        sb.append(SharedStringUtil.toString(b64Header));
+        sb.append(SUS.toString(b64Header));
         sb.append(".");
-        sb.append(SharedStringUtil.toString(b64Payload));
+        sb.append(SUS.toString(b64Payload));
 
         // due to lib limitation only HS256 is supported
 //		if (jwt.getHeader().getJWTAlgorithm() == JWTAlgorithm.HS512)
@@ -168,11 +168,11 @@ public class CryptoClient
         switch (jwt.getHeader().getJWTAlgorithm()) {
             case HS256:
                 SUS.checkIfNulls("Null key", key);
-                b64Hash = SharedBase64.encodeAsString(Base64Type.URL, hmacSHA256(key, SharedStringUtil.getBytes(sb.toString())));
+                b64Hash = SharedBase64.encodeAsString(Base64Type.URL, hmacSHA256(key, SUS.getBytes(sb.toString())));
                 break;
             case HS512:
                 SUS.checkIfNulls("Null key", key);
-                b64Hash = SharedBase64.encodeAsString(Base64Type.URL, hmacSHA512(key, SharedStringUtil.getBytes(sb.toString())));
+                b64Hash = SharedBase64.encodeAsString(Base64Type.URL, hmacSHA512(key, SUS.getBytes(sb.toString())));
                 break;
             case none:
                 break;
@@ -203,11 +203,11 @@ public class CryptoClient
         String hash = null;
         switch (jwt.getHeader().getJWTAlgorithm()) {
             case HS256:
-                hash = SharedBase64.encodeAsString(Base64Type.URL, hmacSHA256(key, SharedStringUtil.getBytes(tokens[0] + "." + tokens[1])));
+                hash = SharedBase64.encodeAsString(Base64Type.URL, hmacSHA256(key, SUS.getBytes(tokens[0] + "." + tokens[1])));
 
                 break;
             case HS512:
-                hash = SharedBase64.encodeAsString(Base64Type.URL, hmacSHA512(key, SharedStringUtil.getBytes(tokens[0] + "." + tokens[1])));
+                hash = SharedBase64.encodeAsString(Base64Type.URL, hmacSHA512(key, SUS.getBytes(tokens[0] + "." + tokens[1])));
 
                 break;
             case none:
@@ -243,7 +243,7 @@ public class CryptoClient
         JWT ret = new JWT();
 
 
-        //jwtPayload = GSONUtil.fromJSON(SharedStringUtil.toString(SharedBase64.decode(Base64Type.URL,tokens[JWTToken.PAYLOAD.ordinal()])), JWTPayload.class);
+        //jwtPayload = GSONUtil.fromJSON(SUS.toString(SharedBase64.decode(Base64Type.URL,tokens[JWTToken.PAYLOAD.ordinal()])), JWTPayload.class);
         JWTPayload jwtPayload = ret.getPayload();
         jwtPayload.setProperties(nvgmPayload);
         JWTHeader jwtHeader = ret.getHeader();
@@ -283,12 +283,12 @@ public class CryptoClient
     @Override
     public byte[] hmacSHA512(byte[] key, byte[] data) throws AccessSecurityException {
         // TODO Auto-generated method stub
-        String keyBytes = SharedStringUtil.bytesToHex(key);
-        String dataBytes = SharedStringUtil.bytesToHex(data);
+        String keyBytes = SUS.bytesToHex(key);
+        String dataBytes = SUS.bytesToHex(data);
         String result = hmacSHA512Native(keyBytes, dataBytes);
 
         // TODO Auto-generated method stub
-        return SharedStringUtil.hexToBytes(result);
+        return SUS.hexToBytes(result);
     }
 
     @Override

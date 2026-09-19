@@ -17,7 +17,7 @@ package org.zoxweb.client.widget;
 
 import org.zoxweb.client.widget.NVBaseWidget;
 import org.zoxweb.shared.util.NVConfig;
-import org.zoxweb.shared.util.SharedUtil;
+import org.zoxweb.shared.util.SUS;
 
 import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.Widget;
@@ -99,7 +99,7 @@ public class NVEnumWidget
 	{	
 		if (listBox.getSelectedIndex() != 0)
 		{
-			return SharedUtil.enumValue(getNVConfig().getMetaType(), listBox.getValue(listBox.getSelectedIndex()));
+			return SUS.enumValue(getNVConfig().getMetaType(), listBox.getValue(listBox.getSelectedIndex()));
 		}
 		else if (getNVConfig().isMandatory())
 		{
@@ -112,7 +112,7 @@ public class NVEnumWidget
 	@Override
 	public void setWidgetValue(String value) 
 	{
-		setWidgetValue(SharedUtil.enumValue(getNVConfig().getMetaType(), value));
+		setWidgetValue(SUS.enumValue(getNVConfig().getMetaType(), value));
 	}
 	
 	public void setListTitle(String title)
