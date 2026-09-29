@@ -17,7 +17,7 @@ import org.zoxweb.client.data.events.CRUDNVBaseEvent;
 import org.zoxweb.client.data.events.CRUDNVBaseHandler;
 import org.zoxweb.client.data.events.SaveControllerHandler;
 import org.zoxweb.client.rpc.CallBackHandler;
-import org.zoxweb.shared.data.CRUDNVBaseDAO;
+import org.zoxweb.shared.data.CRUDNVBase;
 import org.zoxweb.shared.util.*;
 import org.zoxweb.shared.widget.WidgetConst;
 
@@ -470,7 +470,7 @@ public class DynamicEnumMapEditorWidget
 						setNotification(NotificationType.INFORMATION, "Update successful.");
 						DynamicEnumMap dem = DynamicEnumMapManager.SINGLETON.addDynamicEnumMap(result);
 						
-						ApplicationClientDAO.DEFAULT.fireEvent( new CRUDNVBaseEvent(new CRUDNVBaseDAO( CRUD.UPDATE, dem)));
+						ApplicationClientDAO.DEFAULT.fireEvent( new CRUDNVBaseEvent(new CRUDNVBase( CRUD.UPDATE, dem)));
 						//setDynamicEnumMap(dem);
 					}
 				}));

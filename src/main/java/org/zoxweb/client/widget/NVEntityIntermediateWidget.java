@@ -4,7 +4,7 @@ import org.zoxweb.client.data.ApplicationClientDAO;
 import org.zoxweb.client.data.events.CRUDNVEntityEvent;
 import org.zoxweb.client.data.events.SaveControllerHandler;
 import org.zoxweb.client.rpc.CallBackHandler;
-import org.zoxweb.shared.data.CRUDNVEntityDAO;
+import org.zoxweb.shared.data.CRUDNVEntityInfo;
 import org.zoxweb.shared.data.events.ClearActionListener;
 import org.zoxweb.shared.data.events.EditActionListener;
 import org.zoxweb.shared.data.events.PreviewActionListener;
@@ -71,7 +71,7 @@ public abstract class NVEntityIntermediateWidget
 				{
 					if (result != null)
 					{
-						ApplicationClientDAO.DEFAULT.fireEvent(new CRUDNVEntityEvent(new CRUDNVEntityDAO(CRUD.UPDATE, result)));
+						ApplicationClientDAO.DEFAULT.fireEvent(new CRUDNVEntityEvent(new CRUDNVEntityInfo(CRUD.UPDATE, result)));
 						
 						autoCloseSave();
 					}
