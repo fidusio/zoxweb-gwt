@@ -15,31 +15,26 @@
  */
 package org.zoxweb.client.widget;
 
-import org.zoxweb.client.data.JSONClientUtil;
-import org.zoxweb.client.rpc.HTTPWebRequest;
-import org.zoxweb.shared.data.AgreementDAO;
-import org.zoxweb.shared.data.ZWDataFactory;
-import org.zoxweb.shared.http.HTTPAttribute;
-import org.zoxweb.shared.http.HTTPMessageConfigInterface;
-import org.zoxweb.shared.http.HTTPHeader;
-import org.zoxweb.shared.http.HTTPStatusCode;
-import org.zoxweb.shared.util.QuickLZ;
-import org.zoxweb.shared.util.SharedBase64;
-import org.zoxweb.shared.util.SUS;
-
 import com.google.gwt.core.client.GWT;
-import com.google.gwt.uibinder.client.UiBinder;
-import com.google.gwt.user.client.ui.Composite;
-import com.google.gwt.user.client.ui.Widget;
-import com.google.gwt.uibinder.client.UiField;
-import com.google.gwt.user.client.ui.Hyperlink;
-import com.google.gwt.user.client.ui.CheckBox;
-import com.google.gwt.user.client.ui.TextArea;
-import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.http.client.Request;
 import com.google.gwt.http.client.RequestCallback;
 import com.google.gwt.http.client.Response;
+import com.google.gwt.uibinder.client.UiBinder;
+import com.google.gwt.uibinder.client.UiField;
+import com.google.gwt.uibinder.client.UiHandler;
+import com.google.gwt.user.client.ui.*;
+import org.zoxweb.client.data.JSONClientUtil;
+import org.zoxweb.client.rpc.HTTPWebRequest;
+import org.zoxweb.shared.data.AgreementDoc;
+import org.zoxweb.shared.data.ZWDataFactory;
+import org.zoxweb.shared.http.HTTPAttribute;
+import org.zoxweb.shared.http.HTTPHeader;
+import org.zoxweb.shared.http.HTTPMessageConfigInterface;
+import org.zoxweb.shared.http.HTTPStatusCode;
+import org.zoxweb.shared.util.QuickLZ;
+import org.zoxweb.shared.util.SUS;
+import org.zoxweb.shared.util.SharedBase64;
 
 /**
  * 
@@ -196,7 +191,7 @@ public class TermsAndAgreementWidget
 								json = response.getText();
 							}
 							
-							AgreementDAO result = JSONClientUtil.fromJSON(null, json, ZWDataFactory.SINGLETON);
+							AgreementDoc result = JSONClientUtil.fromJSON(null, json, ZWDataFactory.SINGLETON);
 							
 							if (result != null)
 							{
