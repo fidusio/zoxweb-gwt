@@ -11,7 +11,7 @@ import org.zoxweb.client.widget.CustomDateWidget;
 import org.zoxweb.client.widget.NVEntityIntermediateWidget;
 import org.zoxweb.client.widget.ValueFilterHandler;
 import org.zoxweb.client.widget.ValueFilterSetValidator;
-import org.zoxweb.shared.data.CreditCardDAO;
+import org.zoxweb.shared.data.CreditCardInfo;
 import org.zoxweb.shared.data.CreditCardType;
 import org.zoxweb.shared.data.SharedDataUtil;
 import org.zoxweb.shared.filters.CreditCardNumberFilter;
@@ -24,7 +24,7 @@ import java.util.Date;
 import java.util.HashMap;
 
 /**
- * The CreditCardDAO widget.
+ * The CreditCardInfo widget.
  * @author mzebib
  *
  */
@@ -80,17 +80,17 @@ public class CreditCardDAOWidget
 	private HashMap<String, String> mapCardType = new HashMap<String, String>();
 	private boolean cardNumberReadOnly = false;
 	
-	public CreditCardDAOWidget(CreditCardDAO creditCard)
+	public CreditCardDAOWidget(CreditCardInfo creditCard)
 	{
 		this(creditCard, false, false);
 	}
 	
-	public CreditCardDAOWidget(CreditCardDAO creditCard, boolean showSecurityCode)
+	public CreditCardDAOWidget(CreditCardInfo creditCard, boolean showSecurityCode)
 	{
 		this(creditCard, showSecurityCode, false);
 	}
 	
-	public CreditCardDAOWidget(CreditCardDAO creditCard, boolean showSecurityCode, boolean showShortHand)
+	public CreditCardDAOWidget(CreditCardInfo creditCard, boolean showSecurityCode, boolean showShortHand)
 	{
 		this((NVConfigEntity) creditCard.getNVConfig(), showSecurityCode, showShortHand);
 		
@@ -255,7 +255,7 @@ public class CreditCardDAOWidget
 		
 		if (currentNVE != null)
 		{
-			CreditCardDAO card = (CreditCardDAO) currentNVE;
+			CreditCardInfo card = (CreditCardInfo) currentNVE;
 			
 			tbName.setValue(card.getName());
 			setCardTypeValue(card.getCardType());
@@ -300,13 +300,13 @@ public class CreditCardDAOWidget
 	@Override
 	public NVEntity getWidgetValue() 
 	{
-		CreditCardDAO card = null;
+		CreditCardInfo card = null;
 	
 		expirationDate.setPanelStyle(style.noHighlight());
 		
 		if (isCardNumberReadOnly() && currentNVE != null && cardHolderNameValidator.isValid() && securityCodeValidator.isValid() && expirationDate.isDateSelected() && validateCVV())
 		{
-			card = (CreditCardDAO) currentNVE;
+			card = (CreditCardInfo) currentNVE;
 			card.setName(tbName.getValue());
 			
 			if (getSelectedCardType() != null)
@@ -345,11 +345,11 @@ public class CreditCardDAOWidget
 		{			
 			if (currentNVE == null)
 			{
-				card = new CreditCardDAO();
+				card = new CreditCardInfo();
 			}
 			else
 			{	
-				card = (CreditCardDAO) currentNVE;
+				card = (CreditCardInfo) currentNVE;
 			}
 			
 			card.setName(tbName.getValue());
@@ -462,7 +462,7 @@ public class CreditCardDAOWidget
 		return false;
 	}
 
-	private void setHrefText(CreditCardDAO card)
+	private void setHrefText(CreditCardInfo card)
 	{
 		if (card != null)
 		{
