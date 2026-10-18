@@ -133,7 +133,7 @@ public class NVEntityContainerDAOWidget
         tbName.setSize("99%", "1.5EM");
         tbDescription.setSize("99%", "1.5EM");
 
-        if (nvce.getMetaType() == SystemInfoDAO.class) {
+        if (nvce.getMetaType() == SystemInfo.class) {
             labelName.setText("System Name");
             labelDescription.setText("System Description");
 
@@ -176,7 +176,7 @@ public class NVEntityContainerDAOWidget
 
             //	row = 3
             row = flexTable.getRowCount();
-            applicationProperties = new NVStringArrayValuesWidget(SystemInfoDAO.APPLICATION_PROPS, false);
+            applicationProperties = new NVStringArrayValuesWidget(SystemInfo.APPLICATION_PROPS, false);
             applicationProperties.setVisibleButtons(true, false, false);
             applicationProperties.setArrayHeader("Application Properties");
             applicationProperties.setWidgetSize("100%", "8EM");
@@ -552,8 +552,8 @@ public class NVEntityContainerDAOWidget
         currentNVE = value;
 
         if (currentNVE != null) {
-            if (nvce.getMetaType() == SystemInfoDAO.class) {
-                SystemInfoDAO systemInfo = (SystemInfoDAO) currentNVE;
+            if (nvce.getMetaType() == SystemInfo.class) {
+                SystemInfo systemInfo = (SystemInfo) currentNVE;
 
                 customPager.setPagerSize(systemInfo.getContent().size());
 
@@ -610,13 +610,13 @@ public class NVEntityContainerDAOWidget
 
     @Override
     public NVEntity getWidgetValue() {
-        if (nvce.getMetaType() == SystemInfoDAO.class) {
-            SystemInfoDAO systemInfo;
+        if (nvce.getMetaType() == SystemInfo.class) {
+            SystemInfo systemInfo;
 
             if (currentNVE != null) {
-                systemInfo = (SystemInfoDAO) currentNVE;
+                systemInfo = (SystemInfo) currentNVE;
             } else {
-                systemInfo = new SystemInfoDAO();
+                systemInfo = new SystemInfo();
             }
 
             systemInfo.setName(tbName.getValue());
