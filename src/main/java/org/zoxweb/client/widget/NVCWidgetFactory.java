@@ -117,15 +117,15 @@ public abstract class NVCWidgetFactory
 					
 					if (nvc instanceof NVConfigEntity && !nvc.isArray())
 					{
-//						if (clazz == PhoneDAO.class)
+//						if (clazz == PhoneInfo.class)
 //						{
 //							ret = new PhoneDAOWidget((NVConfigEntity) nvc);
 //						}
-//						else if (clazz == AddressDAO.class)
+//						else if (clazz == AddressInfo.class)
 //						{
 //							ret = new AddressDAOWidget((NVConfigEntity) nvc);
 //						}
-//						else if (clazz == CreditCardDAO.class)
+//						else if (clazz == CreditCardInfo.class)
 //						{
 //							ret = new CreditCardDAOWidget((NVConfigEntity) nvc);
 //						}
@@ -306,17 +306,17 @@ public abstract class NVCWidgetFactory
 	
 	public NVEntityWidget createNVEntityWidget(NVEntity nve, boolean showShortHand)
 	{
-////		if (nve instanceof AddressDAO)
+////		if (nve instanceof AddressInfo)
 ////		{
-////			return new AddressDAOWidget((AddressDAO) nve, showShortHand);
+////			return new AddressDAOWidget((AddressInfo) nve, showShortHand);
 ////		}
-////		else  if (nve instanceof PhoneDAO)
+////		else  if (nve instanceof PhoneInfo)
 ////		{
-////			return new PhoneDAOWidget((PhoneDAO) nve, showShortHand);
+////			return new PhoneDAOWidget((PhoneInfo) nve, showShortHand);
 ////		}
-////		else if (nve instanceof CreditCardDAO)
+////		else if (nve instanceof CreditCardInfo)
 ////		{
-////			return new CreditCardDAOWidget((CreditCardDAO) nve, true, showShortHand);
+////			return new CreditCardDAOWidget((CreditCardInfo) nve, true, showShortHand);
 ////		}
 ////		else if (nve instanceof DataContentDAO)
 ////		{

@@ -9,7 +9,7 @@ import org.zoxweb.client.widget.net.NIWidget;
 import org.zoxweb.shared.http.HTTPMessageConfig;
 import org.zoxweb.shared.http.HTTPMessageConfigInterface;
 import org.zoxweb.shared.http.HTTPMethod;
-import org.zoxweb.shared.net.NIConfigDAO;
+import org.zoxweb.shared.net.NIConfigInfo;
 
 import org.zoxweb.shared.util.*;
 import org.zoxweb.shared.util.Const.ReturnType;
@@ -89,7 +89,7 @@ implements UpdateOnSelect
 	              // TODO Auto-generated method stub
 	              try
 	              {
-	                  NIConfigDAO nicd = widget.getValue();
+	                  NIConfigInfo nicd = widget.getValue();
 	                  updateNIConfigData(nicd);
 	              }
 	              catch(Exception e)
@@ -128,7 +128,7 @@ implements UpdateOnSelect
       
      
       controlsEnabled(false);
-      new GenericRequestHandler<NIConfigDAO>(hcc, ReturnType.NVENTITY, new AsyncCallback<NIConfigDAO>(){
+      new GenericRequestHandler<NIConfigInfo>(hcc, ReturnType.NVENTITY, new AsyncCallback<NIConfigInfo>(){
 
          
           @Override
@@ -139,7 +139,7 @@ implements UpdateOnSelect
           }
 
           @Override
-          public void onSuccess(NIConfigDAO result) {
+          public void onSuccess(NIConfigInfo result) {
               // TODO Auto-generated method stub
               //System.out.println(SUS.toCanonicalID(',', result.getNIName(), result.getInetProtocol(), result.getAddress(), result.getNetmask()));
               
@@ -157,7 +157,7 @@ implements UpdateOnSelect
       
      
       controlsEnabled(false);
-      new GenericRequestHandler<NIConfigDAO>(hcc, ReturnType.NVENTITY, new AsyncCallback<NIConfigDAO>(){
+      new GenericRequestHandler<NIConfigInfo>(hcc, ReturnType.NVENTITY, new AsyncCallback<NIConfigInfo>(){
 
           @Override
           public void onFailure(Throwable caught) {
@@ -169,7 +169,7 @@ implements UpdateOnSelect
           }
 
           @Override
-          public void onSuccess(NIConfigDAO result) {
+          public void onSuccess(NIConfigInfo result) {
               // TODO Auto-generated method stub
               //System.out.println(SUS.toCanonicalID(',', result.getNIName(), result.getInetProtocol(), result.getAddress(), result.getNetmask()));
               
@@ -178,7 +178,7 @@ implements UpdateOnSelect
           }});
   }
   
-  public  void updateNIConfigData(NIConfigDAO nicd)
+  public  void updateNIConfigData(NIConfigInfo nicd)
   {
 	  Param command = null;
 	  // get the radio button value
@@ -210,7 +210,7 @@ implements UpdateOnSelect
       
       hcc.setContent(json);
       controlsEnabled(false);
-      new GenericRequestHandler<NIConfigDAO>(hcc, ReturnType.NVENTITY, new AsyncCallback<NIConfigDAO>(){
+      new GenericRequestHandler<NIConfigInfo>(hcc, ReturnType.NVENTITY, new AsyncCallback<NIConfigInfo>(){
 
          
           
@@ -222,7 +222,7 @@ implements UpdateOnSelect
           }
 
           @Override
-          public void onSuccess(NIConfigDAO result) {
+          public void onSuccess(NIConfigInfo result) {
               // TODO Auto-generated method stub
               //System.out.println(SUS.toCanonicalID(',', result.getNIName(), result.getInetProtocol(), result.getAddress(), result.getNetmask()));
         	  controlsEnabled(true);

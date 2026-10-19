@@ -8,7 +8,7 @@ import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.user.client.ui.*;
 import org.zoxweb.client.controller.ListBoxController;
 import org.zoxweb.shared.net.InetProp.InetProto;
-import org.zoxweb.shared.net.NIConfigDAO;
+import org.zoxweb.shared.net.NIConfigInfo;
 import org.zoxweb.shared.net.SharedNetUtil;
 import org.zoxweb.shared.util.SUS;
 import org.zoxweb.shared.util.SetValue;
@@ -17,11 +17,11 @@ import java.io.IOException;
 
 
 public class NIWidget extends Composite
-        implements SetValue<NIConfigDAO> {
+        implements SetValue<NIConfigInfo> {
 
     private static final String WIDTH = "10EM";
 
-    private static final NIConfigDAO.Param PARAMS[] = {NIConfigDAO.Param.GATEWAY, NIConfigDAO.Param.NETMASK, NIConfigDAO.Param.ADDRESS};
+    private static final NIConfigInfo.Param PARAMS[] = {NIConfigInfo.Param.GATEWAY, NIConfigInfo.Param.NETMASK, NIConfigInfo.Param.ADDRESS};
 
     private static NIWidgetUiBinder uiBinder = GWT.create(NIWidgetUiBinder.class);
     @UiField
@@ -56,7 +56,7 @@ public class NIWidget extends Composite
             }
 
         };
-        lbNetwokInterface.setName(NIConfigDAO.Param.NI_NAME.getName());
+        lbNetwokInterface.setName(NIConfigInfo.Param.NI_NAME.getName());
         lbcIntetProto = new ListBoxController<InetProto>(lbInetProto, InetProto.DHCP, InetProto.STATIC) {
 
             @Override
@@ -66,7 +66,7 @@ public class NIWidget extends Composite
             }
 
         };
-        lbInetProto.setName(NIConfigDAO.Param.INET_PROTO.getName());
+        lbInetProto.setName(NIConfigInfo.Param.INET_PROTO.getName());
     }
 
     public NIWidget(String... interfaces) {
@@ -89,7 +89,7 @@ public class NIWidget extends Composite
 
     }
 
-    private void updatePropperties(InetProto proto, NIConfigDAO nicd) {
+    private void updatePropperties(InetProto proto, NIConfigInfo nicd) {
         final int HEADER = 2;
         int rows = gData.getRowCount();
         for (int i = HEADER; i < rows; i++) {
@@ -107,7 +107,7 @@ public class NIWidget extends Composite
                 break;
             case STATIC:
 
-                for (NIConfigDAO.Param p : PARAMS) {
+                for (NIConfigInfo.Param p : PARAMS) {
                     gData.insertRow(HEADER);
                     gData.setWidget(HEADER, 0, new Label(p.getNVConfig().getDisplayName()));
                     TextBox tb = new TextBox();
@@ -149,9 +149,9 @@ public class NIWidget extends Composite
 
 
     @Override
-    public NIConfigDAO getValue() {
+    public NIConfigInfo getValue() {
         // TODO Auto-generated method stub
-        NIConfigDAO nicd = new NIConfigDAO();
+        NIConfigInfo nicd = new NIConfigInfo();
         nicd.setName(lbcNI.getValue());
         nicd.setNIName(lbcNI.getValue());
         nicd.setInteProtocol(lbcIntetProto.getValue());
@@ -187,14 +187,14 @@ public class NIWidget extends Composite
     }
 
     @Override
-    public void setValue(NIConfigDAO nid) {
+    public void setValue(NIConfigInfo nid) {
         // TODO Auto-generated method stub
         lbcNI.setValue(nid.getName());
         lbcIntetProto.setValue(nid.getInetProtocol());
         updatePropperties(nid.getInetProtocol(), nid);
     }
 
-    public void setInfo(NIConfigDAO nicd) {
+    public void setInfo(NIConfigInfo nicd) {
 
         // clear
         gInfo.resizeRows(0);
